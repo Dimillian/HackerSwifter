@@ -14,7 +14,7 @@ As you know, Hacker News does not provide any official API, so we rely on scrapp
 
 But hey, the goal is to have a nice and clean library you can plug in your Swift projects. 
 
-## Feature
+## Features
 
 * Fetch the different feed pages (news, jobs, ask...)
 * Upvote post
