@@ -8,10 +8,20 @@
 
 import Foundation
 
-class Post {
+class Post: NSObject, NSCoding {
     
     typealias Response = ([Post]!, Fetcher.ResponseError!) -> Void
-    
+
+    var title: String?
+    var username: String?
+    var url: NSURL?
+    var domain: String?
+    var points: Int?
+    var commentsCount: Int?
+    var postId: String?
+    var prettyTime: String?
+    var upvoteURL: String?
+
     enum PostFilter: String {
         case Top = ""
         case Ask = "ask"
@@ -20,8 +30,52 @@ class Post {
         case Best = "best"
     }
     
+    struct SerializationKey {
+        static let title = "title"
+        static let username = "username"
+        static let url = "url"
+        static let domain = "domain"
+        static let points = "points"
+        static let commentsCount = "commentsCount"
+        static let postId = "postId"
+        static let prettyTime = "time"
+        static let upvoteURL = "upvoteURL"
+    }
+
+
+    // We might want to do a Mantle like thing with magic keys matching
+    
+    init(coder aDecoder: NSCoder!) {
+        self.title = aDecoder.decodeObjectForKey(SerializationKey.title) as? String
+        self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
+        self.url = aDecoder.decodeObjectForKey(SerializationKey.url) as? NSURL
+        self.domain = aDecoder.decodeObjectForKey(SerializationKey.domain) as? String
+        self.points = aDecoder.decodeObjectForKey(SerializationKey.points) as? Int
+        self.commentsCount = aDecoder.decodeObjectForKey(SerializationKey.commentsCount) as? Int
+        self.postId = aDecoder.decodeObjectForKey(SerializationKey.postId) as? String
+        self.prettyTime = aDecoder.decodeObjectForKey(SerializationKey.prettyTime) as? String
+        self.upvoteURL = aDecoder.decodeObjectForKey(SerializationKey.upvoteURL) as? String
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder!) {
+        aCoder.encodeObject(self.title, forKey: SerializationKey.title)
+        aCoder.encodeObject(self.username, forKey: SerializationKey.username)
+        aCoder.encodeObject(self.url, forKey: SerializationKey.url)
+        aCoder.encodeObject(self.domain, forKey: SerializationKey.domain)
+        aCoder.encodeObject(self.points, forKey: SerializationKey.points)
+        aCoder.encodeObject(self.commentsCount, forKey: SerializationKey.commentsCount)
+        aCoder.encodeObject(self.prettyTime, forKey: SerializationKey.prettyTime)
+        aCoder.encodeObject(self.postId, forKey: SerializationKey.postId)
+        aCoder.encodeObject(self.upvoteURL, forKey: SerializationKey.upvoteURL)
+    }
+    
+}
+
+//Network
+extension Post {
+    
     class func fetch(filter: PostFilter, completion: Response) {
-        Fetcher.Fetch(filter.toRaw(), completion: {(html) in
+        Fetcher.Fetch(filter.toRaw(), completion: {(html, error) in
             completion(nil, nil)
         })
     }

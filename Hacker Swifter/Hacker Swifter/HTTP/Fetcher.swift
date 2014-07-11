@@ -15,11 +15,11 @@ class Fetcher {
     let baseURL = "https://news.ycombinator.com/"
     let session = NSURLSession.sharedSession()
     
-    typealias FetchCompletion = (String) -> Void
+    typealias FetchCompletion = (String!, ResponseError!) -> Void
     
     enum ResponseError: String {
-        case noConnection = "You are not connected to the internet"
-        case errorParsing = "An error occurred while fetching the requested page"
+        case NoConnection = "You are not connected to the internet"
+        case ErrorParsing = "An error occurred while fetching the requested page"
     }
     
     class var sharedInstance: Fetcher {
@@ -30,7 +30,10 @@ class Fetcher {
         var path = _Fetcher.baseURL + ressource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
             if let realData = data {
-                completion(NSString(data: realData, encoding: NSUTF8StringEncoding))
+                completion(NSString(data: realData, encoding: NSUTF8StringEncoding), nil)
+            }
+            else {
+                completion(nil, ResponseError.ErrorParsing)
             }
         })
     }
