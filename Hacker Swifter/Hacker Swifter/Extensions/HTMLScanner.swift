@@ -9,13 +9,12 @@
 import Foundation
 
 extension NSScanner {
-    class func scanString(string: String, startTag: String, endTag: String) -> String {
+    func scanTag(startTag: String, endTag: String) -> String {
         var result: NSString? = NSString(string: "")
         if (string.utf16count > 0) {
-            var scanner = NSScanner(string: string)
-            scanner.scanUpToString(startTag, intoString: nil)
-            scanner.scanLocation += startTag.utf16count
-            scanner.scanUpToString(endTag, intoString: &result)
+            self.scanUpToString(startTag, intoString: nil)
+            self.scanLocation += startTag.utf16count
+            self.scanUpToString(endTag, intoString: &result)
         }
         return result!
     }

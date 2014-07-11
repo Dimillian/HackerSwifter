@@ -23,9 +23,14 @@ class PostTests: XCTestCase {
     }
 
     func testFetchNews() {
+        var expectation = self.expectationWithDescription("fetch posts")
+        
         Post.fetch(.Top, completion: {(posts: [Post]!, error: Fetcher.ResponseError!) in
-            
+            XCTAssert(true, "Pass")
+            expectation.fulfill()
         })
+        
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
     
     func testPerformanceExample() {

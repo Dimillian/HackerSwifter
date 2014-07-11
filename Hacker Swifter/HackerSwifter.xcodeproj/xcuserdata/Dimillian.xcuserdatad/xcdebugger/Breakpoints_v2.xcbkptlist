@@ -6,7 +6,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker Swifter/Models/Post.swift"
@@ -24,13 +24,153 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker Swifter/Models/Post.swift"
-            timestampString = "426796392.101272"
+            timestampString = "426800764.682988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "fetch(_:completion:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hacker SwifterTests/PostTests.swift"
+            timestampString = "426800107.106681"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "testFetchNews()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HackerSwifterTests.PostTests.(testFetchNews (HackerSwifterTests.PostTests) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "HackerSwifterTests"
+                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20SwifterTests/PostTests.swift"
+                  timestampString = "426800765.080467"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HackerSwifterTests.PostTests.(testFetchNews (HackerSwifterTests.PostTests) -&gt; () -&gt; ()).(closure #1).(implicit closure #1)"
+                  moduleName = "HackerSwifterTests"
+                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20SwifterTests/PostTests.swift"
+                  timestampString = "426800765.080686"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
+            timestampString = "426800764.682988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "Fetch(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
+            timestampString = "426800764.682988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "Fetch(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
+            timestampString = "426800764.682988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "Fetch(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hacker Swifter/Models/Post.swift"
+            timestampString = "426801047.626684"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "parseCollectionHTML(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HackerSwifter.Post.parseCollectionHTML (HackerSwifter.Post.Type)(Swift.String) -&gt; Swift.Array&lt;HackerSwifter.Post&gt;"
+                  moduleName = "HackerSwifter"
+                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/Models/Post.swift"
+                  timestampString = "426800765.082862"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "123">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HackerSwifter.Post.parseCollectionHTML (HackerSwifter.Post.Type)(Swift.String) -&gt; Swift.Array&lt;HackerSwifter.Post&gt;"
+                  moduleName = "HackerSwifter"
+                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/Models/Post.swift"
+                  timestampString = "426800765.083027"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "565">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -80,14 +80,36 @@ extension Post {
     
     class func fetch(filter: PostFilter, completion: Response) {
         Fetcher.Fetch(filter.toRaw(), completion: {(html, error) in
-            println(html)
-            completion(nil, nil)
+            if !error {
+                if let realHtml = html {
+                    var posts = self.parseCollectionHTML(realHtml)
+                    completion(posts, nil)
+                }
+                else {
+                    completion(nil, Fetcher.ResponseError.UnknownError)
+                }
+            }
+            else {
+                completion(nil, error)
+            }
         })
     }
 }
 
 //HTML
 extension Post {
+    
+    class func parseCollectionHTML(html: String) -> [Post] {
+        var components = html.componentsSeparatedByString("<tr><td align=\"right\" valign=\"top\" class=\"title\">")
+        if (components.count > 0) {
+            for component in components {
+                var scanner = NSScanner(string: component)
+                var title = scanner.scanTag(">", endTag: "</a>")
+            }
+        }
+        return []
+    }
+    
     func parseHTML(html: String) {
         
     }

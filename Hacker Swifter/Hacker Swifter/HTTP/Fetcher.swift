@@ -20,6 +20,7 @@ class Fetcher {
     enum ResponseError: String {
         case NoConnection = "You are not connected to the internet"
         case ErrorParsing = "An error occurred while fetching the requested page"
+        case UnknownError = "An unknown error occurred"
     }
     
     class var sharedInstance: Fetcher {
@@ -36,5 +37,6 @@ class Fetcher {
                 completion(nil, ResponseError.ErrorParsing)
             }
         })
+        task.resume()
     }
 }
