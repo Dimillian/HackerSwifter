@@ -10,6 +10,9 @@
 		9FD4A19C196F3007003608F6 /* Hacker Swifter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD4A19B196F3007003608F6 /* Hacker Swifter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FD4A1A2196F3008003608F6 /* Hacker Swifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD4A196196F3007003608F6 /* Hacker Swifter.framework */; };
 		9FD4A1A9196F3008003608F6 /* Hacker_SwifterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */; };
+		9FD4A1B419704397003608F6 /* HTMLScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B319704397003608F6 /* HTMLScanner.swift */; };
+		9FD4A1B7197046AF003608F6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B6197046AF003608F6 /* Post.swift */; };
+		9FD4A1B9197048DB003608F6 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B8197048DB003608F6 /* Fetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		9FD4A1A1196F3008003608F6 /* Hacker SwifterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hacker SwifterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD4A1A7196F3008003608F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hacker_SwifterTests.swift; sourceTree = "<group>"; };
+		9FD4A1B319704397003608F6 /* HTMLScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTMLScanner.swift; path = Extensions/HTMLScanner.swift; sourceTree = "<group>"; };
+		9FD4A1B6197046AF003608F6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Models/Post.swift; sourceTree = "<group>"; };
+		9FD4A1B8197048DB003608F6 /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fetcher.swift; path = HTTP/Fetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 		9FD4A198196F3007003608F6 /* Hacker Swifter */ = {
 			isa = PBXGroup;
 			children = (
+				9FD4A1BA197048E1003608F6 /* HTTP */,
+				9FD4A1B519704698003608F6 /* Models */,
+				9FD4A1B21970436B003608F6 /* Extension */,
 				9FD4A19B196F3007003608F6 /* Hacker Swifter.h */,
 				9FD4A199196F3007003608F6 /* Supporting Files */,
 			);
@@ -100,6 +109,30 @@
 				9FD4A1A7196F3008003608F6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9FD4A1B21970436B003608F6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9FD4A1B319704397003608F6 /* HTMLScanner.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+		9FD4A1B519704698003608F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9FD4A1B6197046AF003608F6 /* Post.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		9FD4A1BA197048E1003608F6 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				9FD4A1B8197048DB003608F6 /* Fetcher.swift */,
+			);
+			name = HTTP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +243,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FD4A1B419704397003608F6 /* HTMLScanner.swift in Sources */,
+				9FD4A1B7197046AF003608F6 /* Post.swift in Sources */,
+				9FD4A1B9197048DB003608F6 /* Fetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +356,7 @@
 		9FD4A1AD196F3008003608F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -329,12 +366,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		9FD4A1AE196F3008003608F6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -396,6 +435,7 @@
 				9FD4A1AE196F3008003608F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9FD4A1AF196F3008003608F6 /* Build configuration list for PBXNativeTarget "Hacker SwifterTests" */ = {
 			isa = XCConfigurationList;
@@ -404,6 +444,7 @@
 				9FD4A1B1196F3008003608F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
