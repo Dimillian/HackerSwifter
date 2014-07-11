@@ -8,9 +8,7 @@
 
 import Foundation
 
-class Post: NSObject, NSCoding {
-    
-    typealias Response = ([Post]!, Fetcher.ResponseError!) -> Void
+@objc(Post) class Post: NSObject, NSCoding {
 
     var title: String?
     var username: String?
@@ -42,7 +40,11 @@ class Post: NSObject, NSCoding {
         static let upvoteURL = "upvoteURL"
     }
 
-
+    init(html: String) {
+        super.init()
+        self.parseHTML(html)
+    }
+    
     // We might want to do a Mantle like thing with magic keys matching
     
     init(coder aDecoder: NSCoder!) {
@@ -74,9 +76,19 @@ class Post: NSObject, NSCoding {
 //Network
 extension Post {
     
+    typealias Response = ([Post]!, Fetcher.ResponseError!) -> Void
+    
     class func fetch(filter: PostFilter, completion: Response) {
         Fetcher.Fetch(filter.toRaw(), completion: {(html, error) in
+            println(html)
             completion(nil, nil)
         })
+    }
+}
+
+//HTML
+extension Post {
+    func parseHTML(html: String) {
+        
     }
 }

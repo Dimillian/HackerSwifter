@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		9FD4A19C196F3007003608F6 /* Hacker Swifter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD4A19B196F3007003608F6 /* Hacker Swifter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9FD4A1A2196F3008003608F6 /* Hacker Swifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD4A196196F3007003608F6 /* Hacker Swifter.framework */; };
+		9FD4A1A2196F3008003608F6 /* HackerSwifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD4A196196F3007003608F6 /* HackerSwifter.framework */; };
 		9FD4A1A9196F3008003608F6 /* Hacker_SwifterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */; };
 		9FD4A1B419704397003608F6 /* HTMLScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B319704397003608F6 /* HTMLScanner.swift */; };
 		9FD4A1B7197046AF003608F6 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B6197046AF003608F6 /* Post.swift */; };
 		9FD4A1B9197048DB003608F6 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B8197048DB003608F6 /* Fetcher.swift */; };
+		9FD4A1BC1970604B003608F6 /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1BB1970604B003608F6 /* PostTests.swift */; };
+		9FD4A1BE19706066003608F6 /* FetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1BD19706066003608F6 /* FetcherTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,18 +25,41 @@
 			remoteGlobalIDString = 9FD4A195196F3007003608F6;
 			remoteInfo = "Hacker Swifter";
 		};
+		9FD4A1BF19706222003608F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD4A18D196F3007003608F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD4A195196F3007003608F6;
+			remoteInfo = "Hacker Swifter";
+		};
+		9FD4A1C119706222003608F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD4A18D196F3007003608F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD4A195196F3007003608F6;
+			remoteInfo = "Hacker Swifter";
+		};
+		9FD4A1C319706224003608F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD4A18D196F3007003608F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD4A195196F3007003608F6;
+			remoteInfo = "Hacker Swifter";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9FD4A196196F3007003608F6 /* Hacker Swifter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "Hacker Swifter.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD4A196196F3007003608F6 /* HackerSwifter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HackerSwifter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD4A19A196F3007003608F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD4A19B196F3007003608F6 /* Hacker Swifter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hacker Swifter.h"; sourceTree = "<group>"; };
-		9FD4A1A1196F3008003608F6 /* Hacker SwifterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hacker SwifterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD4A1A1196F3008003608F6 /* HackerSwifterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HackerSwifterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD4A1A7196F3008003608F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hacker_SwifterTests.swift; sourceTree = "<group>"; };
 		9FD4A1B319704397003608F6 /* HTMLScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTMLScanner.swift; path = Extensions/HTMLScanner.swift; sourceTree = "<group>"; };
 		9FD4A1B6197046AF003608F6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Models/Post.swift; sourceTree = "<group>"; };
 		9FD4A1B8197048DB003608F6 /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fetcher.swift; path = HTTP/Fetcher.swift; sourceTree = "<group>"; };
+		9FD4A1BB1970604B003608F6 /* PostTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
+		9FD4A1BD19706066003608F6 /* FetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetcherTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FD4A1A2196F3008003608F6 /* Hacker Swifter.framework in Frameworks */,
+				9FD4A1A2196F3008003608F6 /* HackerSwifter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,8 +93,8 @@
 		9FD4A197196F3007003608F6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9FD4A196196F3007003608F6 /* Hacker Swifter.framework */,
-				9FD4A1A1196F3008003608F6 /* Hacker SwifterTests.xctest */,
+				9FD4A196196F3007003608F6 /* HackerSwifter.framework */,
+				9FD4A1A1196F3008003608F6 /* HackerSwifterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */,
+				9FD4A1BB1970604B003608F6 /* PostTests.swift */,
+				9FD4A1BD19706066003608F6 /* FetcherTests.swift */,
 				9FD4A1A6196F3008003608F6 /* Supporting Files */,
 			);
 			path = "Hacker SwifterTests";
@@ -149,9 +176,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		9FD4A195196F3007003608F6 /* Hacker Swifter */ = {
+		9FD4A195196F3007003608F6 /* HackerSwifter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FD4A1AC196F3008003608F6 /* Build configuration list for PBXNativeTarget "Hacker Swifter" */;
+			buildConfigurationList = 9FD4A1AC196F3008003608F6 /* Build configuration list for PBXNativeTarget "HackerSwifter" */;
 			buildPhases = (
 				9FD4A191196F3007003608F6 /* Sources */,
 				9FD4A192196F3007003608F6 /* Frameworks */,
@@ -162,14 +189,14 @@
 			);
 			dependencies = (
 			);
-			name = "Hacker Swifter";
+			name = HackerSwifter;
 			productName = "Hacker Swifter";
-			productReference = 9FD4A196196F3007003608F6 /* Hacker Swifter.framework */;
+			productReference = 9FD4A196196F3007003608F6 /* HackerSwifter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		9FD4A1A0196F3008003608F6 /* Hacker SwifterTests */ = {
+		9FD4A1A0196F3008003608F6 /* HackerSwifterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9FD4A1AF196F3008003608F6 /* Build configuration list for PBXNativeTarget "Hacker SwifterTests" */;
+			buildConfigurationList = 9FD4A1AF196F3008003608F6 /* Build configuration list for PBXNativeTarget "HackerSwifterTests" */;
 			buildPhases = (
 				9FD4A19D196F3008003608F6 /* Sources */,
 				9FD4A19E196F3008003608F6 /* Frameworks */,
@@ -179,10 +206,13 @@
 			);
 			dependencies = (
 				9FD4A1A4196F3008003608F6 /* PBXTargetDependency */,
+				9FD4A1C019706222003608F6 /* PBXTargetDependency */,
+				9FD4A1C219706222003608F6 /* PBXTargetDependency */,
+				9FD4A1C419706224003608F6 /* PBXTargetDependency */,
 			);
-			name = "Hacker SwifterTests";
+			name = HackerSwifterTests;
 			productName = "Hacker SwifterTests";
-			productReference = 9FD4A1A1196F3008003608F6 /* Hacker SwifterTests.xctest */;
+			productReference = 9FD4A1A1196F3008003608F6 /* HackerSwifterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -203,7 +233,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9FD4A190196F3007003608F6 /* Build configuration list for PBXProject "Hacker Swifter" */;
+			buildConfigurationList = 9FD4A190196F3007003608F6 /* Build configuration list for PBXProject "HackerSwifter" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -215,8 +245,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9FD4A195196F3007003608F6 /* Hacker Swifter */,
-				9FD4A1A0196F3008003608F6 /* Hacker SwifterTests */,
+				9FD4A195196F3007003608F6 /* HackerSwifter */,
+				9FD4A1A0196F3008003608F6 /* HackerSwifterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -254,6 +284,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FD4A1A9196F3008003608F6 /* Hacker_SwifterTests.swift in Sources */,
+				9FD4A1BC1970604B003608F6 /* PostTests.swift in Sources */,
+				9FD4A1BE19706066003608F6 /* FetcherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,8 +294,23 @@
 /* Begin PBXTargetDependency section */
 		9FD4A1A4196F3008003608F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9FD4A195196F3007003608F6 /* Hacker Swifter */;
+			target = 9FD4A195196F3007003608F6 /* HackerSwifter */;
 			targetProxy = 9FD4A1A3196F3008003608F6 /* PBXContainerItemProxy */;
+		};
+		9FD4A1C019706222003608F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD4A195196F3007003608F6 /* HackerSwifter */;
+			targetProxy = 9FD4A1BF19706222003608F6 /* PBXContainerItemProxy */;
+		};
+		9FD4A1C219706222003608F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD4A195196F3007003608F6 /* HackerSwifter */;
+			targetProxy = 9FD4A1C119706222003608F6 /* PBXContainerItemProxy */;
+		};
+		9FD4A1C419706224003608F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD4A195196F3007003608F6 /* HackerSwifter */;
+			targetProxy = 9FD4A1C319706224003608F6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -364,7 +411,7 @@
 				INFOPLIST_FILE = "Hacker Swifter/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HackerSwifter;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -381,7 +428,7 @@
 				INFOPLIST_FILE = "Hacker Swifter/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HackerSwifter;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -399,7 +446,7 @@
 				);
 				INFOPLIST_FILE = "Hacker SwifterTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HackerSwifterTests;
 			};
 			name = Debug;
 		};
@@ -412,14 +459,14 @@
 				);
 				INFOPLIST_FILE = "Hacker SwifterTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = HackerSwifterTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9FD4A190196F3007003608F6 /* Build configuration list for PBXProject "Hacker Swifter" */ = {
+		9FD4A190196F3007003608F6 /* Build configuration list for PBXProject "HackerSwifter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FD4A1AA196F3008003608F6 /* Debug */,
@@ -428,7 +475,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FD4A1AC196F3008003608F6 /* Build configuration list for PBXNativeTarget "Hacker Swifter" */ = {
+		9FD4A1AC196F3008003608F6 /* Build configuration list for PBXNativeTarget "HackerSwifter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FD4A1AD196F3008003608F6 /* Debug */,
@@ -437,7 +484,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9FD4A1AF196F3008003608F6 /* Build configuration list for PBXNativeTarget "Hacker SwifterTests" */ = {
+		9FD4A1AF196F3008003608F6 /* Build configuration list for PBXNativeTarget "HackerSwifterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9FD4A1B0196F3008003608F6 /* Debug */,

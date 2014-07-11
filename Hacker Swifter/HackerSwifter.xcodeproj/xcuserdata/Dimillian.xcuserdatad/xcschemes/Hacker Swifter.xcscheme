@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9FD4A195196F3007003608F6"
-               BuildableName = "Hacker Swifter.framework"
-               BlueprintName = "Hacker Swifter"
-               ReferencedContainer = "container:Hacker Swifter.xcodeproj">
+               BuildableName = "HackerSwifter.framework"
+               BlueprintName = "HackerSwifter"
+               ReferencedContainer = "container:HackerSwifter.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9FD4A1A0196F3008003608F6"
-               BuildableName = "Hacker SwifterTests.xctest"
-               BlueprintName = "Hacker SwifterTests"
-               ReferencedContainer = "container:Hacker Swifter.xcodeproj">
+               BuildableName = "HackerSwifterTests.xctest"
+               BlueprintName = "HackerSwifterTests"
+               ReferencedContainer = "container:HackerSwifter.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FD4A195196F3007003608F6"
-            BuildableName = "Hacker Swifter.framework"
-            BlueprintName = "Hacker Swifter"
-            ReferencedContainer = "container:Hacker Swifter.xcodeproj">
+            BuildableName = "HackerSwifter.framework"
+            BlueprintName = "HackerSwifter"
+            ReferencedContainer = "container:HackerSwifter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FD4A195196F3007003608F6"
-            BuildableName = "Hacker Swifter.framework"
-            BlueprintName = "Hacker Swifter"
-            ReferencedContainer = "container:Hacker Swifter.xcodeproj">
+            BuildableName = "HackerSwifter.framework"
+            BlueprintName = "HackerSwifter"
+            ReferencedContainer = "container:HackerSwifter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FD4A195196F3007003608F6"
-            BuildableName = "Hacker Swifter.framework"
-            BlueprintName = "Hacker Swifter"
-            ReferencedContainer = "container:Hacker Swifter.xcodeproj">
+            BuildableName = "HackerSwifter.framework"
+            BlueprintName = "HackerSwifter"
+            ReferencedContainer = "container:HackerSwifter.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
