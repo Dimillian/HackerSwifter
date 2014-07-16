@@ -13,7 +13,15 @@ import Foundation
     var title: String?
     var username: String?
     var url: NSURL?
-    var domain: String?
+    var domain: String? {
+        get {
+            var host: NSString = self.url!.host
+            if (host.hasPrefix("www")) {
+                host = host.substringFromIndex(4)
+            }
+            return host
+        }
+    }
     var points: Int?
     var commentsCount: Int?
     var postId: String?
@@ -34,7 +42,6 @@ import Foundation
         static let title = "title"
         static let username = "username"
         static let url = "url"
-        static let domain = "domain"
         static let points = "points"
         static let commentsCount = "commentsCount"
         static let postId = "postId"
@@ -58,7 +65,6 @@ import Foundation
         self.title = aDecoder.decodeObjectForKey(SerializationKey.title) as? String
         self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
         self.url = aDecoder.decodeObjectForKey(SerializationKey.url) as? NSURL
-        self.domain = aDecoder.decodeObjectForKey(SerializationKey.domain) as? String
         self.points = aDecoder.decodeObjectForKey(SerializationKey.points) as? Int
         self.commentsCount = aDecoder.decodeObjectForKey(SerializationKey.commentsCount) as? Int
         self.postId = aDecoder.decodeObjectForKey(SerializationKey.postId) as? String
@@ -70,7 +76,6 @@ import Foundation
         aCoder.encodeObject(self.title, forKey: SerializationKey.title)
         aCoder.encodeObject(self.username, forKey: SerializationKey.username)
         aCoder.encodeObject(self.url, forKey: SerializationKey.url)
-        aCoder.encodeObject(self.domain, forKey: SerializationKey.domain)
         aCoder.encodeObject(self.points, forKey: SerializationKey.points)
         aCoder.encodeObject(self.commentsCount, forKey: SerializationKey.commentsCount)
         aCoder.encodeObject(self.prettyTime, forKey: SerializationKey.prettyTime)
@@ -152,11 +157,11 @@ extension Post {
             }
             else if (self.url?.absoluteString.bridgeToObjectiveC().rangeOfString("http").location == NSNotFound) {
                 self.type = PostFilter.Ask
+                var url = self.url?.absoluteString
+                self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
             }
             else {
                 self.type = PostFilter.Default
-                var url = self.url?.absoluteString
-                self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
             }
         }
     }
