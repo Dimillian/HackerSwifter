@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F6AEEAE19768F86007D95BD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AEEAD19768F86007D95BD /* Cache.swift */; };
+		9F6AEEB01976AC2C007D95BD /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */; };
 		9FD4A19C196F3007003608F6 /* Hacker Swifter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD4A19B196F3007003608F6 /* Hacker Swifter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FD4A1A2196F3008003608F6 /* HackerSwifter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD4A196196F3007003608F6 /* HackerSwifter.framework */; };
 		9FD4A1A9196F3008003608F6 /* Hacker_SwifterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F6AEEAD19768F86007D95BD /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cache.swift; path = HTTP/Cache.swift; sourceTree = "<group>"; };
+		9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
 		9FD4A196196F3007003608F6 /* HackerSwifter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HackerSwifter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD4A19A196F3007003608F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD4A19B196F3007003608F6 /* Hacker Swifter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Hacker Swifter.h"; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 				9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */,
 				9FD4A1BB1970604B003608F6 /* PostTests.swift */,
 				9FD4A1BD19706066003608F6 /* FetcherTests.swift */,
+				9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */,
 				9FD4A1A6196F3008003608F6 /* Supporting Files */,
 			);
 			path = "Hacker SwifterTests";
@@ -158,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD4A1B8197048DB003608F6 /* Fetcher.swift */,
+				9F6AEEAD19768F86007D95BD /* Cache.swift */,
 			);
 			name = HTTP;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 			files = (
 				9FD4A1B419704397003608F6 /* HTMLScanner.swift in Sources */,
 				9FD4A1B7197046AF003608F6 /* Post.swift in Sources */,
+				9F6AEEAE19768F86007D95BD /* Cache.swift in Sources */,
 				9FD4A1B9197048DB003608F6 /* Fetcher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +292,7 @@
 			files = (
 				9FD4A1A9196F3008003608F6 /* Hacker_SwifterTests.swift in Sources */,
 				9FD4A1BC1970604B003608F6 /* PostTests.swift in Sources */,
+				9F6AEEB01976AC2C007D95BD /* CacheTests.swift in Sources */,
 				9FD4A1BE19706066003608F6 /* FetcherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

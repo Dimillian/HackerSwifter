@@ -10,12 +10,11 @@ import Foundation
 
 extension NSScanner {
     func scanTag(startTag: String, endTag: String) -> String {
-        var result: NSString? = NSString(string: "")
-        if (string.utf16count > 0) {
-            self.scanUpToString(startTag, intoString: nil)
-            self.scanLocation += startTag.utf16count
-            self.scanUpToString(endTag, intoString: &result)
-        }
-        return result!
+        var temp: NSString? = ""
+        var result: NSString? = ""
+        self.scanUpToString(startTag, intoString: &temp)
+        self.scanString(startTag, intoString: &temp)
+        self.scanUpToString(endTag, intoString: &result)
+        return result as String
     }
 }
