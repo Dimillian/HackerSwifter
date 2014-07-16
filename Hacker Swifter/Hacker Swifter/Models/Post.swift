@@ -19,9 +19,11 @@ import Foundation
     var postId: String?
     var prettyTime: String?
     var upvoteURL: String?
+    var type: PostFilter?
 
     enum PostFilter: String {
         case Top = ""
+        case Default = "default"
         case Ask = "ask"
         case New = "newest"
         case Jobs = "jobs"
@@ -38,6 +40,7 @@ import Foundation
         static let postId = "postId"
         static let prettyTime = "time"
         static let upvoteURL = "upvoteURL"
+        static let type = "type"
     }
 
     init(){
@@ -106,10 +109,14 @@ extension Post {
         var components = html.componentsSeparatedByString("<tr><td align=\"right\" valign=\"top\" class=\"title\">")
         var posts: [Post] = []
         if (components.count > 0) {
+            var index = 0
             for component in components {
-                var post = Post()
-                post.parseHTML(component)
-                posts.append(post)
+                if index != 0 {
+                    var post = Post()
+                    post.parseHTML(component)
+                    posts.append(post)
+                }
+                index++
             }
         }
         return posts
@@ -117,6 +124,40 @@ extension Post {
     
     func parseHTML(html: String) {
         var scanner = NSScanner(string: html)
-        self.title = scanner.scanTag(">", endTag: "</a>")
+        if !html.rangeOfString("<td class=\"title\"> [dead] <a") {
+            
+            self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))
+            self.title = scanner.scanTag(">", endTag: "</a>")
+            
+            var temp: NSString = scanner.scanTag("<span id=\"score_", endTag: "</span>")
+            var range = temp.rangeOfString(">")
+            if (range.location != NSNotFound) {
+                self.points = temp.substringFromIndex(range.location + 1).bridgeToObjectiveC().integerValue
+            }
+            
+            self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
+            self.prettyTime = scanner.scanTag("</a> ", endTag: "ago") + "ago"
+            self.postId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
+            
+            temp = scanner.scanTag("\">", endTag: "</a>")
+            if (temp == "discuss") {
+                self.commentsCount = 0
+            }
+            else {
+                self.commentsCount = temp.integerValue
+            }
+            
+            if (!self.username && !self.commentsCount && !self.postId) {
+                self.type = PostFilter.Jobs
+            }
+            else if (self.url?.absoluteString.bridgeToObjectiveC().rangeOfString("http").location == NSNotFound) {
+                self.type = PostFilter.Ask
+            }
+            else {
+                self.type = PostFilter.Default
+                var url = self.url?.absoluteString
+                self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
+            }
+        }
     }
 }

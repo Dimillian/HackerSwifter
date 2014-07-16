@@ -31,8 +31,6 @@ class Fetcher {
     
     class func Fetch(ressource: String, parsing: FetchParsing, completion: FetchCompletion) {
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        
         var cacheKey = Cache.generateCacheKey(ressource)
         
         Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
@@ -44,8 +42,6 @@ class Fetcher {
         var path = _Fetcher.baseURL + ressource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
             
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
             if let realData = data {
                 var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding))
                 if var realObject: AnyObject = object {
