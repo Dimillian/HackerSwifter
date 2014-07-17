@@ -25,6 +25,9 @@ class Cache {
     }
     
     class func generateCacheKey(path: String) -> String {
+        if (path == "") {
+            return "root"
+        }
         return path.stringByReplacingOccurrencesOfString("/",
             withString: "#", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
     }
