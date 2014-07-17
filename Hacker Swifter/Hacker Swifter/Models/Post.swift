@@ -105,6 +105,21 @@ extension Post {
                 completion(posts: object as [Post], error: error, local: local)
             })
     }
+    
+    class func fetch(user: String, completion: Response) {
+        Fetcher.Fetch("submitted?id=" + user, parsing: {(html) in
+            if let realHtml = html {
+                var posts = self.parseCollectionHTML(realHtml)
+                return posts
+            }
+            else {
+                return nil
+            }
+        },
+        completion: {(object, error, local) in
+            completion(posts: object as [Post], error: error, local: local)
+        })
+    }
 }
 
 //HTML

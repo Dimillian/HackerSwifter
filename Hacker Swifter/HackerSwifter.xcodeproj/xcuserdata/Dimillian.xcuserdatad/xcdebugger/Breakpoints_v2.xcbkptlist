@@ -2,4 +2,52 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hacker SwifterTests/PostTests.swift"
+            timestampString = "427302812.935858"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "testFetchPostForUser()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HackerSwifterTests.PostTests.(testFetchUser (HackerSwifterTests.PostTests) -&gt; () -&gt; ()).(closure #1)"
+                  moduleName = "HackerSwifterTests"
+                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20SwifterTests/PostTests.swift"
+                  timestampString = "427302788.630038"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "600">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HackerSwifterTests.PostTests.(testFetchUser (HackerSwifterTests.PostTests) -&gt; () -&gt; ()).(closure #1).(implicit closure #1)"
+                  moduleName = "HackerSwifterTests"
+                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20SwifterTests/PostTests.swift"
+                  timestampString = "427302788.630329"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
