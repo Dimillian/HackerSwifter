@@ -35,6 +35,19 @@ class PostTests: XCTestCase {
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
     
+    func testFetchPostForUser() {
+        var expectation = self.expectationWithDescription("fetch posts")
+        
+        Post.fetch("dimillian", completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+            if (!local) {
+                XCTAssertTrue(posts!.count > 1, "posts should contain post")
+                expectation.fulfill()
+            }
+            })
+        
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
