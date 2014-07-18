@@ -36,6 +36,7 @@ import Foundation
         case New = "newest"
         case Jobs = "jobs"
         case Best = "best"
+        case Show = "show"
     }
     
     struct SerializationKey {
