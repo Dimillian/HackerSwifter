@@ -144,7 +144,7 @@ extension Comment {
         var scanner = NSScanner(string: html)
         
         var level: NSString = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
-        self.depth = level.integerValue
+        self.depth = level.integerValue / 40
         
         var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
         self.username = username.utf16count > 0 ? username : "[deleted]"
