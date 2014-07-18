@@ -53,7 +53,7 @@ class Fetcher {
                 }
                 dispatch_async(dispatch_get_main_queue(), { ()->() in
                     if let application = UIApplication.sharedApplication() {
-                        application.networkActivityIndicatorVisible = true
+                        application.networkActivityIndicatorVisible = false
                     }
                     completion(object: object, error: nil, local: false)
                 })
@@ -61,7 +61,7 @@ class Fetcher {
             else {
                 dispatch_async(dispatch_get_main_queue(), { ()->() in
                     if let application = UIApplication.sharedApplication() {
-                        application.networkActivityIndicatorVisible = true
+                        application.networkActivityIndicatorVisible = false
                     }
                     completion(object: nil, error: ResponseError.UnknownError, local: false)
                 })
