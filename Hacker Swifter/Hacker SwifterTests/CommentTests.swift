@@ -22,16 +22,16 @@ class CommentTests: XCTestCase {
         super.tearDown()
     }
 
-    func testFetchNews() {
+    func testFetchComments() {
         var expectation = self.expectationWithDescription("fetch comments for post")
 
         var post = Post()
-        post.postId = "8044029"
-        post.type = Post.PostFilter.Ask
+        post.postId = "8050106"
+        post.type = Post.PostFilter.Default
 
         Comment.fetch(forPost: post, completion: {(comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) in
 
-            if (!local) {
+            if (!local) {                
                 XCTAssertTrue(comments!.count > 0, "comments should not be empty")
                 expectation.fulfill()
             }
@@ -39,6 +39,29 @@ class CommentTests: XCTestCase {
 
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
+    
+    func testAskHNComments() {
+        var expectation = self.expectationWithDescription("fetch comments for post")
+        
+        var post = Post()
+        post.postId = "8044029"
+        post.type = Post.PostFilter.Ask
+        
+        Comment.fetch(forPost: post, completion: {(comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) in
+            
+            if (!local) {
+                var comment = comments[0]
+                XCTAssertTrue(comment.type == Comment.CommentFilter.Ask, "comment type is not good")
+                XCTAssertTrue(comment.username == "syedkarim", "username is not equal")
+                XCTAssertTrue(comments!.count > 0, "comments should not be empty")
+                expectation.fulfill()
+            }
+            })
+        
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    }
+    
+    
 
     func testPerformanceExample() {
         // This is an example of a performance test case.

@@ -76,14 +76,13 @@ import Foundation
 // Network
 extension Comment {
 
-    typealias Response = (posts: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    typealias Response = (comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
 
     class func fetch(forPost post: Post, completion: Response) {
         let ressource = "item?id=\(post.postId)"
         Fetcher.Fetch(ressource,
             parsing: {(html) in
                 if let realHtml = html {
-                    println(realHtml)
                     var comments = self.parseCollectionHTML(realHtml, withType: post.type!)
                     return comments
                 }
@@ -92,7 +91,7 @@ extension Comment {
                 }
             },
             completion: {(object, error, local) in
-                completion(posts: object as [Comment], error: error, local: local)
+                completion(comments: object as [Comment], error: error, local: local)
             })
     }
 }
@@ -106,9 +105,31 @@ extension Comment {
         var components = html.componentsSeparatedByString("<td><img src=\"s.gif\"")
         var comments: [Comment] = []
         if (components.count > 0) {
+            if (type == Post.PostFilter.Ask) {
+                var scanner = NSScanner(string: components[0])
+                var comment = Comment()
+                comment.type = CommentFilter.Ask
+                comment.commentId = scanner.scanTag("<span id=\"score_", endTag: ">")
+                comment.username = scanner.scanTag("by <a href=\"user?id=", endTag: "\">")
+                comment.prettyTime = scanner.scanTag("</a> ", endTag: "ago") + "ago"
+                comment.text = scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>")
+                comment.depth = 0
+                comments.append(comment)
+            }
+                
+            else if (type == Post.PostFilter.Jobs) {
+                var scanner = NSScanner(string: components[0])
+                var comment = Comment()
+                comment.depth = 0
+                comment.text = scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>")
+                comment.type = CommentFilter.Jobs
+                comments.append(comment)
+            }
+            
             var index = 0
+            
             for component in components {
-                if index != 0 {
+                if index != 0 && index != components.count - 1 {
                     var comment = Comment()
                     comment.parseHTML(component, withType: type)
                     comments.append(comment)
@@ -121,18 +142,21 @@ extension Comment {
 
     func parseHTML(html: String, withType type: Post.PostFilter) {
         var scanner = NSScanner(string: html)
-
-        println(html)
-
-        if (type == Post.PostFilter.Ask) {
-
-            self.username = scanner.scanTag("by <a href=\"user?id=", endTag: "\">")
-            self.commentId = scanner.scanTag("<span id=\"score_", endTag: ">")
-            self.text = scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>")
-            self.prettyTime = scanner.scanTag("</a> ", endTag: "ago") + "ago"
-            
-        }
-
+        
+        var level: NSString = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
+        self.depth = level.integerValue
+        
+        var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
+        self.username = username.utf16count > 0 ? username : "[deleted]"
+        
+        self.prettyTime = scanner.scanTag("</a> ", endTag: " |")
+        self.text = scanner.scanTag("<font color=", endTag: "</font>").substringFromIndex(10)
+        //LOL, it whould always work, as I strip a Hex color, which is always the same length
+        
+        self.commentId = scanner.scanTag("reply?id=", endTag: "&")
+        self.replyURLString = scanner.scanTag("<font size=1><u><a href=\"", endTag: "\">reply")
+        self.type = CommentFilter.Default
+        
     }
 }
 
