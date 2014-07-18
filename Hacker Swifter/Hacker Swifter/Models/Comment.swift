@@ -112,7 +112,7 @@ extension Comment {
                 comment.commentId = scanner.scanTag("<span id=\"score_", endTag: ">")
                 comment.username = scanner.scanTag("by <a href=\"user?id=", endTag: "\">")
                 comment.prettyTime = scanner.scanTag("</a> ", endTag: "ago") + "ago"
-                comment.text = scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>")
+                comment.text = String.stringByRemovingHTMLEntities(scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>"))
                 comment.depth = 0
                 comments.append(comment)
             }
@@ -121,7 +121,7 @@ extension Comment {
                 var scanner = NSScanner(string: components[0])
                 var comment = Comment()
                 comment.depth = 0
-                comment.text = scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>")
+                comment.text = String.stringByRemovingHTMLEntities(scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>"))
                 comment.type = CommentFilter.Jobs
                 comments.append(comment)
             }
@@ -150,7 +150,7 @@ extension Comment {
         self.username = username.utf16count > 0 ? username : "[deleted]"
         
         self.prettyTime = scanner.scanTag("</a> ", endTag: " |")
-        self.text = scanner.scanTag("<font color=", endTag: "</font>").substringFromIndex(10)
+        self.text = String.stringByRemovingHTMLEntities(scanner.scanTag("<font color=", endTag: "</font>").substringFromIndex(10))
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
         
         self.commentId = scanner.scanTag("reply?id=", endTag: "&")

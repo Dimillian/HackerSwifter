@@ -50,10 +50,10 @@ class CommentTests: XCTestCase {
         Comment.fetch(forPost: post, completion: {(comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) in
             
             if (!local) {
+                XCTAssertTrue(comments!.count > 0, "comments should not be empty")
                 var comment = comments[0]
                 XCTAssertTrue(comment.type == Comment.CommentFilter.Ask, "comment type is not good")
                 XCTAssertTrue(comment.username == "syedkarim", "username is not equal")
-                XCTAssertTrue(comments!.count > 0, "comments should not be empty")
                 expectation.fulfill()
             }
             })
