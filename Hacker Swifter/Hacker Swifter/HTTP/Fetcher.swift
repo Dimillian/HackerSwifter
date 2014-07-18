@@ -31,6 +31,10 @@ class Fetcher {
     
     class func Fetch(ressource: String, parsing: FetchParsing, completion: FetchCompletion) {
         
+        if let application = UIApplication.sharedApplication() {
+            application.networkActivityIndicatorVisible = true
+        }
+        
         var cacheKey = Cache.generateCacheKey(ressource)
         
         Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
@@ -47,10 +51,20 @@ class Fetcher {
                 if var realObject: AnyObject = object {
                     Cache.sharedCache.setObject(realObject, key: cacheKey)
                 }
-                completion(object: object, error: nil, local: false)
+                dispatch_async(dispatch_get_main_queue(), { ()->() in
+                    if let application = UIApplication.sharedApplication() {
+                        application.networkActivityIndicatorVisible = true
+                    }
+                    completion(object: object, error: nil, local: false)
+                })
             }
             else {
-                completion(object: nil, error: ResponseError.UnknownError, local: false)
+                dispatch_async(dispatch_get_main_queue(), { ()->() in
+                    if let application = UIApplication.sharedApplication() {
+                        application.networkActivityIndicatorVisible = true
+                    }
+                    completion(object: nil, error: ResponseError.UnknownError, local: false)
+                })
             }
         })
         task.resume()
