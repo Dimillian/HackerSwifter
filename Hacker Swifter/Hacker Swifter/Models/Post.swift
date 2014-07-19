@@ -90,7 +90,7 @@ import Foundation
 extension Post {
     
     typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    typealias ResponsePost = (post: Post, error: Fetcher.ResponseError!, local: Bool) -> Void
+    typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
     class func fetch(filter: PostFilter, completion: Response) {
         Fetcher.Fetch(filter.toRaw(),
@@ -123,13 +123,15 @@ extension Post {
         })
     }
     
+    //Test using Algolia API For later
     class func fetchPostDetailAPI(post: String, completion: ResponsePost) {
         var path = "items/" + post
         Fetcher.FetchAPI(path, parsing: {(json) in
             return json
         },
         completion: {(object, error, local) in
-            completion(post: object as Post, error: error, local: local)
+            println(object)
+            completion(post: nil, error: error, local: local)
         })
     }
 }

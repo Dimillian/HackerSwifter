@@ -65,6 +65,8 @@ class Fetcher {
         task.resume()
     }
     
+    //In the future, all scraping will be removed and we'll use only the Algolia API
+    //At the moment this function is sufixed for testing purpose
     class func FetchAPI(ressource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
         var path = _Fetcher.APIURL + ressource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
@@ -72,14 +74,9 @@ class Fetcher {
                 var error: NSError? = nil
                 var JSON: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &error)
                 if !error {
-                    if var JSON: AnyObject = JSON {
-                        var object: AnyObject! = parsing(json: JSON)
-                        if var object: AnyObject = object {
-                            completion(object: object, error: nil, local: false)
-                        }
-                        else {
-                            completion(object: nil, error: ResponseError.ErrorParsing, local: false)
-                        }
+                    var object: AnyObject! = parsing(json: JSON)
+                    if var object: AnyObject = object {
+                        completion(object: object, error: nil, local: false)
                     }
                     else {
                         completion(object: nil, error: ResponseError.ErrorParsing, local: false)

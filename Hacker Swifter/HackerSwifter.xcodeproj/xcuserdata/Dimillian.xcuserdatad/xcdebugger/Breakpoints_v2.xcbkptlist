@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker SwifterTests/PostTests.swift"
-            timestampString = "427302812.935858"
+            timestampString = "427451227.086608"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "testFetchPostForUser()"
             landmarkType = "5">
             <Locations>
@@ -56,7 +56,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450718.397282"
+            timestampString = "427451171.812899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
@@ -71,7 +71,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.568302"
+                  timestampString = "427451051.922541"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "73"
@@ -85,7 +85,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.568449"
+                  timestampString = "427451051.922771"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "73"
@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450720.7376"
+            timestampString = "427451292.557342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "FetchAPI(_:parsing:completion:)"
             landmarkType = "5">
             <Locations>
@@ -117,7 +117,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.568601"
+                  timestampString = "427451051.922916"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -131,7 +131,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.568735"
+                  timestampString = "427451051.923061"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "75"
@@ -148,7 +148,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450721.32698"
+            timestampString = "427451292.557342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -163,7 +163,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.568981"
+                  timestampString = "427451051.923197"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "74"
@@ -177,7 +177,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.56914"
+                  timestampString = "427451051.923328"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "74"
@@ -194,123 +194,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450723.234859"
+            timestampString = "427451292.557342"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "FetchAPI(_:parsing:completion:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450725.006716"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "FetchAPI(_:parsing:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450726.736999"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "FetchAPI(_:parsing:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450728.525696"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "FetchAPI(_:parsing:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450731.818913"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "FetchAPI(_:parsing:completion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hacker Swifter/HTTP/Fetcher.swift"
-            timestampString = "427450732.396725"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "FetchAPI(_:parsing:completion:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "HackerSwifter"
-                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.570024"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "77"
-                  endingLineNumber = "77"
-                  offsetFromSymbolStart = "1812">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "HackerSwifter"
-                  urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.57023"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "77"
-                  endingLineNumber = "77"
-                  offsetFromSymbolStart = "1855">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -351,7 +241,7 @@
                   symbolName = "HackerSwifter.Fetcher.FetchAPI (HackerSwifter.Fetcher.Type)(Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.570804"
+                  timestampString = "427451051.924529"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "70"
@@ -365,7 +255,7 @@
                   symbolName = "HackerSwifter.Fetcher.FetchAPI (HackerSwifter.Fetcher.Type)(Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.57103"
+                  timestampString = "427451051.92466"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "70"
@@ -379,7 +269,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.571255"
+                  timestampString = "427451051.924783"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
@@ -411,7 +301,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.571489"
+                  timestampString = "427451051.924913"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
@@ -425,7 +315,7 @@
                   symbolName = "HackerSwifter.Fetcher.(FetchAPI (HackerSwifter.Fetcher.Type) -&gt; (Swift.String, parsing : (json : Swift.AnyObject) -&gt; Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, completion : (object : Swift.ImplicitlyUnwrappedOptional&lt;Swift.AnyObject&gt;, error : Swift.ImplicitlyUnwrappedOptional&lt;HackerSwifter.Fetcher.ResponseError&gt;, local : Swift.Bool) -&gt; ()) -&gt; ()).(closure #1)"
                   moduleName = "HackerSwifter"
                   urlString = "file:///Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker%20Swifter/Hacker%20Swifter/HTTP/Fetcher.swift"
-                  timestampString = "427450748.571739"
+                  timestampString = "427451051.92504"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"

@@ -43,7 +43,7 @@ class PostTests: XCTestCase {
                 XCTAssertTrue(posts!.count > 1, "posts should contain post")
                 expectation.fulfill()
             }
-            })
+        })
         
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
@@ -55,6 +55,7 @@ class PostTests: XCTestCase {
                 expectation.fulfill()
             }
         })
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
     
     func testPerformanceExample() {
