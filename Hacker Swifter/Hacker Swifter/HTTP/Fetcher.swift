@@ -14,10 +14,12 @@ let _Fetcher = Fetcher()
 class Fetcher {
 
     let baseURL = "https://news.ycombinator.com/"
+    let APIURL = "https://hn.algolia.io/api/v1/"
     let session = NSURLSession.sharedSession()
     
     typealias FetchCompletion = (object: AnyObject!, error: ResponseError!, local: Bool) -> Void
     typealias FetchParsing = (html: String!) -> AnyObject!
+    typealias FetchParsingAPI = (json: AnyObject) -> AnyObject!
     
     enum ResponseError: String {
         case NoConnection = "You are not connected to the internet"
@@ -30,13 +32,10 @@ class Fetcher {
     }
     
     class func Fetch(ressource: String, parsing: FetchParsing, completion: FetchCompletion) {
-        
-        if let application = UIApplication.sharedApplication() {
-            application.networkActivityIndicatorVisible = true
-        }
+    
+        self.showLoadingIndicator(true)
         
         var cacheKey = Cache.generateCacheKey(ressource)
-        
         Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
             if var realObject: AnyObject = object {
                 completion(object: realObject, error: nil, local: true)
@@ -52,21 +51,52 @@ class Fetcher {
                     Cache.sharedCache.setObject(realObject, key: cacheKey)
                 }
                 dispatch_async(dispatch_get_main_queue(), { ()->() in
-                    if let application = UIApplication.sharedApplication() {
-                        application.networkActivityIndicatorVisible = false
-                    }
+                    self.showLoadingIndicator(false)
                     completion(object: object, error: nil, local: false)
                 })
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), { ()->() in
-                    if let application = UIApplication.sharedApplication() {
-                        application.networkActivityIndicatorVisible = false
-                    }
+                    self.showLoadingIndicator(false)
                     completion(object: nil, error: ResponseError.UnknownError, local: false)
                 })
             }
         })
         task.resume()
     }
+    
+    class func FetchAPI(ressource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
+        var path = _Fetcher.APIURL + ressource
+        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
+            if var data = data {
+                var error: NSError? = nil
+                var JSON: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &error)
+                if !error {
+                    if var JSON: AnyObject = JSON {
+                        var object: AnyObject! = parsing(json: JSON)
+                        if var object: AnyObject = object {
+                            completion(object: object, error: nil, local: false)
+                        }
+                        else {
+                            completion(object: nil, error: ResponseError.ErrorParsing, local: false)
+                        }
+                    }
+                    else {
+                        completion(object: nil, error: ResponseError.ErrorParsing, local: false)
+                    }
+                }
+                else {
+                    completion(object: nil, error: ResponseError.UnknownError, local: false)
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    class func showLoadingIndicator(show: Bool) {
+        if let application = UIApplication.sharedApplication() {
+            application.networkActivityIndicatorVisible = show
+        }
+    }
+    
 }

@@ -25,6 +25,10 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-
+*.xcuserdatad
 
 *.DS_Store
+
+*.xcbkptlist
+
+*.xcuserstate

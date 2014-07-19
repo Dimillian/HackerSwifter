@@ -90,6 +90,7 @@ import Foundation
 extension Post {
     
     typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    typealias ResponsePost = (post: Post, error: Fetcher.ResponseError!, local: Bool) -> Void
     
     class func fetch(filter: PostFilter, completion: Response) {
         Fetcher.Fetch(filter.toRaw(),
@@ -119,6 +120,16 @@ extension Post {
         },
         completion: {(object, error, local) in
             completion(posts: object as [Post], error: error, local: local)
+        })
+    }
+    
+    class func fetchPostDetailAPI(post: String, completion: ResponsePost) {
+        var path = "items/" + post
+        Fetcher.FetchAPI(path, parsing: {(json) in
+            return json
+        },
+        completion: {(object, error, local) in
+            completion(post: object as Post, error: error, local: local)
         })
     }
 }
