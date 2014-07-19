@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4E7CCB5E197747EA006917BA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CCB5D197747EA006917BA /* Comment.swift */; };
+		4E9DCD7D1979706200142AE2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9DCD7C1979706200142AE2 /* User.swift */; };
+		4E9DCD7F1979A36D00142AE2 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9DCD7E1979A36D00142AE2 /* UserTests.swift */; };
 		4EE778231978264500978F28 /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE77820197823E000978F28 /* CommentTests.swift */; };
 		9F6AEEAE19768F86007D95BD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AEEAD19768F86007D95BD /* Cache.swift */; };
 		9F6AEEB01976AC2C007D95BD /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */; };
@@ -54,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		4E7CCB5D197747EA006917BA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = Models/Comment.swift; sourceTree = "<group>"; };
+		4E9DCD7C1979706200142AE2 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
+		4E9DCD7E1979A36D00142AE2 /* UserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		4EE77820197823E000978F28 /* CommentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTests.swift; sourceTree = "<group>"; };
 		9F6AEEAD19768F86007D95BD /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cache.swift; path = HTTP/Cache.swift; sourceTree = "<group>"; };
 		9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */,
+				4E9DCD7E1979A36D00142AE2 /* UserTests.swift */,
 				9FD4A1BB1970604B003608F6 /* PostTests.swift */,
 				4EE77820197823E000978F28 /* CommentTests.swift */,
 				9FD4A1BD19706066003608F6 /* FetcherTests.swift */,
@@ -160,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD4A1B6197046AF003608F6 /* Post.swift */,
+				4E9DCD7C1979706200142AE2 /* User.swift */,
 				4E7CCB5D197747EA006917BA /* Comment.swift */,
 			);
 			name = Models;
@@ -287,6 +293,7 @@
 			files = (
 				4E7CCB5E197747EA006917BA /* Comment.swift in Sources */,
 				9FD4A1B419704397003608F6 /* HTMLScanner.swift in Sources */,
+				4E9DCD7D1979706200142AE2 /* User.swift in Sources */,
 				9FD4A1B7197046AF003608F6 /* Post.swift in Sources */,
 				9F6AEEAE19768F86007D95BD /* Cache.swift in Sources */,
 				9FD4A1B9197048DB003608F6 /* Fetcher.swift in Sources */,
@@ -297,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9DCD7F1979A36D00142AE2 /* UserTests.swift in Sources */,
 				9FD4A1A9196F3008003608F6 /* Hacker_SwifterTests.swift in Sources */,
 				4EE778231978264500978F28 /* CommentTests.swift in Sources */,
 				9FD4A1BC1970604B003608F6 /* PostTests.swift in Sources */,
