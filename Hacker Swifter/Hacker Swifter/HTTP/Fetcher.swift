@@ -31,18 +31,18 @@ class Fetcher {
         return _Fetcher
     }
     
-    class func Fetch(ressource: String, parsing: FetchParsing, completion: FetchCompletion) {
+    class func Fetch(resource: String, parsing: FetchParsing, completion: FetchCompletion) {
     
         self.showLoadingIndicator(true)
         
-        var cacheKey = Cache.generateCacheKey(ressource)
+        var cacheKey = Cache.generateCacheKey(resource)
         Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
             if var realObject: AnyObject = object {
                 completion(object: realObject, error: nil, local: true)
             }
         })
         
-        var path = _Fetcher.baseURL + ressource
+        var path = _Fetcher.baseURL + resource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
             
             if let realData = data {
@@ -67,8 +67,8 @@ class Fetcher {
     
     //In the future, all scraping will be removed and we'll use only the Algolia API
     //At the moment this function is sufixed for testing purpose
-    class func FetchAPI(ressource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
-        var path = _Fetcher.APIURL + ressource
+    class func FetchAPI(resource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
+        var path = _Fetcher.APIURL + resource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
             if var data = data {
                 var error: NSError? = nil

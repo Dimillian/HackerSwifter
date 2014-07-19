@@ -79,8 +79,8 @@ extension Comment {
     typealias Response = (comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
 
     class func fetch(forPost post: Post, completion: Response) {
-        let ressource = "item?id=\(post.postId)"
-        Fetcher.Fetch(ressource,
+        let resource = "item?id=\(post.postId)"
+        Fetcher.Fetch(resource,
             parsing: {(html) in
                 if let realHtml = html {
                     var comments = self.parseCollectionHTML(realHtml, withType: post.type!)
