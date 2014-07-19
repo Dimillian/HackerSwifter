@@ -28,18 +28,21 @@ import Foundation
         case Jobs = "jobs"
     }
 
-    struct SerializationKey {
-        static let type = "title"
-        static let text = "text"
-        static let username = "username"
-        static let depth = "depth"
-        static let commentId = "commentId"
-        static let parentId = "parentId"
-        static let prettyTime = "time"
-        static let links = "links"
-        static let replyURLString = "replyURLString"
-        static let upvoteURLAddition = "upvoteURLAddition"
-        static let downvoteURLAddition = "downvoteURLAddition"
+    enum SerializationKey: String {
+        case type = "title"
+        case text = "text"
+        case username = "username"
+        case depth = "depth"
+        case commentId = "commentId"
+        case parentId = "parentId"
+        case prettyTime = "time"
+        case links = "links"
+        case replyURLString = "replyURLString"
+        case upvoteURLAddition = "upvoteURLAddition"
+        case downvoteURLAddition = "downvoteURLAddition"
+        
+        static let allValues =
+        [text, username, depth, commentId, parentId, prettyTime, links, replyURLString, upvoteURLAddition, downvoteURLAddition]
     }
 
     init() {
@@ -47,29 +50,18 @@ import Foundation
     }
 
     init(coder aDecoder: NSCoder!) {
-        self.text = aDecoder.decodeObjectForKey(SerializationKey.text) as? String
-        self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
-        self.depth = aDecoder.decodeObjectForKey(SerializationKey.depth) as? Int
-        self.commentId = aDecoder.decodeObjectForKey(SerializationKey.commentId) as? String
-        self.parentId = aDecoder.decodeObjectForKey(SerializationKey.parentId) as? String
-        self.prettyTime = aDecoder.decodeObjectForKey(SerializationKey.prettyTime) as? String
-        self.links = aDecoder.decodeObjectForKey(SerializationKey.links) as? [NSURL]
-        self.replyURLString = aDecoder.decodeObjectForKey(SerializationKey.replyURLString) as? String
-        self.upvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.upvoteURLAddition) as? String
-        self.downvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.downvoteURLAddition) as? String
+        super.init()
+        for key in SerializationKey.allValues {
+            setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
+        }
     }
-
-    func encodeWithCoder(aCoder: NSCoder!) {
-        aCoder.encodeObject(self.text, forKey: SerializationKey.text)
-        aCoder.encodeObject(self.username, forKey: SerializationKey.username)
-        aCoder.encodeObject(self.depth, forKey: SerializationKey.depth)
-        aCoder.encodeObject(self.commentId, forKey: SerializationKey.commentId)
-        aCoder.encodeObject(self.parentId, forKey: SerializationKey.parentId)
-        aCoder.encodeObject(self.prettyTime, forKey: SerializationKey.prettyTime)
-        aCoder.encodeObject(self.links, forKey: SerializationKey.links)
-        aCoder.encodeObject(self.replyURLString, forKey: SerializationKey.replyURLString)
-        aCoder.encodeObject(self.upvoteURLAddition, forKey: SerializationKey.upvoteURLAddition)
-        aCoder.encodeObject(self.downvoteURLAddition, forKey: SerializationKey.downvoteURLAddition)
+    
+    func encodeWithCoder(aCoder: NSCoder!) {   
+        for key in SerializationKey.allValues {
+            if let value: AnyObject = self.valueForKey(key.toRaw()) {
+                aCoder.encodeObject(value, forKey: key.toRaw())
+            }
+        }
     }
 }
 

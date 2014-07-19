@@ -39,16 +39,18 @@ import Foundation
         case Show = "show"
     }
     
-    struct SerializationKey {
-        static let title = "title"
-        static let username = "username"
-        static let url = "url"
-        static let points = "points"
-        static let commentsCount = "commentsCount"
-        static let postId = "postId"
-        static let prettyTime = "time"
-        static let upvoteURL = "upvoteURL"
-        static let type = "type"
+    enum SerializationKey: String {
+        case title = "title"
+        case username = "username"
+        case url = "url"
+        case points = "points"
+        case commentsCount = "commentsCount"
+        case postId = "postId"
+        case prettyTime = "time"
+        case upvoteURL = "upvoteURL"
+        case type = "type"
+        
+        static let allValues = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL, type]
     }
 
     init(){
@@ -60,28 +62,20 @@ import Foundation
         self.parseHTML(html)
     }
     
-    // We might want to do a Mantle like thing with magic keys matching
-    
     init(coder aDecoder: NSCoder!) {
-        self.title = aDecoder.decodeObjectForKey(SerializationKey.title) as? String
-        self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
-        self.url = aDecoder.decodeObjectForKey(SerializationKey.url) as? NSURL
-        self.points = aDecoder.decodeObjectForKey(SerializationKey.points) as? Int
-        self.commentsCount = aDecoder.decodeObjectForKey(SerializationKey.commentsCount) as? Int
-        self.postId = aDecoder.decodeObjectForKey(SerializationKey.postId) as? String
-        self.prettyTime = aDecoder.decodeObjectForKey(SerializationKey.prettyTime) as? String
-        self.upvoteURL = aDecoder.decodeObjectForKey(SerializationKey.upvoteURL) as? String
+        super.init()
+        for key in SerializationKey.allValues {
+            setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
+        }
     }
     
     func encodeWithCoder(aCoder: NSCoder!) {
-        aCoder.encodeObject(self.title, forKey: SerializationKey.title)
-        aCoder.encodeObject(self.username, forKey: SerializationKey.username)
-        aCoder.encodeObject(self.url, forKey: SerializationKey.url)
-        aCoder.encodeObject(self.points, forKey: SerializationKey.points)
-        aCoder.encodeObject(self.commentsCount, forKey: SerializationKey.commentsCount)
-        aCoder.encodeObject(self.prettyTime, forKey: SerializationKey.prettyTime)
-        aCoder.encodeObject(self.postId, forKey: SerializationKey.postId)
-        aCoder.encodeObject(self.upvoteURL, forKey: SerializationKey.upvoteURL)
+        
+        for key in SerializationKey.allValues {
+            if let value: AnyObject = self.valueForKey(key.toRaw()) {
+                aCoder.encodeObject(value, forKey: key.toRaw())
+            }
+        }
     }
     
 }
