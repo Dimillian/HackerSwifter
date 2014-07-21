@@ -30,7 +30,7 @@ extension String {
   
         var regex = NSRegularExpression(pattern: "<a[^>]+href=\"(.*?)\"[^>]*>.*?</a>",
             options: NSRegularExpressionOptions.CaseInsensitive, error: nil)
-        result = regex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, result.utf16count), withTemplate: "$1")
+        result = regex.stringByReplacingMatchesInString(result, options: nil, range: NSMakeRange(0, result.utf16Count), withTemplate: "$1")
         
         return result
     }
