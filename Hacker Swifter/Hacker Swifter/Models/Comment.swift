@@ -91,7 +91,12 @@ public extension Comment {
                 }
             },
             completion: {(object, error, local) in
-                completion(comments: object as [Comment], error: error, local: local)
+                if let realObject: AnyObject = object {
+                    completion(comments: realObject as [Comment], error: error, local: local)
+                }
+                else {
+                    completion(comments: nil, error: error, local: local)
+                }
             })
     }
 }

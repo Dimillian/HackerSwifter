@@ -105,7 +105,12 @@ public extension Post {
                 }
             },
             completion: {(object, error, local) in
-                completion(posts: object as [Post], error: error, local: local)
+                if let realObject: AnyObject = object {
+                    completion(posts: realObject as [Post], error: error, local: local)
+                }
+                else {
+                    completion(posts: nil, error: error, local: local)
+                }
             })
     }
     
@@ -120,7 +125,12 @@ public extension Post {
             }
         },
         completion: {(object, error, local) in
-            completion(posts: object as [Post], error: error, local: local)
+            if let realObject: AnyObject = object {
+                completion(posts: realObject as [Post], error: error, local: local)
+            }
+            else {
+                completion(posts: nil, error: error, local: local)
+            }
         })
     }
     
