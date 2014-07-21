@@ -44,22 +44,26 @@ public class Fetcher {
         
         var path = _Fetcher.baseURL + ressource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
-            
-            if let realData = data {
-                var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding))
-                if var realObject: AnyObject = object {
-                    Cache.sharedCache.setObject(realObject, key: cacheKey)
+            if !error {
+                if let realData = data {
+                    var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding))
+                    if var realObject: AnyObject = object {
+                        Cache.sharedCache.setObject(realObject, key: cacheKey)
+                    }
+                    dispatch_async(dispatch_get_main_queue(), { ()->() in
+                        self.showLoadingIndicator(false)
+                        completion(object: object, error: nil, local: false)
+                        })
                 }
-                dispatch_async(dispatch_get_main_queue(), { ()->() in
-                    self.showLoadingIndicator(false)
-                    completion(object: object, error: nil, local: false)
-                })
+                else {
+                    dispatch_async(dispatch_get_main_queue(), { ()->() in
+                        self.showLoadingIndicator(false)
+                        completion(object: nil, error: ResponseError.UnknownError, local: false)
+                        })
+                }
             }
             else {
-                dispatch_async(dispatch_get_main_queue(), { ()->() in
-                    self.showLoadingIndicator(false)
-                    completion(object: nil, error: ResponseError.UnknownError, local: false)
-                })
+                completion(object: nil, error: ResponseError.UnknownError, local: false)
             }
         })
         task.resume()
