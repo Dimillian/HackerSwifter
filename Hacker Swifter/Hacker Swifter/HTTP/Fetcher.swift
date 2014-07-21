@@ -9,25 +9,25 @@
 import Foundation
 import UIKit
 
-let _Fetcher = Fetcher()
+private let _Fetcher = Fetcher()
 
-class Fetcher {
+public class Fetcher {
 
-    let baseURL = "https://news.ycombinator.com/"
-    let APIURL = "https://hn.algolia.io/api/v1/"
-    let session = NSURLSession.sharedSession()
+    internal let baseURL = "https://news.ycombinator.com/"
+    internal let APIURL = "https://hn.algolia.io/api/v1/"
+    private let session = NSURLSession.sharedSession()
     
-    typealias FetchCompletion = (object: AnyObject!, error: ResponseError!, local: Bool) -> Void
-    typealias FetchParsing = (html: String!) -> AnyObject!
-    typealias FetchParsingAPI = (json: AnyObject) -> AnyObject!
+    public typealias FetchCompletion = (object: AnyObject!, error: ResponseError!, local: Bool) -> Void
+    public typealias FetchParsing = (html: String!) -> AnyObject!
+    public typealias FetchParsingAPI = (json: AnyObject) -> AnyObject!
     
-    enum ResponseError: String {
+    public enum ResponseError: String {
         case NoConnection = "You are not connected to the internet"
         case ErrorParsing = "An error occurred while fetching the requested page"
         case UnknownError = "An unknown error occurred"
     }
     
-    class var sharedInstance: Fetcher {
+    public class var sharedInstance: Fetcher {
         return _Fetcher
     }
     

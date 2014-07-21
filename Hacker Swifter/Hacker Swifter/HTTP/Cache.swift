@@ -8,15 +8,15 @@
 
 import Foundation
 
-let _Cache = Cache()
-let _MemoryCache = MemoryCache()
-let _DiskCache = DiskCache()
+private let _Cache = Cache()
+private let _MemoryCache = MemoryCache()
+private let _DiskCache = DiskCache()
 
-typealias cacheCompletion = (AnyObject!) -> Void
+public typealias cacheCompletion = (AnyObject!) -> Void
 
-class Cache {
+public class Cache {
 
-    class var sharedCache: Cache {
+    public class var sharedCache: Cache {
         return _Cache
     }
     
@@ -24,7 +24,7 @@ class Cache {
         
     }
     
-    class func generateCacheKey(path: String) -> String {
+    public class func generateCacheKey(path: String) -> String {
         if (path == "") {
             return "root"
         }
@@ -32,14 +32,14 @@ class Cache {
             withString: "#", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
     }
     
-    func setObject(object: AnyObject, key: String) {
+    public func setObject(object: AnyObject, key: String) {
         if (object.conformsToProtocol(NSCoding)) {
             MemoryCache.sharedMemoryCache.setObject(object, key: key)
             DiskCache.sharedDiskCache.setObject(object, key: key)
         }
     }
     
-    func objectForKey(key: String, completion: cacheCompletion) {
+    public func objectForKey(key: String, completion: cacheCompletion) {
         MemoryCache.sharedMemoryCache.objectForKey(key, completion: {(object: AnyObject!) in
             if let realObject: AnyObject = object {
                 completion(realObject)
@@ -52,25 +52,25 @@ class Cache {
         })
     }
     
-    func objectForKeySync(key: String) -> AnyObject! {
+    public func objectForKeySync(key: String) -> AnyObject! {
         var ramObject: AnyObject! = MemoryCache.sharedMemoryCache.objectForKeySync(key)
         return ramObject ? ramObject : DiskCache.sharedDiskCache.objectForKeySync(key)
     }
     
-    func removeObject(key: String) {
+    public func removeObject(key: String) {
         MemoryCache.sharedMemoryCache.removeObject(key)
         DiskCache.sharedDiskCache.removeObject(key)
     }
     
-    func removeAllObject() {
+    public func removeAllObject() {
         MemoryCache.sharedMemoryCache.removeAllObject()
         DiskCache.sharedDiskCache.removeAllObject()
     }
 }
 
-class DiskCache: Cache {
+public class DiskCache: Cache {
     
-    struct files {
+    private struct files {
         static var filepath: String {
             var manager = NSFileManager.defaultManager()
             var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory,
@@ -83,9 +83,9 @@ class DiskCache: Cache {
         }
     }
     
-    let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+    private let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
 
-    class var sharedDiskCache: Cache {
+    public class var sharedDiskCache: Cache {
         return _DiskCache
     }
 
@@ -93,15 +93,15 @@ class DiskCache: Cache {
 
     }
     
-    func fullPath(key: String) -> String {
+    public func fullPath(key: String) -> String {
         return files.filepath + key
     }
     
-    func objectExist(key: String) -> Bool {
+    public func objectExist(key: String) -> Bool {
         return NSFileManager.defaultManager().fileExistsAtPath(fullPath(key))
     }
     
-    override func objectForKey(key: String, completion: cacheCompletion) {
+    public override func objectForKey(key: String, completion: cacheCompletion) {
         if (self.objectExist(key)) {
             dispatch_async(dispatch_get_global_queue(self.priority, UInt(0)), { ()->() in
                 var object: AnyObject! =  NSKeyedUnarchiver.unarchiveObjectWithFile(self.fullPath(key))
@@ -115,33 +115,33 @@ class DiskCache: Cache {
         }
     }
     
-    override func objectForKeySync(key: String) -> AnyObject! {
+    public override func objectForKeySync(key: String) -> AnyObject! {
         if (self.objectExist(key)) {
             return NSKeyedUnarchiver.unarchiveObjectWithFile(self.fullPath(key))
         }
         return nil
     }
     
-    override func setObject(object: AnyObject, key: String) {
+   public override func setObject(object: AnyObject, key: String) {
         NSKeyedArchiver.archiveRootObject(object, toFile: self.fullPath(key))
     }
     
-    override func removeObject(key: String) {
+    public override func removeObject(key: String) {
         if (self.objectExist(key)) {
             NSFileManager.defaultManager().removeItemAtPath(self.fullPath(key), error: nil)
         }
     }
     
-    override func removeAllObject() {
+    public override func removeAllObject() {
 
     }
 }
 
-class MemoryCache: Cache {
+public class MemoryCache: Cache {
     
-    var memoryCache = NSCache()
+    private var memoryCache = NSCache()
     
-    class var sharedMemoryCache: Cache {
+    public class var sharedMemoryCache: Cache {
         return _MemoryCache
     }
     
@@ -149,23 +149,23 @@ class MemoryCache: Cache {
         
     }
     
-    override func objectForKeySync(key: String) -> AnyObject! {
+    public override func objectForKeySync(key: String) -> AnyObject! {
         return self.memoryCache.objectForKey(key)
     }
     
-    override func objectForKey(key: String, completion: cacheCompletion)  {
+    public override func objectForKey(key: String, completion: cacheCompletion)  {
         completion(self.memoryCache.objectForKey(key))
     }
     
-    override func setObject(object: AnyObject, key: String) {
+    public override func setObject(object: AnyObject, key: String) {
         self.memoryCache.setObject(object, forKey: key)
     }
     
-    override func removeObject(key: String) {
+    public override func removeObject(key: String) {
         self.memoryCache.removeObjectForKey(key)
     }
     
-    override func removeAllObject() {
+    public override func removeAllObject() {
         self.memoryCache.removeAllObjects()
     }
     

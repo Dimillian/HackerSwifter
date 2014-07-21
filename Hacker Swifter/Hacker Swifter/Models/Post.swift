@@ -8,12 +8,12 @@
 
 import Foundation
 
-@objc(Post) class Post: NSObject, NSCoding {
+@objc(Post) public class Post: NSObject, NSCoding {
 
-    var title: String?
-    var username: String?
-    var url: NSURL?
-    var domain: String? {
+    public var title: String?
+    public var username: String?
+    public var url: NSURL?
+    public var domain: String? {
         get {
             var host: NSString = self.url!.host
             if (host.hasPrefix("www")) {
@@ -22,14 +22,14 @@ import Foundation
             return host
         }
     }
-    var points: Int?
-    var commentsCount: Int?
-    var postId: String?
-    var prettyTime: String?
-    var upvoteURL: String?
-    var type: PostFilter?
+    public var points: Int?
+    public var commentsCount: Int?
+    public var postId: String?
+    public var prettyTime: String?
+    public var upvoteURL: String?
+    public var type: PostFilter?
 
-    enum PostFilter: String {
+    public enum PostFilter: String {
         case Top = ""
         case Default = "default"
         case Ask = "ask"
@@ -39,7 +39,7 @@ import Foundation
         case Show = "show"
     }
     
-    enum SerializationKey: String {
+    private enum SerializationKey: String {
         case title = "title"
         case username = "username"
         case url = "url"
@@ -53,40 +53,39 @@ import Foundation
         static let allValues = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL, type]
     }
 
-    init(){
+    public init(){
         super.init()
     }
     
-    init(html: String) {
+    public init(html: String) {
         super.init()
         self.parseHTML(html)
     }
     
-    init(coder aDecoder: NSCoder!) {
+    public init(coder aDecoder: NSCoder!) {
         super.init()
         for key in SerializationKey.allValues {
             setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
         }
     }
     
-    func encodeWithCoder(aCoder: NSCoder!) {
+    public func encodeWithCoder(aCoder: NSCoder!) {
         
         for key in SerializationKey.allValues {
             if let value: AnyObject = self.valueForKey(key.toRaw()) {
                 aCoder.encodeObject(value, forKey: key.toRaw())
             }
         }
-    }
-    
+}
 }
 
 //Network
-extension Post {
+public extension Post {
     
-    typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
-    class func fetch(filter: PostFilter, completion: Response) {
+    public class func fetch(filter: PostFilter, completion: Response) {
         Fetcher.Fetch(filter.toRaw(),
             parsing: {(html) in
                 if let realHtml = html {
@@ -102,7 +101,7 @@ extension Post {
             })
     }
     
-    class func fetch(user: String, completion: Response) {
+    public class func fetch(user: String, completion: Response) {
         Fetcher.Fetch("submitted?id=" + user, parsing: {(html) in
             if let realHtml = html {
                 var posts = self.parseCollectionHTML(realHtml)
@@ -118,22 +117,21 @@ extension Post {
     }
     
     //Test using Algolia API For later
-    class func fetchPostDetailAPI(post: String, completion: ResponsePost) {
+    public class func fetchPostDetailAPI(post: String, completion: ResponsePost) {
         var path = "items/" + post
         Fetcher.FetchAPI(path, parsing: {(json) in
             return json
         },
         completion: {(object, error, local) in
-            println(object)
             completion(post: nil, error: error, local: local)
         })
     }
 }
 
 //HTML
-extension Post {
+internal extension Post {
     
-    class func parseCollectionHTML(html: String) -> [Post] {
+    internal class func parseCollectionHTML(html: String) -> [Post] {
         var components = html.componentsSeparatedByString("<tr><td align=\"right\" valign=\"top\" class=\"title\">")
         var posts: [Post] = []
         if (components.count > 0) {
@@ -150,7 +148,7 @@ extension Post {
         return posts
     }
     
-    func parseHTML(html: String) {
+    internal func parseHTML(html: String) {
         var scanner = NSScanner(string: html)
         if !html.rangeOfString("<td class=\"title\"> [dead] <a") {
             

@@ -8,27 +8,27 @@
 
 import Foundation
 
-@objc(Comment) class Comment: NSObject, NSCoding {
+@objc(Comment) public class Comment: NSObject, NSCoding {
 
-    var type: CommentFilter?
-    var text: String?
-    var username: String?
-    var depth: Int?
-    var commentId: String?
-    var parentId: String?
-    var prettyTime: String?
-    var links: [NSURL]?
-    var replyURLString: String?
-    var upvoteURLAddition: String?
-    var downvoteURLAddition: String?
+    public var type: CommentFilter?
+    public var text: String?
+    public var username: String?
+    public var depth: Int?
+    public var commentId: String?
+    public var parentId: String?
+    public var prettyTime: String?
+    public var links: [NSURL]?
+    public var replyURLString: String?
+    public var upvoteURLAddition: String?
+    public var downvoteURLAddition: String?
 
-    enum CommentFilter: String {
+    public enum CommentFilter: String {
         case Default = "default"
         case Ask = "ask"
         case Jobs = "jobs"
     }
 
-    enum SerializationKey: String {
+    private enum SerializationKey: String {
         case type = "title"
         case text = "text"
         case username = "username"
@@ -45,18 +45,18 @@ import Foundation
         [text, username, depth, commentId, parentId, prettyTime, links, replyURLString, upvoteURLAddition, downvoteURLAddition]
     }
 
-    init() {
+    public init() {
         super.init()
     }
 
-    init(coder aDecoder: NSCoder!) {
+    public init(coder aDecoder: NSCoder!) {
         super.init()
         for key in SerializationKey.allValues {
             setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
         }
     }
     
-    func encodeWithCoder(aCoder: NSCoder!) {   
+    public func encodeWithCoder(aCoder: NSCoder!) {
         for key in SerializationKey.allValues {
             if let value: AnyObject = self.valueForKey(key.toRaw()) {
                 aCoder.encodeObject(value, forKey: key.toRaw())
@@ -66,12 +66,12 @@ import Foundation
 }
 
 // Network
-extension Comment {
+public extension Comment {
 
     typealias Response = (comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
 
-    class func fetch(forPost post: Post, completion: Response) {
-        let ressource = "item?id=\(post.postId)"
+    public class func fetch(forPost post: Post, completion: Response) {
+        let ressource = "item?id=" + post.postId!
         Fetcher.Fetch(ressource,
             parsing: {(html) in
                 if let realHtml = html {
@@ -91,9 +91,9 @@ extension Comment {
 
 
 //HTML
-extension Comment {
+internal extension Comment {
 
-    class func parseCollectionHTML(html: String, withType type: Post.PostFilter) -> [Comment] {
+    internal class func parseCollectionHTML(html: String, withType type: Post.PostFilter) -> [Comment] {
         var components = html.componentsSeparatedByString("<td><img src=\"s.gif\"")
         var comments: [Comment] = []
         if (components.count > 0) {
@@ -132,17 +132,17 @@ extension Comment {
         return comments
     }
 
-    func parseHTML(html: String, withType type: Post.PostFilter) {
+    internal func parseHTML(html: String, withType type: Post.PostFilter) {
         var scanner = NSScanner(string: html)
         
         var level: NSString = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
         self.depth = level.integerValue / 40
         
         var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
-        self.username = username.utf16count > 0 ? username : "[deleted]"
+        self.username = username.utf16Count > 0 ? username : "[deleted]"
         
         self.prettyTime = scanner.scanTag("</a> ", endTag: " |")
-        self.text = String.stringByRemovingHTMLEntities(scanner.scanTag("<font color=", endTag: "</font>").substringFromIndex(10))
+        self.text = String.stringByRemovingHTMLEntities(scanner.scanTag("<font color=", endTag: "</font>").bridgeToObjectiveC().substringFromIndex(10))
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
         
         self.commentId = scanner.scanTag("reply?id=", endTag: "&")
