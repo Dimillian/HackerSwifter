@@ -2,4 +2,8 @@
 
 import Cocoa
 
-var html = "
+var session = NSURLSession.dataTaskWithURL()
+
+
+
+
