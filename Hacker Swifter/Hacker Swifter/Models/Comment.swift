@@ -155,7 +155,14 @@ internal extension Comment {
         self.username = username.utf16Count > 0 ? username : "[deleted]"
         
         self.prettyTime = scanner.scanTag("</a> ", endTag: " |")
-        self.text = String.stringByRemovingHTMLEntities(scanner.scanTag("<font color=", endTag: "</font>").bridgeToObjectiveC().substringFromIndex(10))
+        
+        if html.bridgeToObjectiveC().rangeOfString("[deleted]").location != NSNotFound {
+            self.text = "[deleted]"
+        }
+        else {
+            self.text = String.stringByRemovingHTMLEntities(scanner.scanTag("<font color=", endTag: "</font>").bridgeToObjectiveC().substringFromIndex(10))
+        }
+        
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
         
         self.commentId = scanner.scanTag("reply?id=", endTag: "&")
