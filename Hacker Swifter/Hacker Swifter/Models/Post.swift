@@ -119,7 +119,7 @@ public extension Post {
     }
   
   public class func fetch(user: String, page: Int, completion: Response) {
-    Fetcher.Fetch("submitted?id=" + user + "?p=\(page)", parsing: {(html) in
+    Fetcher.Fetch("submitted?id=" + user + "&p=\(page)", parsing: {(html) in
       if let realHtml = html {
         var posts = self.parseCollectionHTML(realHtml)
         return posts
