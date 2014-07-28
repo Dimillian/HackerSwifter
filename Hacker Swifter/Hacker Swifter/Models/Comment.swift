@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(Comment) public class Comment: NSObject, NSCoding {
+@objc(Comment) public class Comment: NSObject, NSCoding, Equatable {
 
     public var type: CommentFilter?
     public var text: String?
@@ -73,7 +73,12 @@ import Foundation
     }
 }
 
-// Network
+//MARK: Equatable implementation
+public func ==(larg: Comment, rarg: Comment) -> Bool {
+    return larg.commentId == rarg.commentId
+}
+
+//MARK: Network
 public extension Comment {
 
     typealias Response = (comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
@@ -103,7 +108,7 @@ public extension Comment {
 
 
 
-//HTML
+//MARK: HTML
 internal extension Comment {
 
     internal class func parseCollectionHTML(html: String, withType type: Post.PostFilter) -> [Comment] {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(Post) public class Post: NSObject, NSCoding {
+@objc(Post) public class Post: NSObject, NSCoding, Equatable {
 
     public var title: String?
     public var username: String?
@@ -84,10 +84,14 @@ import Foundation
         aCoder.encodeObject(self.postId, forKey: SerializationKey.postId)
         aCoder.encodeObject(self.upvoteURL, forKey: SerializationKey.upvoteURL)
     }
-    
 }
 
-//Network
+//MARK: Equatable implementation
+public func ==(larg: Post, rarg: Post) -> Bool {
+    return larg.postId == rarg.postId
+}
+
+//MARK: Network
 public extension Post {
     
     public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
@@ -154,7 +158,7 @@ public extension Post {
     }
 }
 
-//HTML
+//MARK: HTML
 internal extension Post {
     
     internal class func parseCollectionHTML(html: String) -> [Post] {
