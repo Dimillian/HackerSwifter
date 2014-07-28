@@ -43,6 +43,8 @@ class PostTests: XCTestCase {
       func testIfDifferent(){
         if (postsPage1.count > 1 && postsPage2.count > 1) {
           XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
+          XCTAssertNotEqual(postsPage1[1], postsPage2[1], "page 1 and two have the same content")
+          XCTAssertNotEqual(postsPage1[2], postsPage2[2], "page 1 and two have the same content")
           expectation.fulfill()
         }
       }
