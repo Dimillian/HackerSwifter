@@ -93,9 +93,33 @@ public extension Post {
     public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
   
-  public class func fetch(filter: PostFilter, page: Int, completion: Response) {
-    Fetcher.Fetch(filter.toRaw() + "?p=\(page)",
-      parsing: {(html) in
+    public class func fetch(filter: PostFilter, page: Int, completion: Response) {
+      Fetcher.Fetch(filter.toRaw() + "?p=\(page)",
+        parsing: {(html) in
+          if let realHtml = html {
+            var posts = self.parseCollectionHTML(realHtml)
+            return posts
+          }
+          else {
+            return nil
+          }
+        },
+        completion: {(object, error, local) in
+          if let realObject: AnyObject = object {
+            completion(posts: realObject as [Post], error: error, local: local)
+          }
+          else {
+            completion(posts: nil, error: error, local: local)
+          }
+      })
+    }
+  
+    public class func fetch(filter: PostFilter, completion: Response) {
+      fetch(filter, page: 1, completion: completion)
+    }
+  
+    public class func fetch(user: String, page: Int, completion: Response) {
+      Fetcher.Fetch("submitted?id=" + user + "&p=\(page)", parsing: {(html) in
         if let realHtml = html {
           var posts = self.parseCollectionHTML(realHtml)
           return posts
@@ -103,40 +127,16 @@ public extension Post {
         else {
           return nil
         }
-      },
-      completion: {(object, error, local) in
-        if let realObject: AnyObject = object {
-          completion(posts: realObject as [Post], error: error, local: local)
-        }
-        else {
-          completion(posts: nil, error: error, local: local)
-        }
+        },
+        completion: {(object, error, local) in
+          if let realObject: AnyObject = object {
+            completion(posts: realObject as [Post], error: error, local: local)
+          }
+          else {
+            completion(posts: nil, error: error, local: local)
+          }
       })
-  }
-  
-    public class func fetch(filter: PostFilter, completion: Response) {
-      fetch(filter, page: 1, completion: completion)
     }
-  
-  public class func fetch(user: String, page: Int, completion: Response) {
-    Fetcher.Fetch("submitted?id=" + user + "&p=\(page)", parsing: {(html) in
-      if let realHtml = html {
-        var posts = self.parseCollectionHTML(realHtml)
-        return posts
-      }
-      else {
-        return nil
-      }
-      },
-      completion: {(object, error, local) in
-        if let realObject: AnyObject = object {
-          completion(posts: realObject as [Post], error: error, local: local)
-        }
-        else {
-          completion(posts: nil, error: error, local: local)
-        }
-      })
-  }
   
     public class func fetch(user: String, completion: Response) {
       fetch(user, page: 1, completion: completion)

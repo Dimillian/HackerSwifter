@@ -35,36 +35,36 @@ class PostTests: XCTestCase {
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
   
-  func testFetchNewsPage2() {
-    var expectation = self.expectationWithDescription("fetch posts")
-    var postsPage1:[Post] = []
-    var postsPage2:[Post] = []
-    
-    func testIfDifferent(){
-      if (postsPage1.count > 1 && postsPage2.count > 1) {
-        XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
-        expectation.fulfill()
+    func testFetchNewsPage2() {
+      var expectation = self.expectationWithDescription("fetch posts")
+      var postsPage1:[Post] = []
+      var postsPage2:[Post] = []
+      
+      func testIfDifferent(){
+        if (postsPage1.count > 1 && postsPage2.count > 1) {
+          XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
+          expectation.fulfill()
+        }
       }
-    }
-    
-    Post.fetch(.Top, page:1, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-      if (!local) {
-        postsPage1 = posts
-        XCTAssertTrue(posts!.count > 1, "page 1 posts should contain post")
-        testIfDifferent()
-      }
+      
+      Post.fetch(.Top, page:1, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+        if (!local) {
+          postsPage1 = posts
+          XCTAssertTrue(posts!.count > 1, "page 1 posts should contain post")
+          testIfDifferent()
+        }
       })
-    
-    Post.fetch(.Top, page:2, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-      if (!local) {
-        postsPage2 = posts
-        XCTAssertTrue(posts!.count > 1, "page 2 posts should contain post")
-        testIfDifferent()
-      }
-    })
-    
-    self.waitForExpectationsWithTimeout(5.0, handler: nil)
-  }
+      
+      Post.fetch(.Top, page:2, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+        if (!local) {
+          postsPage2 = posts
+          XCTAssertTrue(posts!.count > 1, "page 2 posts should contain post")
+          testIfDifferent()
+        }
+      })
+      
+      self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    }
   
     func testFetchPostForUser() {
         var expectation = self.expectationWithDescription("fetch posts")
