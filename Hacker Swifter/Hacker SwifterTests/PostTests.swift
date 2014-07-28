@@ -11,7 +11,7 @@ import XCTest
 import HackerSwifter
 
 class PostTests: XCTestCase {
-
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,53 +21,53 @@ class PostTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
+    
     func testFetchNews() {
         var expectation = self.expectationWithDescription("fetch posts")
         
-        Post.fetch(.Top, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in            
+        Post.fetch(.Top, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
             if (!local) {
                 XCTAssertTrue(posts!.count > 1, "posts should contain post")
                 expectation.fulfill()
             }
-        })
+            })
         
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
-  
+    
     func testFetchNewsPage2() {
-      var expectation = self.expectationWithDescription("fetch posts")
-      var postsPage1:[Post] = []
-      var postsPage2:[Post] = []
-      
-      func testIfDifferent(){
-        if (postsPage1.count > 1 && postsPage2.count > 1) {
-          XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
-          XCTAssertNotEqual(postsPage1[1], postsPage2[1], "page 1 and two have the same content")
-          XCTAssertNotEqual(postsPage1[2], postsPage2[2], "page 1 and two have the same content")
-          expectation.fulfill()
+        var expectation = self.expectationWithDescription("fetch posts")
+        var postsPage1:[Post] = []
+        var postsPage2:[Post] = []
+        
+        func testIfDifferent(){
+            if (postsPage1.count > 1 && postsPage2.count > 1) {
+                XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
+                XCTAssertNotEqual(postsPage1[1], postsPage2[1], "page 1 and two have the same content")
+                XCTAssertNotEqual(postsPage1[2], postsPage2[2], "page 1 and two have the same content")
+                expectation.fulfill()
+            }
         }
-      }
-      
-      Post.fetch(.Top, page:1, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-        if (!local) {
-          postsPage1 = posts
-          XCTAssertTrue(posts!.count > 1, "page 1 posts should contain post")
-          testIfDifferent()
-        }
-      })
-      
-      Post.fetch(.Top, page:2, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-        if (!local) {
-          postsPage2 = posts
-          XCTAssertTrue(posts!.count > 1, "page 2 posts should contain post")
-          testIfDifferent()
-        }
-      })
-      
-      self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        
+        Post.fetch(.Top, page:1, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+            if (!local) {
+                postsPage1 = posts
+                XCTAssertTrue(posts!.count > 1, "page 1 posts should contain post")
+                testIfDifferent()
+            }
+            })
+        
+        Post.fetch(.Top, page:2, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+            if (!local) {
+                postsPage2 = posts
+                XCTAssertTrue(posts!.count > 1, "page 2 posts should contain post")
+                testIfDifferent()
+            }
+            })
+        
+        self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
-  
+    
     func testFetchPostForUser() {
         var expectation = self.expectationWithDescription("fetch posts")
         
@@ -76,7 +76,7 @@ class PostTests: XCTestCase {
                 XCTAssertTrue(posts!.count > 1, "posts should contain post")
                 expectation.fulfill()
             }
-        })
+            })
         
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
@@ -87,7 +87,7 @@ class PostTests: XCTestCase {
             if (!local) {
                 expectation.fulfill()
             }
-        })
+            })
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
     
@@ -97,5 +97,5 @@ class PostTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
+    
 }
