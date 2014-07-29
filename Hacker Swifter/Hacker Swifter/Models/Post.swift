@@ -103,8 +103,7 @@ public extension Post {
           if let realHtml = html {
             var posts = self.parseCollectionHTML(realHtml)
             return posts
-          }
-          else {
+          } else {
             return nil
           }
         },
@@ -122,15 +121,19 @@ public extension Post {
       fetch(filter, page: 1, completion: completion)
     }
   
-    public class func fetch(user: String, page: Int, completion: Response) {
-      Fetcher.Fetch("submitted?id=" + user + "&p=\(page)", parsing: {(html) in
-        if let realHtml = html {
-          var posts = self.parseCollectionHTML(realHtml)
-          return posts
-        }
-        else {
-          return nil
-        }
+    public class func fetch(user: String, page: Int, lastPostId:String?, completion: Response) {
+      var additionalParameters = ""
+      if let lastPostIdInt = lastPostId?.toInt() {
+          additionalParameters = "&next=\(lastPostIdInt-1)"
+      }
+      Fetcher.Fetch("submitted?id=" + user + additionalParameters,
+        parsing: {(html) in
+          if let realHtml = html {
+              var posts = self.parseCollectionHTML(realHtml)
+              return posts
+          } else {
+              return nil
+          }
         },
         completion: {(object, error, local) in
           if let realObject: AnyObject = object {
@@ -143,7 +146,7 @@ public extension Post {
     }
   
     public class func fetch(user: String, completion: Response) {
-      fetch(user, page: 1, completion: completion)
+      fetch(user, page: 1, lastPostId:nil, completion: completion)
     }
     
     //Test using Algolia API For later
