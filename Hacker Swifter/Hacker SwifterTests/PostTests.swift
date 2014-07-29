@@ -39,7 +39,7 @@ class PostTests: XCTestCase {
         var expectation = self.expectationWithDescription("fetch posts")
         var postsPage1:[Post] = []
         var postsPage2:[Post] = []
-                
+        
         Post.fetch(.Top, page:1, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
             if (!local) {
                 postsPage1 = posts
@@ -53,9 +53,9 @@ class PostTests: XCTestCase {
                         XCTAssertNotEqual(postsPage1[2], postsPage2[2], "page 1 and two have the same content")
                         expectation.fulfill()
                     }
-                })
+                    })
             }
-        })
+            })
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
     
@@ -73,29 +73,29 @@ class PostTests: XCTestCase {
     }
     
     func testFetchPostForUserPage2() {
-      var expectation = self.expectationWithDescription("fetch posts")
-      var postsPage1:[Post] = []
-      var postsPage2:[Post] = []
-      
-      Post.fetch("antr", page:1, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-          if (!local) {
-              postsPage1 = posts
-              XCTAssertTrue(posts!.count > 1, "page 1 posts should contain post")
-              Post.fetch("antr", page:2, lastPostId:(postsPage1.lastObject as Post).postId, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-                  if (!local) {
-                      postsPage2 = posts
-                      XCTAssertTrue(posts!.count > 1, "page 2 posts should contain post")
-                      XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
-                      XCTAssertNotEqual(postsPage1[1], postsPage2[1], "page 1 and two have the same content")
-                      XCTAssertNotEqual(postsPage1[2], postsPage2[2], "page 1 and two have the same content")
-                      expectation.fulfill()
-                  }
-              })
-          }
-      })
-      self.waitForExpectationsWithTimeout(10.0, handler: nil)
+        var expectation = self.expectationWithDescription("fetch posts")
+        var postsPage1:[Post] = []
+        var postsPage2:[Post] = []
+        
+        Post.fetch("antr", page:1, lastPostId: nil, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+            if (!local) {
+                postsPage1 = posts
+                XCTAssertTrue(posts!.count > 1, "page 1 posts should contain post")
+                Post.fetch("antr", page:2, lastPostId:(postsPage1[postsPage1.count - 1]).postId, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+                    if (!local) {
+                        postsPage2 = posts
+                        XCTAssertTrue(posts!.count > 1, "page 2 posts should contain post")
+                        XCTAssertNotEqual(postsPage1[0], postsPage2[0], "page 1 and two have the same content")
+                        XCTAssertNotEqual(postsPage1[1], postsPage2[1], "page 1 and two have the same content")
+                        XCTAssertNotEqual(postsPage1[2], postsPage2[2], "page 1 and two have the same content")
+                        expectation.fulfill()
+                    }
+                    })
+            }
+            })
+        self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
-  
+    
     func testFetchPostDetailAPI() {
         var expectation = self.expectationWithDescription("fetch post")
         Post.fetchPostDetailAPI("8044029", completion: {(post: Post!, error: Fetcher.ResponseError!, local: Bool) in
