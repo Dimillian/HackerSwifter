@@ -15,9 +15,9 @@ private let _DiskCache = DiskCache()
 public typealias cacheCompletion = (AnyObject!) -> Void
 
 public class Cache {
-
+    
     public class var sharedCache: Cache {
-        return _Cache
+    return _Cache
     }
     
     init() {
@@ -47,9 +47,9 @@ public class Cache {
             else {
                 DiskCache.sharedDiskCache.objectForKey(key, completion: {(object: AnyObject!) in
                     completion(object)
-                })
+                    })
             }
-        })
+            })
     }
     
     public func objectForKeySync(key: String) -> AnyObject! {
@@ -72,25 +72,25 @@ public class DiskCache: Cache {
     
     private struct files {
         static var filepath: String {
-            var manager = NSFileManager.defaultManager()
+        var manager = NSFileManager.defaultManager()
             var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory,
                 NSSearchPathDomainMask.UserDomainMask, true)
             var cachePath = paths[0] as String + "/modelCache/"
-                if (!manager.fileExistsAtPath(cachePath)) {
-                    manager.createDirectoryAtPath(cachePath, withIntermediateDirectories: true, attributes: nil, error: nil)
-                }
+            if (!manager.fileExistsAtPath(cachePath)) {
+                manager.createDirectoryAtPath(cachePath, withIntermediateDirectories: true, attributes: nil, error: nil)
+            }
             return cachePath
         }
     }
     
     private let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-
+    
     public class var sharedDiskCache: Cache {
-        return _DiskCache
+    return _DiskCache
     }
-
+    
     init() {
-
+        
     }
     
     public func fullPath(key: String) -> String {
@@ -122,7 +122,7 @@ public class DiskCache: Cache {
         return nil
     }
     
-   public override func setObject(object: AnyObject, key: String) {
+    public override func setObject(object: AnyObject, key: String) {
         NSKeyedArchiver.archiveRootObject(object, toFile: self.fullPath(key))
     }
     
@@ -133,7 +133,7 @@ public class DiskCache: Cache {
     }
     
     public override func removeAllObject() {
-
+        
     }
 }
 
@@ -142,7 +142,7 @@ public class MemoryCache: Cache {
     private var memoryCache = NSCache()
     
     public class var sharedMemoryCache: Cache {
-        return _MemoryCache
+    return _MemoryCache
     }
     
     init() {
