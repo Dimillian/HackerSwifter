@@ -165,7 +165,8 @@ internal extension Comment {
             self.text = "[deleted]"
         }
         else {
-            self.text = String.stringByRemovingHTMLEntities((scanner.scanTag("<font color=", endTag: "</font>") as NSString).substringFromIndex(10))
+            let textTemp = scanner.scanTag("<font color=", endTag: "</font>")
+            self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
         }
         
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
