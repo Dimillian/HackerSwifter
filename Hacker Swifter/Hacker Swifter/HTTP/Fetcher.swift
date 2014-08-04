@@ -77,7 +77,7 @@ public class Fetcher {
             if var data = data {
                 var error: NSError? = nil
                 var JSON: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &error)
-                if !error {
+                if error != nil {
                     var object: AnyObject! = parsing(json: JSON)
                     if var object: AnyObject = object {
                         completion(object: object, error: nil, local: false)

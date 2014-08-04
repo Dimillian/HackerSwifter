@@ -89,7 +89,7 @@ public class DiskCache: Cache {
         return _DiskCache
     }
 
-    init() {
+    override init() {
 
     }
     
@@ -145,7 +145,7 @@ public class MemoryCache: Cache {
         return _MemoryCache
     }
     
-    init() {
+    override init() {
         
     }
     
