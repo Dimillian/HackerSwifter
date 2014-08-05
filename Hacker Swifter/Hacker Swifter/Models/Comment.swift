@@ -42,11 +42,11 @@ import Foundation
         static let downvoteURLAddition = "downvoteURLAddition"
     }
 
-    public init() {
+    public override init() {
         super.init()
     }
 
-    public init(coder aDecoder: NSCoder!) {
+    public required init(coder aDecoder: NSCoder!) {
         self.text = aDecoder.decodeObjectForKey(SerializationKey.text) as? String
         self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
         self.depth = aDecoder.decodeObjectForKey(SerializationKey.depth) as? Int
@@ -165,11 +165,11 @@ internal extension Comment {
         
         self.prettyTime = scanner.scanTag("</a> ", endTag: " |")
         
-        if html.bridgeToObjectiveC().rangeOfString("[deleted]").location != NSNotFound {
+        if (html.rangeOfString("[deleted]")?.startIndex != nil) {
             self.text = "[deleted]"
-        }
-        else {
-            self.text = String.stringByRemovingHTMLEntities(scanner.scanTag("<font color=", endTag: "</font>").bridgeToObjectiveC().substringFromIndex(10))
+        } else {
+            let textTemp = scanner.scanTag("<font color=", endTag: "</font>")
+            self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
         }
         
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
@@ -177,7 +177,6 @@ internal extension Comment {
         self.commentId = scanner.scanTag("reply?id=", endTag: "&")
         self.replyURLString = scanner.scanTag("<font size=1><u><a href=\"", endTag: "\">reply")
         self.type = CommentFilter.Default
-        
     }
 }
 

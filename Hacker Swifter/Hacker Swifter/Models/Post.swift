@@ -51,7 +51,7 @@ import Foundation
         static let type = "type"
     }
 
-    public init(){
+    public override init(){
         super.init()
     }
     
@@ -62,7 +62,7 @@ import Foundation
     
     // We might want to do a Mantle like thing with magic keys matching
     
-    public init(coder aDecoder: NSCoder!) {
+    public required init(coder aDecoder: NSCoder!) {
         self.title = aDecoder.decodeObjectForKey(SerializationKey.title) as? String
         self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
         self.url = aDecoder.decodeObjectForKey(SerializationKey.url) as? NSURL
@@ -183,7 +183,9 @@ internal extension Post {
     
     internal func parseHTML(html: String) {
         var scanner = NSScanner(string: html)
-        if !html.rangeOfString("<td class=\"title\"> [dead] <a") {
+      
+      
+        if (html.rangeOfString("<td class=\"title\"> [dead] <a") == nil) {
             
             self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))
             self.title = scanner.scanTag(">", endTag: "</a>")
@@ -191,7 +193,7 @@ internal extension Post {
             var temp: NSString = scanner.scanTag("<span id=\"score_", endTag: "</span>")
             var range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
-                self.points = temp.substringFromIndex(range.location + 1).bridgeToObjectiveC().integerValue
+                self.points = temp.substringFromIndex(range.location + 1).toInt()
             }
             
             self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
@@ -206,10 +208,10 @@ internal extension Post {
                 self.commentsCount = temp.integerValue
             }
             
-            if (!self.username && !self.commentsCount && !self.postId) {
+            if (self.username == nil && self.commentsCount == 0 && self.postId == nil) {
                 self.type = PostFilter.Jobs
             }
-            else if (self.url?.absoluteString.bridgeToObjectiveC().rangeOfString("http").location == NSNotFound) {
+            else if (self.url?.absoluteString.rangeOfString("http")?.startIndex == nil) {
                 self.type = PostFilter.Ask
                 var url = self.url?.absoluteString
                 self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
