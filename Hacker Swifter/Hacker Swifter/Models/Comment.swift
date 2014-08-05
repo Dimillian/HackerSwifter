@@ -167,8 +167,7 @@ internal extension Comment {
         
         if (html.rangeOfString("[deleted]")?.startIndex != nil) {
             self.text = "[deleted]"
-        }
-        else {
+        } else {
             let textTemp = scanner.scanTag("<font color=", endTag: "</font>")
             self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
         }
@@ -178,7 +177,6 @@ internal extension Comment {
         self.commentId = scanner.scanTag("reply?id=", endTag: "&")
         self.replyURLString = scanner.scanTag("<font size=1><u><a href=\"", endTag: "\">reply")
         self.type = CommentFilter.Default
-        
     }
 }
 
