@@ -122,8 +122,11 @@ public class DiskCache: Cache {
         return nil
     }
     
-   public override func setObject(object: AnyObject, key: String) {
-        NSKeyedArchiver.archiveRootObject(object, toFile: self.fullPath(key))
+    public override func setObject(object: AnyObject, key: String) {
+        dispatch_async(dispatch_get_global_queue(self.priority, UInt(0)), {
+            NSKeyedArchiver.archiveRootObject(object, toFile: self.fullPath(key))
+            RETURN
+        })
     }
     
     public override func removeObject(key: String) {
