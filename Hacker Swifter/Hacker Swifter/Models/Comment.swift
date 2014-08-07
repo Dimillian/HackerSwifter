@@ -154,11 +154,11 @@ internal extension Comment {
         var scanner = NSScanner(string: html)
         
         var level = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
-        if let unwrappedLevel = level.toInt() {
+        if let unwrappedLevel = level.substringToIndex(advance(level.startIndex, countElements(level) - 1)).toInt() {
             self.depth = unwrappedLevel / 40
         } else {
             self.depth = 0
-      }
+        }
         
         var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
         self.username = username.utf16Count > 0 ? username : "[deleted]"

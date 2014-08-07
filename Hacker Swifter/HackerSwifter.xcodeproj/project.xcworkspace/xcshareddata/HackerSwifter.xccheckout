@@ -10,29 +10,29 @@
 	<string>HackerSwifter</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>891AA65D-30D1-4461-A7A7-DC936C19376F</key>
+		<key>E0D52B920DCA102ACF12EC644CE806103E82A316</key>
 		<string>https://github.com/Dimillian/HackerSwifter.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Hacker Swifter/HackerSwifter.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>891AA65D-30D1-4461-A7A7-DC936C19376F</key>
+		<key>E0D52B920DCA102ACF12EC644CE806103E82A316</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Dimillian/HackerSwifter.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>891AA65D-30D1-4461-A7A7-DC936C19376F</string>
+	<string>E0D52B920DCA102ACF12EC644CE806103E82A316</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>891AA65D-30D1-4461-A7A7-DC936C19376F</string>
+			<string>E0D52B920DCA102ACF12EC644CE806103E82A316</string>
 			<key>IDESourceControlWCCName</key>
 			<string>HackerSwifter</string>
 		</dict>
