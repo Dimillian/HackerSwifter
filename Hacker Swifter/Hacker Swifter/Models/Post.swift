@@ -15,11 +15,14 @@ import Foundation
     public var url: NSURL?
     public var domain: String? {
         get {
-            var host: NSString = self.url!.host
-            if (host.hasPrefix("www")) {
-                host = host.substringFromIndex(4)
+            if self.url != nil {
+                var host: NSString = self.url!.host
+                if (host.hasPrefix("www")) {
+                    host = host.substringFromIndex(4)
+                }
+                return host
             }
-            return host
+            return ""
         }
     }
     public var points: Int?
@@ -207,14 +210,15 @@ internal extension Post {
             else {
                 self.commentsCount = temp.integerValue
             }
-            
             if (self.username == nil && self.commentsCount == 0 && self.postId == nil) {
                 self.type = PostFilter.Jobs
             }
             else if (self.url?.absoluteString.rangeOfString("http")?.startIndex == nil) {
                 self.type = PostFilter.Ask
-                var url = self.url?.absoluteString
-                self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
+                if let realURL = self.url {
+                    var url = realURL.absoluteString
+                    self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
+                }
             }
             else {
                 self.type = PostFilter.Default
