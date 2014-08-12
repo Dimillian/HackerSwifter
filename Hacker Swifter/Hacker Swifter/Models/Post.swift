@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(Post) public class Post: NSObject, NSCoding, Equatable {
-
+    
     public var title: String?
     public var username: String?
     public var url: NSURL?
@@ -31,7 +31,7 @@ import Foundation
     public var prettyTime: String?
     public var upvoteURL: String?
     public var type: PostFilter?
-
+    
     public enum PostFilter: String {
         case Top = ""
         case Default = "default"
@@ -53,7 +53,7 @@ import Foundation
         static let upvoteURL = "upvoteURL"
         static let type = "type"
     }
-
+    
     public override init(){
         super.init()
     }
@@ -99,57 +99,57 @@ public extension Post {
     
     public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
-  
+    
     public class func fetch(filter: PostFilter, page: Int, completion: Response) {
-      Fetcher.Fetch(filter.toRaw() + "?p=\(page)",
-        parsing: {(html) in
-          if let realHtml = html {
-            var posts = self.parseCollectionHTML(realHtml)
-            return posts
-          } else {
-            return nil
-          }
-        },
-        completion: {(object, error, local) in
-          if let realObject: AnyObject = object {
-            completion(posts: realObject as [Post], error: error, local: local)
-          }
-          else {
-            completion(posts: nil, error: error, local: local)
-          }
-      })
+        Fetcher.Fetch(filter.toRaw() + "?p=\(page)",
+            parsing: {(html) in
+                if let realHtml = html {
+                    var posts = self.parseCollectionHTML(realHtml)
+                    return posts
+                } else {
+                    return nil
+                }
+            },
+            completion: {(object, error, local) in
+                if let realObject: AnyObject = object {
+                    completion(posts: realObject as [Post], error: error, local: local)
+                }
+                else {
+                    completion(posts: nil, error: error, local: local)
+                }
+        })
     }
-  
+    
     public class func fetch(filter: PostFilter, completion: Response) {
-      fetch(filter, page: 1, completion: completion)
+        fetch(filter, page: 1, completion: completion)
     }
-  
+    
     public class func fetch(user: String, page: Int, lastPostId:String?, completion: Response) {
-      var additionalParameters = ""
-      if let lastPostIdInt = lastPostId?.toInt() {
-          additionalParameters = "&next=\(lastPostIdInt-1)"
-      }
-      Fetcher.Fetch("submitted?id=" + user + additionalParameters,
-        parsing: {(html) in
-          if let realHtml = html {
-              var posts = self.parseCollectionHTML(realHtml)
-              return posts
-          } else {
-              return nil
-          }
-        },
-        completion: {(object, error, local) in
-          if let realObject: AnyObject = object {
-            completion(posts: realObject as [Post], error: error, local: local)
-          }
-          else {
-            completion(posts: nil, error: error, local: local)
-          }
-      })
+        var additionalParameters = ""
+        if let lastPostIdInt = lastPostId?.toInt() {
+            additionalParameters = "&next=\(lastPostIdInt-1)"
+        }
+        Fetcher.Fetch("submitted?id=" + user + additionalParameters,
+            parsing: {(html) in
+                if let realHtml = html {
+                    var posts = self.parseCollectionHTML(realHtml)
+                    return posts
+                } else {
+                    return nil
+                }
+            },
+            completion: {(object, error, local) in
+                if let realObject: AnyObject = object {
+                    completion(posts: realObject as [Post], error: error, local: local)
+                }
+                else {
+                    completion(posts: nil, error: error, local: local)
+                }
+        })
     }
-  
+    
     public class func fetch(user: String, completion: Response) {
-      fetch(user, page: 1, lastPostId:nil, completion: completion)
+        fetch(user, page: 1, lastPostId:nil, completion: completion)
     }
     
     //Test using Algolia API For later
@@ -157,9 +157,9 @@ public extension Post {
         var path = "items/" + post
         Fetcher.FetchAPI(path, parsing: {(json) in
             return json
-        },
-        completion: {(object, error, local) in
-            completion(post: nil, error: error, local: local)
+            },
+            completion: {(object, error, local) in
+                completion(post: nil, error: error, local: local)
         })
     }
 }
@@ -184,8 +184,8 @@ internal extension Post {
     
     internal func parseHTML(html: String) {
         var scanner = NSScanner(string: html)
-      
-      
+        
+        
         if (html.rangeOfString("<td class=\"title\"> [dead] <a") == nil) {
             
             self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))

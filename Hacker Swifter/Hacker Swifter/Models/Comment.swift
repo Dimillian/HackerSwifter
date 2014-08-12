@@ -9,7 +9,7 @@
 import Foundation
 
 @objc(Comment) public class Comment: NSObject, NSCoding, Equatable {
-
+    
     public var type: CommentFilter?
     public var text: String?
     public var username: String?
@@ -21,13 +21,13 @@ import Foundation
     public var replyURLString: String?
     public var upvoteURLAddition: String?
     public var downvoteURLAddition: String?
-
+    
     public enum CommentFilter: String {
         case Default = "default"
         case Ask = "ask"
         case Jobs = "jobs"
     }
-
+    
     private struct SerializationKey {
         static let type = "title"
         static let text = "text"
@@ -41,7 +41,7 @@ import Foundation
         static let upvoteURLAddition = "upvoteURLAddition"
         static let downvoteURLAddition = "downvoteURLAddition"
     }
-
+    
     public override init(){
         super.init()
     }
@@ -50,7 +50,7 @@ import Foundation
         super.init()
         self.parseHTML(html, withType: type)
     }
-
+    
     public required init(coder aDecoder: NSCoder!) {
         self.text = aDecoder.decodeObjectForKey(SerializationKey.text) as? String
         self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
@@ -63,7 +63,7 @@ import Foundation
         self.upvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.upvoteURLAddition) as? String
         self.downvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.downvoteURLAddition) as? String
     }
-
+    
     public func encodeWithCoder(aCoder: NSCoder!) {
         aCoder.encodeObject(self.text, forKey: SerializationKey.text)
         aCoder.encodeObject(self.username, forKey: SerializationKey.username)
@@ -85,9 +85,9 @@ public func ==(larg: Comment, rarg: Comment) -> Bool {
 
 //MARK: Network
 public extension Comment {
-
+    
     typealias Response = (comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
-
+    
     public class func fetch(forPost post: Post, completion: Response) {
         let ressource = "item?id=" + post.postId!
         Fetcher.Fetch(ressource,
@@ -107,7 +107,7 @@ public extension Comment {
                 else {
                     completion(comments: nil, error: error, local: local)
                 }
-            })
+        })
     }
 }
 
@@ -115,7 +115,7 @@ public extension Comment {
 
 //MARK: HTML
 internal extension Comment {
-
+    
     internal class func parseCollectionHTML(html: String, withType type: Post.PostFilter) -> [Comment] {
         var components = html.componentsSeparatedByString("<td><img src=\"s.gif\"")
         var comments: [Comment] = []
@@ -152,7 +152,7 @@ internal extension Comment {
         }
         return comments
     }
-
+    
     internal func parseHTML(html: String, withType type: Post.PostFilter) {
         var scanner = NSScanner(string: html)
         
