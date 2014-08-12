@@ -92,8 +92,13 @@ public extension Comment {
         let ressource = "item?id=" + post.postId!
         Fetcher.Fetch(ressource,
             parsing: {(html) in
+                var type = post.type
+                if type == nil {
+                    type = Post.PostFilter.Default
+                }
+                
                 if let realHtml = html {
-                    var comments = self.parseCollectionHTML(realHtml, withType: post.type!)
+                    var comments = self.parseCollectionHTML(realHtml, withType: type!)
                     return comments
                 }
                 else {

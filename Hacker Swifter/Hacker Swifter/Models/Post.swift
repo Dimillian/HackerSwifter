@@ -185,7 +185,6 @@ internal extension Post {
     internal func parseHTML(html: String) {
         var scanner = NSScanner(string: html)
         
-        
         if (html.rangeOfString("<td class=\"title\"> [dead] <a") == nil) {
             
             self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))
