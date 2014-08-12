@@ -174,9 +174,7 @@ internal extension Post {
             var index = 0
             for component in components {
                 if index != 0 {
-                    var post = Post()
-                    post.parseHTML(component)
-                    posts.append(post)
+                    posts.append(Post(html: component))
                 }
                 index++
             }

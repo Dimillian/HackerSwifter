@@ -42,8 +42,13 @@ import Foundation
         static let downvoteURLAddition = "downvoteURLAddition"
     }
 
-    public override init() {
+    public override init(){
         super.init()
+    }
+    
+    public init(html: String, type: Post.PostFilter) {
+        super.init()
+        self.parseHTML(html, withType: type)
     }
 
     public required init(coder aDecoder: NSCoder!) {
@@ -140,9 +145,7 @@ internal extension Comment {
             
             for component in components {
                 if index != 0 && index != components.count - 1 {
-                    var comment = Comment()
-                    comment.parseHTML(component, withType: type)
-                    comments.append(comment)
+                    comments.append(Comment(html: component, type: type))
                 }
                 index++
             }
