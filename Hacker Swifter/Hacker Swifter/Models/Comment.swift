@@ -50,8 +50,8 @@ import Foundation
         super.init()
         self.parseHTML(html, withType: type)
     }
-    
-    public required init(coder aDecoder: NSCoder!) {
+
+    public required init(coder aDecoder: NSCoder) {
         self.text = aDecoder.decodeObjectForKey(SerializationKey.text) as? String
         self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
         self.depth = aDecoder.decodeObjectForKey(SerializationKey.depth) as? Int
@@ -64,17 +64,17 @@ import Foundation
         self.downvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.downvoteURLAddition) as? String
     }
     
-    public func encodeWithCoder(aCoder: NSCoder!) {
-        aCoder.encodeObject(self.text, forKey: SerializationKey.text)
-        aCoder.encodeObject(self.username, forKey: SerializationKey.username)
-        aCoder.encodeObject(self.depth, forKey: SerializationKey.depth)
-        aCoder.encodeObject(self.commentId, forKey: SerializationKey.commentId)
-        aCoder.encodeObject(self.parentId, forKey: SerializationKey.parentId)
-        aCoder.encodeObject(self.prettyTime, forKey: SerializationKey.prettyTime)
-        aCoder.encodeObject(self.links, forKey: SerializationKey.links)
-        aCoder.encodeObject(self.replyURLString, forKey: SerializationKey.replyURLString)
-        aCoder.encodeObject(self.upvoteURLAddition, forKey: SerializationKey.upvoteURLAddition)
-        aCoder.encodeObject(self.downvoteURLAddition, forKey: SerializationKey.downvoteURLAddition)
+    public func encodeWithCoder(aCoder: NSCoder)  {
+        aCoder.encodeObject(self.text!, forKey: SerializationKey.text)
+        aCoder.encodeObject(self.username!, forKey: SerializationKey.username)
+        aCoder.encodeObject(self.depth!, forKey: SerializationKey.depth)
+        aCoder.encodeObject(self.commentId!, forKey: SerializationKey.commentId)
+        aCoder.encodeObject(self.parentId!, forKey: SerializationKey.parentId)
+        aCoder.encodeObject(self.prettyTime!, forKey: SerializationKey.prettyTime)
+        aCoder.encodeObject(self.links!, forKey: SerializationKey.links)
+        aCoder.encodeObject(self.replyURLString!, forKey: SerializationKey.replyURLString)
+        aCoder.encodeObject(self.upvoteURLAddition!, forKey: SerializationKey.upvoteURLAddition)
+        aCoder.encodeObject(self.downvoteURLAddition!, forKey: SerializationKey.downvoteURLAddition)
     }
 }
 

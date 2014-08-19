@@ -44,7 +44,7 @@ public class Fetcher {
         
         var path = _Fetcher.baseURL + ressource
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
-            if !error {
+            if !(error != nil) {
                 if let realData = data {
                     var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding))
                     if var realObject: AnyObject = object {

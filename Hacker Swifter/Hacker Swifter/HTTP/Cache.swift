@@ -54,7 +54,7 @@ public class Cache {
     
     public func objectForKeySync(key: String) -> AnyObject! {
         var ramObject: AnyObject! = MemoryCache.sharedMemoryCache.objectForKeySync(key)
-        return ramObject ? ramObject : DiskCache.sharedDiskCache.objectForKeySync(key)
+        return (ramObject != nil) ? ramObject : DiskCache.sharedDiskCache.objectForKeySync(key)
     }
     
     public func removeObject(key: String) {

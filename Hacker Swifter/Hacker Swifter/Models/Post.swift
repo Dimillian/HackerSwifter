@@ -15,8 +15,8 @@ import Foundation
     public var url: NSURL?
     public var domain: String? {
         get {
-            if self.url != nil {
-                var host: NSString = self.url!.host
+            if let realUrl = self.url {
+                var host: NSString = realUrl.host!
                 if (host.hasPrefix("www")) {
                     host = host.substringFromIndex(4)
                 }
@@ -64,8 +64,7 @@ import Foundation
     }
     
     // We might want to do a Mantle like thing with magic keys matching
-    
-    public required init(coder aDecoder: NSCoder!) {
+    required public init(coder aDecoder: NSCoder) {
         self.title = aDecoder.decodeObjectForKey(SerializationKey.title) as? String
         self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
         self.url = aDecoder.decodeObjectForKey(SerializationKey.url) as? NSURL
@@ -75,17 +74,16 @@ import Foundation
         self.prettyTime = aDecoder.decodeObjectForKey(SerializationKey.prettyTime) as? String
         self.upvoteURL = aDecoder.decodeObjectForKey(SerializationKey.upvoteURL) as? String
     }
-    
-    
-    public func encodeWithCoder(aCoder: NSCoder!) {
-        aCoder.encodeObject(self.title, forKey: SerializationKey.title)
-        aCoder.encodeObject(self.username, forKey: SerializationKey.username)
-        aCoder.encodeObject(self.url, forKey: SerializationKey.url)
-        aCoder.encodeObject(self.points, forKey: SerializationKey.points)
-        aCoder.encodeObject(self.commentsCount, forKey: SerializationKey.commentsCount)
-        aCoder.encodeObject(self.prettyTime, forKey: SerializationKey.prettyTime)
-        aCoder.encodeObject(self.postId, forKey: SerializationKey.postId)
-        aCoder.encodeObject(self.upvoteURL, forKey: SerializationKey.upvoteURL)
+
+    public func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.title!, forKey: SerializationKey.title)
+        aCoder.encodeObject(self.username!, forKey: SerializationKey.username)
+        aCoder.encodeObject(self.url!, forKey: SerializationKey.url)
+        aCoder.encodeObject(self.points!, forKey: SerializationKey.points)
+        aCoder.encodeObject(self.commentsCount!, forKey: SerializationKey.commentsCount)
+        aCoder.encodeObject(self.prettyTime!, forKey: SerializationKey.prettyTime)
+        aCoder.encodeObject(self.postId!, forKey: SerializationKey.postId)
+        aCoder.encodeObject(self.upvoteURL!, forKey: SerializationKey.upvoteURL)
     }
 }
 
@@ -197,6 +195,9 @@ internal extension Post {
             }
             
             self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
+            if self.username == nil {
+                self.username = "HN"
+            }
             self.prettyTime = scanner.scanTag("</a> ", endTag: "ago") + "ago"
             self.postId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
             
@@ -210,7 +211,7 @@ internal extension Post {
             if (self.username == nil && self.commentsCount == 0 && self.postId == nil) {
                 self.type = PostFilter.Jobs
             }
-            else if (self.url?.absoluteString.rangeOfString("http")?.startIndex == nil) {
+            else if (self.url?.absoluteString?.localizedCaseInsensitiveCompare("http") == nil) {
                 self.type = PostFilter.Ask
                 if let realURL = self.url {
                     var url = realURL.absoluteString
