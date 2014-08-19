@@ -16,11 +16,12 @@ import Foundation
     public var domain: String? {
         get {
             if let realUrl = self.url {
-                var host: NSString = realUrl.host!
-                if (host.hasPrefix("www")) {
-                    host = host.substringFromIndex(4)
+                if let host = realUrl.host {
+                    if (host.hasPrefix("www")) {
+                        return host.substringFromIndex(advance(host.startIndex, 4))
+                    }
+                    return host
                 }
-                return host
             }
             return ""
         }
