@@ -65,16 +65,22 @@ import Foundation
     }
     
     public func encodeWithCoder(aCoder: NSCoder)  {
-        aCoder.encodeObject(self.text!, forKey: SerializationKey.text)
-        aCoder.encodeObject(self.username!, forKey: SerializationKey.username)
-        aCoder.encodeObject(self.depth!, forKey: SerializationKey.depth)
-        aCoder.encodeObject(self.commentId!, forKey: SerializationKey.commentId)
-        aCoder.encodeObject(self.parentId!, forKey: SerializationKey.parentId)
-        aCoder.encodeObject(self.prettyTime!, forKey: SerializationKey.prettyTime)
-        aCoder.encodeObject(self.links!, forKey: SerializationKey.links)
-        aCoder.encodeObject(self.replyURLString!, forKey: SerializationKey.replyURLString)
-        aCoder.encodeObject(self.upvoteURLAddition!, forKey: SerializationKey.upvoteURLAddition)
-        aCoder.encodeObject(self.downvoteURLAddition!, forKey: SerializationKey.downvoteURLAddition)
+        self.encode(self.text, key: SerializationKey.text, coder: aCoder)
+        self.encode(self.username, key: SerializationKey.username, coder: aCoder)
+        self.encode(self.depth, key: SerializationKey.depth, coder: aCoder)
+        self.encode(self.commentId, key: SerializationKey.commentId, coder: aCoder)
+        self.encode(self.parentId, key: SerializationKey.parentId, coder: aCoder)
+        self.encode(self.prettyTime, key: SerializationKey.prettyTime, coder: aCoder)
+        self.encode(self.links, key: SerializationKey.links, coder: aCoder)
+        self.encode(self.replyURLString, key: SerializationKey.replyURLString, coder: aCoder)
+        self.encode(self.upvoteURLAddition, key: SerializationKey.upvoteURLAddition, coder: aCoder)
+        self.encode(self.downvoteURLAddition, key: SerializationKey.downvoteURLAddition, coder: aCoder)
+    }
+
+    private func encode(object: AnyObject!, key: String, coder: NSCoder) {
+        if let value: AnyObject = object {
+            coder.encodeObject(object, forKey: key)
+        }
     }
 }
 

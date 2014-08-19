@@ -76,14 +76,20 @@ import Foundation
     }
 
     public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.title!, forKey: SerializationKey.title)
-        aCoder.encodeObject(self.username!, forKey: SerializationKey.username)
-        aCoder.encodeObject(self.url!, forKey: SerializationKey.url)
-        aCoder.encodeObject(self.points!, forKey: SerializationKey.points)
-        aCoder.encodeObject(self.commentsCount!, forKey: SerializationKey.commentsCount)
-        aCoder.encodeObject(self.prettyTime!, forKey: SerializationKey.prettyTime)
-        aCoder.encodeObject(self.postId!, forKey: SerializationKey.postId)
-        aCoder.encodeObject(self.upvoteURL!, forKey: SerializationKey.upvoteURL)
+        self.encode(self.title, key: SerializationKey.title, coder: aCoder)
+        self.encode(self.username, key: SerializationKey.username, coder: aCoder)
+        self.encode(self.url, key: SerializationKey.url, coder: aCoder)
+        self.encode(self.points, key: SerializationKey.points, coder: aCoder)
+        self.encode(self.commentsCount, key: SerializationKey.commentsCount, coder: aCoder)
+        self.encode(self.prettyTime, key: SerializationKey.prettyTime, coder: aCoder)
+        self.encode(self.postId, key: SerializationKey.postId, coder: aCoder)
+        self.encode(self.upvoteURL, key: SerializationKey.upvoteURL, coder: aCoder)
+    }
+
+    private func encode(object: AnyObject!, key: String, coder: NSCoder) {
+        if let value: AnyObject = object {
+            coder.encodeObject(object, forKey: key)
+        }
     }
 }
 
