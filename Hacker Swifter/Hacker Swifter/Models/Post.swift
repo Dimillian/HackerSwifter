@@ -198,7 +198,8 @@ internal extension Post {
             var temp: NSString = scanner.scanTag("<span id=\"score_", endTag: "</span>")
             var range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
-                self.points = temp.substringFromIndex(range.location + 1).toInt()
+                var string = temp.substringFromIndex(range.location + 1) as NSString
+                self.points = string.integerValue
             }
             
             self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
@@ -217,6 +218,7 @@ internal extension Post {
             }
             if (self.username == nil && self.commentsCount == 0 && self.postId == nil) {
                 self.type = PostFilter.Jobs
+                self.username = "Jobs"
             }
             else if (self.url?.absoluteString?.localizedCaseInsensitiveCompare("http") == nil) {
                 self.type = PostFilter.Ask
