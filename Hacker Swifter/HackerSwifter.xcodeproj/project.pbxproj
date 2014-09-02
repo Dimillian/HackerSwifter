@@ -68,7 +68,7 @@
 		9FD4A1A7196F3008003608F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD4A1A8196F3008003608F6 /* Hacker_SwifterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hacker_SwifterTests.swift; sourceTree = "<group>"; };
 		9FD4A1B319704397003608F6 /* HTMLScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTMLScanner.swift; path = Extensions/HTMLScanner.swift; sourceTree = "<group>"; };
-		9FD4A1B6197046AF003608F6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Models/Post.swift; sourceTree = "<group>"; };
+		9FD4A1B6197046AF003608F6 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Models/Post.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		9FD4A1B8197048DB003608F6 /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fetcher.swift; path = HTTP/Fetcher.swift; sourceTree = "<group>"; };
 		9FD4A1BB1970604B003608F6 /* PostTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
 		9FD4A1BD19706066003608F6 /* FetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetcherTests.swift; sourceTree = "<group>"; };

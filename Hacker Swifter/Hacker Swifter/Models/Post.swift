@@ -26,8 +26,8 @@ import Foundation
             return ""
         }
     }
-    public var points: Int?
-    public var commentsCount: Int?
+    public var points: Int = 0
+    public var commentsCount: Int = 0
     public var postId: String?
     public var prettyTime: String?
     public var upvoteURL: String?
@@ -43,16 +43,17 @@ import Foundation
         case Show = "show"
     }
     
-    private struct SerializationKey {
-        static let title = "title"
-        static let username = "username"
-        static let url = "url"
-        static let points = "points"
-        static let commentsCount = "commentsCount"
-        static let postId = "postId"
-        static let prettyTime = "time"
-        static let upvoteURL = "upvoteURL"
-        static let type = "type"
+    internal enum serialization: String {
+        case title = "title"
+        case username = "username"
+        case url = "url"
+        case points = "points"
+        case commentsCount = "commentsCount"
+        case postId = "postId"
+        case prettyTime = "prettyTime"
+        case upvoteURL = "upvoteURL"
+
+        static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL]
     }
     
     public override init(){
@@ -64,27 +65,20 @@ import Foundation
         self.parseHTML(html)
     }
     
-    // We might want to do a Mantle like thing with magic keys matching
     required public init(coder aDecoder: NSCoder) {
-        self.title = aDecoder.decodeObjectForKey(SerializationKey.title) as? String
-        self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
-        self.url = aDecoder.decodeObjectForKey(SerializationKey.url) as? NSURL
-        self.points = aDecoder.decodeObjectForKey(SerializationKey.points) as? Int
-        self.commentsCount = aDecoder.decodeObjectForKey(SerializationKey.commentsCount) as? Int
-        self.postId = aDecoder.decodeObjectForKey(SerializationKey.postId) as? String
-        self.prettyTime = aDecoder.decodeObjectForKey(SerializationKey.prettyTime) as? String
-        self.upvoteURL = aDecoder.decodeObjectForKey(SerializationKey.upvoteURL) as? String
+        super.init()
+
+        for key in serialization.values {
+            setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
+        }
     }
 
     public func encodeWithCoder(aCoder: NSCoder) {
-        self.encode(self.title, key: SerializationKey.title, coder: aCoder)
-        self.encode(self.username, key: SerializationKey.username, coder: aCoder)
-        self.encode(self.url, key: SerializationKey.url, coder: aCoder)
-        self.encode(self.points, key: SerializationKey.points, coder: aCoder)
-        self.encode(self.commentsCount, key: SerializationKey.commentsCount, coder: aCoder)
-        self.encode(self.prettyTime, key: SerializationKey.prettyTime, coder: aCoder)
-        self.encode(self.postId, key: SerializationKey.postId, coder: aCoder)
-        self.encode(self.upvoteURL, key: SerializationKey.upvoteURL, coder: aCoder)
+        for key in serialization.values {
+            if let value: AnyObject = self.valueForKey(key.toRaw()) {
+                aCoder.encodeObject(value, forKey: key.toRaw())
+            }
+        }
     }
 
     private func encode(object: AnyObject!, key: String, coder: NSCoder) {
@@ -198,9 +192,17 @@ internal extension Post {
             var temp: NSString = scanner.scanTag("<span id=\"score_", endTag: "</span>")
             var range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
-                self.points = temp.substringFromIndex(range.location + 1).toInt()
+                var tmpPoint: Int? = temp.substringFromIndex(range.location + 1).toInt()
+                if let points = tmpPoint {
+                    self.points = points
+                }
+                else {
+                    self.points = 0
+                }
             }
-            
+            else {
+                self.points = 0
+            }            
             self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
             if self.username == nil {
                 self.username = "HN"

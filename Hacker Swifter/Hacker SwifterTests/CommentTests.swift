@@ -26,7 +26,7 @@ class CommentTests: XCTestCase {
         var expectation = self.expectationWithDescription("fetch comments for post")
 
         var post = Post()
-        post.postId = "8064786"
+        post.postId = "8255637"
         post.type = Post.PostFilter.Default
 
         Comment.fetch(forPost: post, completion: {(comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) in

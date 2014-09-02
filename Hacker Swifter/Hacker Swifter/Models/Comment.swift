@@ -13,7 +13,7 @@ import Foundation
     public var type: CommentFilter?
     public var text: String?
     public var username: String?
-    public var depth: Int?
+    public var depth: Int = 0
     public var commentId: String?
     public var parentId: String?
     public var prettyTime: String?
@@ -28,18 +28,20 @@ import Foundation
         case Jobs = "jobs"
     }
     
-    private struct SerializationKey {
-        static let type = "title"
-        static let text = "text"
-        static let username = "username"
-        static let depth = "depth"
-        static let commentId = "commentId"
-        static let parentId = "parentId"
-        static let prettyTime = "time"
-        static let links = "links"
-        static let replyURLString = "replyURLString"
-        static let upvoteURLAddition = "upvoteURLAddition"
-        static let downvoteURLAddition = "downvoteURLAddition"
+    internal enum serialization: String {
+        case text = "text"
+        case username = "username"
+        case depth = "depth"
+        case commentId = "commentId"
+        case parentId = "parentId"
+        case prettyTime = "prettyTime"
+        case links = "links"
+        case replyURLString = "replyURLString"
+        case upvoteURLAddition = "upvoteURLAddition"
+        case downvoteURLAddition = "downvoteURLAddition"
+
+        static let values = [text, username, depth, commentId, parentId, prettyTime, links,
+                            replyURLString, upvoteURLAddition, downvoteURLAddition]
     }
     
     public override init(){
@@ -52,34 +54,18 @@ import Foundation
     }
 
     public required init(coder aDecoder: NSCoder) {
-        self.text = aDecoder.decodeObjectForKey(SerializationKey.text) as? String
-        self.username = aDecoder.decodeObjectForKey(SerializationKey.username) as? String
-        self.depth = aDecoder.decodeObjectForKey(SerializationKey.depth) as? Int
-        self.commentId = aDecoder.decodeObjectForKey(SerializationKey.commentId) as? String
-        self.parentId = aDecoder.decodeObjectForKey(SerializationKey.parentId) as? String
-        self.prettyTime = aDecoder.decodeObjectForKey(SerializationKey.prettyTime) as? String
-        self.links = aDecoder.decodeObjectForKey(SerializationKey.links) as? [NSURL]
-        self.replyURLString = aDecoder.decodeObjectForKey(SerializationKey.replyURLString) as? String
-        self.upvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.upvoteURLAddition) as? String
-        self.downvoteURLAddition = aDecoder.decodeObjectForKey(SerializationKey.downvoteURLAddition) as? String
+        super.init()
+
+        for key in serialization.values {
+            setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
+        }
     }
     
     public func encodeWithCoder(aCoder: NSCoder)  {
-        self.encode(self.text, key: SerializationKey.text, coder: aCoder)
-        self.encode(self.username, key: SerializationKey.username, coder: aCoder)
-        self.encode(self.depth, key: SerializationKey.depth, coder: aCoder)
-        self.encode(self.commentId, key: SerializationKey.commentId, coder: aCoder)
-        self.encode(self.parentId, key: SerializationKey.parentId, coder: aCoder)
-        self.encode(self.prettyTime, key: SerializationKey.prettyTime, coder: aCoder)
-        self.encode(self.links, key: SerializationKey.links, coder: aCoder)
-        self.encode(self.replyURLString, key: SerializationKey.replyURLString, coder: aCoder)
-        self.encode(self.upvoteURLAddition, key: SerializationKey.upvoteURLAddition, coder: aCoder)
-        self.encode(self.downvoteURLAddition, key: SerializationKey.downvoteURLAddition, coder: aCoder)
-    }
-
-    private func encode(object: AnyObject!, key: String, coder: NSCoder) {
-        if let value: AnyObject = object {
-            coder.encodeObject(object, forKey: key)
+        for key in serialization.values {
+            if let value: AnyObject = self.valueForKey(key.toRaw()) {
+                aCoder.encodeObject(value, forKey: key.toRaw())
+            }
         }
     }
 }
