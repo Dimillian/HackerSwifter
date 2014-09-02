@@ -192,7 +192,8 @@ internal extension Post {
             var temp: NSString = scanner.scanTag("<span id=\"score_", endTag: "</span>")
             var range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
-                var tmpPoint: Int? = temp.substringFromIndex(range.location + 1).toInt()
+                var tmpPoint: Int? = temp.substringFromIndex(range.location + 1)
+                    .stringByReplacingOccurrencesOfString(" points", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).toInt()
                 if let points = tmpPoint {
                     self.points = points
                 }
