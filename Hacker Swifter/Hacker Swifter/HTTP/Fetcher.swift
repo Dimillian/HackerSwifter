@@ -95,9 +95,7 @@ public class Fetcher {
     }
     
     class func showLoadingIndicator(show: Bool) {
-        if let application = UIApplication.sharedApplication() {
-            application.networkActivityIndicatorVisible = show
-        }
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = show
     }
     
 }

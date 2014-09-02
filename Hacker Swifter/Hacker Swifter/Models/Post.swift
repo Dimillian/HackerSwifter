@@ -219,6 +219,7 @@ internal extension Post {
             }
             if (self.username == nil && self.commentsCount == 0 && self.postId == nil) {
                 self.type = PostFilter.Jobs
+                self.username = "Jobs"
             }
             else if (self.url?.absoluteString?.localizedCaseInsensitiveCompare("http") == nil) {
                 self.type = PostFilter.Ask
