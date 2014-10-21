@@ -57,14 +57,14 @@ import Foundation
         super.init()
 
         for key in serialization.values {
-            setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
+            setValue(aDecoder.decodeObjectForKey(key.rawValue), forKey: key.rawValue)
         }
     }
     
     public func encodeWithCoder(aCoder: NSCoder)  {
         for key in serialization.values {
-            if let value: AnyObject = self.valueForKey(key.toRaw()) {
-                aCoder.encodeObject(value, forKey: key.toRaw())
+            if let value: AnyObject = self.valueForKey(key.rawValue) {
+                aCoder.encodeObject(value, forKey: key.rawValue)
             }
         }
     }

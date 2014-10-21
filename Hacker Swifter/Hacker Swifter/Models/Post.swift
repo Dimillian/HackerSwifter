@@ -69,14 +69,14 @@ import Foundation
         super.init()
 
         for key in serialization.values {
-            setValue(aDecoder.decodeObjectForKey(key.toRaw()), forKey: key.toRaw())
+            setValue(aDecoder.decodeObjectForKey(key.rawValue), forKey: key.rawValue)
         }
     }
 
     public func encodeWithCoder(aCoder: NSCoder) {
         for key in serialization.values {
-            if let value: AnyObject = self.valueForKey(key.toRaw()) {
-                aCoder.encodeObject(value, forKey: key.toRaw())
+            if let value: AnyObject = self.valueForKey(key.rawValue) {
+                aCoder.encodeObject(value, forKey: key.rawValue)
             }
         }
     }
@@ -100,7 +100,7 @@ public extension Post {
     public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
     public class func fetch(filter: PostFilter, page: Int, completion: Response) {
-        Fetcher.Fetch(filter.toRaw() + "?p=\(page)",
+        Fetcher.Fetch(filter.rawValue + "?p=\(page)",
             parsing: {(html) in
                 if let realHtml = html {
                     var posts = self.parseCollectionHTML(realHtml)
