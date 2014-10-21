@@ -43,7 +43,7 @@ public class Fetcher {
         })
         
         var path = _Fetcher.baseURL + ressource
-        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
+        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData!, response, error: NSError!) in
             if !(error != nil) {
                 if let realData = data {
                     var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding))
@@ -73,7 +73,7 @@ public class Fetcher {
     //At the moment this function is sufixed for testing purpose
     class func FetchAPI(ressource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
         var path = _Fetcher.APIURL + ressource
-        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path) , completionHandler: {(data: NSData!, response, error: NSError!) in
+        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData!, response, error: NSError!) in
             if var data = data {
                 var error: NSError? = nil
                 var JSON: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &error)
