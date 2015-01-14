@@ -168,8 +168,13 @@ internal extension Comment {
         if (html.rangeOfString("[deleted]")?.startIndex != nil) {
             self.text = "[deleted]"
         } else {
-            let textTemp = scanner.scanTag("<font color=", endTag: "</font>")
-            self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
+            let textTemp = scanner.scanTag("<font color=", endTag: "</font>") as String
+            if (countElements(textTemp)>0) {
+                self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
+            }
+            else {
+                self.text = ""
+            }
         }
         
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
