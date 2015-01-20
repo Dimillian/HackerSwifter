@@ -189,7 +189,7 @@ internal extension Post {
             self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))
             self.title = scanner.scanTag(">", endTag: "</a>")
             
-            var temp: NSString = scanner.scanTag("<span id=\"score_", endTag: "</span>")
+            var temp: NSString = scanner.scanTag("<span class=\"score\" id=\"score_", endTag: "</span>")
             var range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
                 var tmpPoint: Int? = temp.substringFromIndex(range.location + 1)
