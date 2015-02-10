@@ -39,9 +39,9 @@ import Foundation
         case replyURLString = "replyURLString"
         case upvoteURLAddition = "upvoteURLAddition"
         case downvoteURLAddition = "downvoteURLAddition"
-
+        
         static let values = [text, username, depth, commentId, parentId, prettyTime, links,
-                            replyURLString, upvoteURLAddition, downvoteURLAddition]
+            replyURLString, upvoteURLAddition, downvoteURLAddition]
     }
     
     public override init(){
@@ -52,10 +52,10 @@ import Foundation
         super.init()
         self.parseHTML(html, withType: type)
     }
-
+    
     public required init(coder aDecoder: NSCoder) {
         super.init()
-
+        
         for key in serialization.values {
             setValue(aDecoder.decodeObjectForKey(key.rawValue), forKey: key.rawValue)
         }
@@ -162,8 +162,8 @@ internal extension Comment {
         
         var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
         self.username = username.utf16Count > 0 ? username : "[deleted]"
-        
-        self.prettyTime = scanner.scanTag("</a> ", endTag: " |")
+        self.commentId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
+        self.prettyTime = scanner.scanTag(">", endTag: "</a>")
         
         if (html.rangeOfString("[deleted]")?.startIndex != nil) {
             self.text = "[deleted]"
@@ -179,7 +179,6 @@ internal extension Comment {
         
         //LOL, it whould always work, as I strip a Hex color, which is always the same length
         
-        self.commentId = scanner.scanTag("reply?id=", endTag: "&")
         self.replyURLString = scanner.scanTag("<font size=1><u><a href=\"", endTag: "\">reply")
         self.type = CommentFilter.Default
     }

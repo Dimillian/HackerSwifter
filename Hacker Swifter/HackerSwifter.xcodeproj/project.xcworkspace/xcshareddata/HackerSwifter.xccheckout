@@ -14,7 +14,7 @@
 		<string>https://github.com/Dimillian/HackerSwifter.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Hacker Swifter/HackerSwifter.xcodeproj/project.xcworkspace</string>
+	<string>Hacker Swifter/HackerSwifter.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E0D52B920DCA102ACF12EC644CE806103E82A316</key>

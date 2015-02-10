@@ -52,7 +52,7 @@ import Foundation
         case postId = "postId"
         case prettyTime = "prettyTime"
         case upvoteURL = "upvoteURL"
-
+        
         static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL]
     }
     
@@ -67,12 +67,12 @@ import Foundation
     
     required public init(coder aDecoder: NSCoder) {
         super.init()
-
+        
         for key in serialization.values {
             setValue(aDecoder.decodeObjectForKey(key.rawValue), forKey: key.rawValue)
         }
     }
-
+    
     public func encodeWithCoder(aCoder: NSCoder) {
         for key in serialization.values {
             if let value: AnyObject = self.valueForKey(key.rawValue) {
@@ -80,7 +80,7 @@ import Foundation
             }
         }
     }
-
+    
     private func encode(object: AnyObject!, key: String, coder: NSCoder) {
         if let value: AnyObject = object {
             coder.encodeObject(object, forKey: key)
@@ -203,13 +203,13 @@ internal extension Post {
             }
             else {
                 self.points = 0
-            }            
+            }
             self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
             if self.username == nil {
                 self.username = "HN"
             }
-            self.prettyTime = scanner.scanTag("</a> ", endTag: "ago") + "ago"
             self.postId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
+            self.prettyTime = scanner.scanTag(">", endTag: "</a>")
             
             temp = scanner.scanTag("\">", endTag: "</a>")
             if (temp == "discuss") {
