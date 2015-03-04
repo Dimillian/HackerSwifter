@@ -99,7 +99,7 @@ public extension Comment {
             },
             completion: {(object, error, local) in
                 if let realObject: AnyObject = object {
-                    completion(comments: realObject as [Comment], error: error, local: local)
+                    completion(comments: realObject as! [Comment], error: error, local: local)
                 }
                 else {
                     completion(comments: nil, error: error, local: local)
@@ -154,7 +154,7 @@ internal extension Comment {
         var scanner = NSScanner(string: html)
         
         var level = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
-        if let unwrappedLevel = level.substringToIndex(advance(level.startIndex, countElements(level) - 1)).toInt() {
+        if let unwrappedLevel = level.substringToIndex(advance(level.startIndex, count(level) - 1)).toInt() {
             self.depth = unwrappedLevel / 40
         } else {
             self.depth = 0
@@ -169,7 +169,7 @@ internal extension Comment {
             self.text = "[deleted]"
         } else {
             let textTemp = scanner.scanTag("<font color=", endTag: "</font>") as String
-            if (countElements(textTemp)>0) {
+            if (count(textTemp)>0) {
                 self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
             }
             else {

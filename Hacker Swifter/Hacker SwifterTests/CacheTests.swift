@@ -33,7 +33,7 @@ class CacheTests: XCTestCase {
         
         MemoryCache.sharedMemoryCache.setObject(post, key: "post")
         
-        var postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as Post
+        var postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
     
         XCTAssertNotNil(postTest, "Post is nil")
         XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
@@ -50,7 +50,7 @@ class CacheTests: XCTestCase {
         
         DiskCache.sharedDiskCache.setObject(post, key: "post")
         
-        var postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as Post
+        var postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
         
         XCTAssertNotNil(postTest, "Post is nil")
         XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
@@ -67,9 +67,9 @@ class CacheTests: XCTestCase {
         
         Cache.sharedCache.setObject(post, key: "post")
         
-        var globalPost = Cache.sharedCache.objectForKeySync("post") as Post
-        var memoryPost = MemoryCache.sharedMemoryCache.objectForKeySync("post") as Post
-        var diskPost = DiskCache.sharedDiskCache.objectForKeySync("post") as Post
+        var globalPost = Cache.sharedCache.objectForKeySync("post") as! Post
+        var memoryPost = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
+        var diskPost = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
         
         XCTAssertNotNil(globalPost, "Global Post is nil")
         XCTAssertNotNil(memoryPost, "Memory Post is nil")
