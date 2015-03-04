@@ -15,6 +15,6 @@ extension NSScanner {
         self.scanUpToString(startTag, intoString: &temp)
         self.scanString(startTag, intoString: &temp)
         self.scanUpToString(endTag, intoString: &result)
-        return result as String
+        return result as! String
     }
 }

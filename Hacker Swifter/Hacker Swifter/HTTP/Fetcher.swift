@@ -46,7 +46,7 @@ public class Fetcher {
         var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData!, response, error: NSError!) in
             if !(error != nil) {
                 if let realData = data {
-                    var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding))
+                    var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding) as! String)
                     if var realObject: AnyObject = object {
                         Cache.sharedCache.setObject(realObject, key: cacheKey)
                     }

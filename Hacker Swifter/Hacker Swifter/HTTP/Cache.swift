@@ -75,7 +75,7 @@ public class DiskCache: Cache {
             var manager = NSFileManager.defaultManager()
             var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory,
                 NSSearchPathDomainMask.UserDomainMask, true)
-            var cachePath = paths[0] as String + "/modelCache/"
+            var cachePath = paths[0] as! String + "/modelCache/"
                 if (!manager.fileExistsAtPath(cachePath)) {
                     manager.createDirectoryAtPath(cachePath, withIntermediateDirectories: true, attributes: nil, error: nil)
                 }
