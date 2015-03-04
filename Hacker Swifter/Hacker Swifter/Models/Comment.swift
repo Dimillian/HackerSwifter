@@ -161,7 +161,7 @@ internal extension Comment {
         }
         
         var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
-        self.username = username.utf16Count > 0 ? username : "[deleted]"
+        self.username = count(username.utf16) > 0 ? username : "[deleted]"
         self.commentId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
         self.prettyTime = scanner.scanTag(">", endTag: "</a>")
         
