@@ -167,7 +167,7 @@ public extension Post {
 internal extension Post {
     
     internal class func parseCollectionHTML(html: String) -> [Post] {
-        var components = html.componentsSeparatedByString("<tr><td align=\"right\" valign=\"top\" class=\"title\">")
+        var components = html.componentsSeparatedByString("<td align=\"right\" valign=\"top\" class=\"title\">")
         var posts: [Post] = []
         if (components.count > 0) {
             var index = 0

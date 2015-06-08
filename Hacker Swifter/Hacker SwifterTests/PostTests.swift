@@ -96,6 +96,7 @@ class PostTests: XCTestCase {
         self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
     
+    /*
     func testFetchPostDetailAPI() {
         var expectation = self.expectationWithDescription("fetch post")
         Post.fetchPostDetailAPI("8044029", completion: {(post: Post!, error: Fetcher.ResponseError!, local: Bool) in
@@ -105,6 +106,7 @@ class PostTests: XCTestCase {
             })
         self.waitForExpectationsWithTimeout(5.0, handler: nil)
     }
+*/
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

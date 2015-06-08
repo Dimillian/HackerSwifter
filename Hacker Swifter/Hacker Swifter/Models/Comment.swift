@@ -114,7 +114,7 @@ public extension Comment {
 internal extension Comment {
     
     internal class func parseCollectionHTML(html: String, withType type: Post.PostFilter) -> [Comment] {
-        var components = html.componentsSeparatedByString("<td><img src=\"s.gif\"")
+        var components = html.componentsSeparatedByString("<tr><td class='ind'><img src=\"s.gif\"")
         var comments: [Comment] = []
         if (components.count > 0) {
             if (type == Post.PostFilter.Ask) {
