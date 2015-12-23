@@ -23,9 +23,9 @@ class CommentTests: XCTestCase {
     }
 
     func testFetchComments() {
-        var expectation = self.expectationWithDescription("fetch comments for post")
+        let expectation = self.expectationWithDescription("fetch comments for post")
 
-        var post = Post()
+        let post = Post()
         post.postId = "8255637"
         post.type = Post.PostFilter.Default
 
@@ -41,9 +41,9 @@ class CommentTests: XCTestCase {
     }
     
     func testAskHNComments() {
-        var expectation = self.expectationWithDescription("fetch comments for post")
+        let expectation = self.expectationWithDescription("fetch comments for post")
         
-        var post = Post()
+        let post = Post()
         post.postId = "8044029"
         post.type = Post.PostFilter.Ask
         
@@ -51,9 +51,9 @@ class CommentTests: XCTestCase {
             
             if (!local) {
                 XCTAssertTrue(comments!.count > 0, "comments should not be empty")
-                var comment = comments[0]
+                let comment = comments[0]
                 XCTAssertTrue(comment.type == Comment.CommentFilter.Ask, "comment type is not good")
-                XCTAssertTrue(count(comment.text!) > 0, "Comment content should not be empty")
+                XCTAssertTrue(comment.text?.utf8.count > 0, "Comment content should not be empty")
                 expectation.fulfill()
             }
             })

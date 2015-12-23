@@ -21,19 +21,19 @@ class CacheTests: XCTestCase {
         super.tearDown()
     }
     func pathtest() {
-        var path = "test/test?test/test"
-        var result = "test#test?test#test"
+        let path = "test/test?test/test"
+        let result = "test#test?test#test"
         
         XCTAssertTrue(DiskCache.generateCacheKey(path) == result, "cache key is not equal to result")
     }
     
     func testMemoryCache() {
-        var post = Post()
+        let post = Post()
         post.title = "Test"
         
         MemoryCache.sharedMemoryCache.setObject(post, key: "post")
         
-        var postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
+        let postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
     
         XCTAssertNotNil(postTest, "Post is nil")
         XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
@@ -45,12 +45,12 @@ class CacheTests: XCTestCase {
     }
     
     func testDiskCache() {
-        var post = Post()
+        let post = Post()
         post.title = "Test"
         
         DiskCache.sharedDiskCache.setObject(post, key: "post")
         
-        var postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
+        let postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
         
         XCTAssertNotNil(postTest, "Post is nil")
         XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
@@ -62,14 +62,14 @@ class CacheTests: XCTestCase {
     }
     
     func testGlobalCache() {
-        var post = Post()
+        let post = Post()
         post.title = "Global Test"
         
         Cache.sharedCache.setObject(post, key: "post")
         
-        var globalPost = Cache.sharedCache.objectForKeySync("post") as! Post
-        var memoryPost = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
-        var diskPost = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
+        let globalPost = Cache.sharedCache.objectForKeySync("post") as! Post
+        let memoryPost = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
+        let diskPost = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
         
         XCTAssertNotNil(globalPost, "Global Post is nil")
         XCTAssertNotNil(memoryPost, "Memory Post is nil")

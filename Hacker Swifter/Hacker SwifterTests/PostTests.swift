@@ -23,7 +23,7 @@ class PostTests: XCTestCase {
     }
     
     func testFetchNews() {
-        var expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectationWithDescription("fetch posts")
         
         Post.fetch(.Top, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
             if (!local) {
@@ -36,7 +36,7 @@ class PostTests: XCTestCase {
     }
     
     func testFetchNewsPage2() {
-        var expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectationWithDescription("fetch posts")
         var postsPage1:[Post] = []
         var postsPage2:[Post] = []
         
@@ -60,7 +60,7 @@ class PostTests: XCTestCase {
     }
     
     func testFetchPostForUser() {
-        var expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectationWithDescription("fetch posts")
         
         Post.fetch("dimillian", completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
             if (!local) {
@@ -73,7 +73,7 @@ class PostTests: XCTestCase {
     }
     
     func testFetchPostForUserPage2() {
-        var expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectationWithDescription("fetch posts")
         var postsPage1:[Post] = []
         var postsPage2:[Post] = []
         

@@ -82,7 +82,7 @@ import Foundation
     }
     
     private func encode(object: AnyObject!, key: String, coder: NSCoder) {
-        if let value: AnyObject = object {
+        if let _: AnyObject = object {
             coder.encodeObject(object, forKey: key)
         }
     }
@@ -131,7 +131,7 @@ public extension Post {
         Fetcher.Fetch("submitted?id=" + user + additionalParameters,
             parsing: {(html) in
                 if let realHtml = html {
-                    var posts = self.parseCollectionHTML(realHtml)
+                    let posts = self.parseCollectionHTML(realHtml)
                     return posts
                 } else {
                     return nil
@@ -182,7 +182,7 @@ internal extension Post {
     }
     
     internal func parseHTML(html: String) {
-        var scanner = NSScanner(string: html)
+        let scanner = NSScanner(string: html)
         
         if (html.rangeOfString("<td class=\"title\"> [dead] <a") == nil) {
             
@@ -190,9 +190,9 @@ internal extension Post {
             self.title = scanner.scanTag(">", endTag: "</a>")
             
             var temp: NSString = scanner.scanTag("<span class=\"score\" id=\"score_", endTag: "</span>")
-            var range = temp.rangeOfString(">")
+            let range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
-                var tmpPoint: Int? = Int(temp.substringFromIndex(range.location + 1)
+                let tmpPoint: Int? = Int(temp.substringFromIndex(range.location + 1)
                     .stringByReplacingOccurrencesOfString(" points", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))
                 if let points = tmpPoint {
                     self.points = points
@@ -225,7 +225,7 @@ internal extension Post {
             else if (self.url?.absoluteString.localizedCaseInsensitiveCompare("http") == nil) {
                 self.type = PostFilter.Ask
                 if let realURL = self.url {
-                    var url = realURL.absoluteString
+                    let url = realURL.absoluteString
                     self.url = NSURL(string: "https://news.ycombinator.com/" + url)
                 }
             }
