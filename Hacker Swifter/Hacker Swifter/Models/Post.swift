@@ -125,7 +125,7 @@ public extension Post {
     
     public class func fetch(user: String, page: Int, lastPostId:String?, completion: Response) {
         var additionalParameters = ""
-        if let lastPostIdInt = Int((lastPostId)!) {
+        if let lastPostIdInt = Int(lastPostId ?? "") {
             additionalParameters = "&next=\(lastPostIdInt-1)"
         }
         Fetcher.Fetch("submitted?id=" + user + additionalParameters,
