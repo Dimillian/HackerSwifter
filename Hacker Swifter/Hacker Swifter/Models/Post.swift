@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(Post) public class Post: NSObject, NSCoding, Equatable {
+@objc(Post) public class Post: NSObject, NSCoding {
     
     public var title: String?
     public var username: String?
@@ -18,7 +18,7 @@ import Foundation
             if let realUrl = self.url {
                 if let host = realUrl.host {
                     if (host.hasPrefix("www")) {
-                        return host.substringFromIndex(advance(host.startIndex, 4))
+                        return host.substringFromIndex(host.startIndex.advancedBy(4))
                     }
                     return host
                 }
@@ -65,7 +65,7 @@ import Foundation
         self.parseHTML(html)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init()
         
         for key in serialization.values {
@@ -103,7 +103,7 @@ public extension Post {
         Fetcher.Fetch(filter.rawValue + "?p=\(page)",
             parsing: {(html) in
                 if let realHtml = html {
-                    var posts = self.parseCollectionHTML(realHtml)
+                    let posts = self.parseCollectionHTML(realHtml)
                     return posts
                 } else {
                     return nil
@@ -125,7 +125,7 @@ public extension Post {
     
     public class func fetch(user: String, page: Int, lastPostId:String?, completion: Response) {
         var additionalParameters = ""
-        if let lastPostIdInt = lastPostId?.toInt() {
+        if let lastPostIdInt = Int(lastPostId ?? "") {
             additionalParameters = "&next=\(lastPostIdInt-1)"
         }
         Fetcher.Fetch("submitted?id=" + user + additionalParameters,
@@ -153,7 +153,7 @@ public extension Post {
     
     //Test using Algolia API For later
     public class func fetchPostDetailAPI(post: String, completion: ResponsePost) {
-        var path = "items/" + post
+        let path = "items/" + post
         Fetcher.FetchAPI(path, parsing: {(json) in
             return json
             },
@@ -167,7 +167,7 @@ public extension Post {
 internal extension Post {
     
     internal class func parseCollectionHTML(html: String) -> [Post] {
-        var components = html.componentsSeparatedByString("<td align=\"right\" valign=\"top\" class=\"title\">")
+        let components = html.componentsSeparatedByString("<td align=\"right\" valign=\"top\" class=\"title\">")
         var posts: [Post] = []
         if (components.count > 0) {
             var index = 0
@@ -192,8 +192,8 @@ internal extension Post {
             var temp: NSString = scanner.scanTag("<span class=\"score\" id=\"score_", endTag: "</span>")
             var range = temp.rangeOfString(">")
             if (range.location != NSNotFound) {
-                var tmpPoint: Int? = temp.substringFromIndex(range.location + 1)
-                    .stringByReplacingOccurrencesOfString(" points", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil).toInt()
+                var tmpPoint: Int? = Int(temp.substringFromIndex(range.location + 1)
+                    .stringByReplacingOccurrencesOfString(" points", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))
                 if let points = tmpPoint {
                     self.points = points
                 }
@@ -222,11 +222,11 @@ internal extension Post {
                 self.type = PostFilter.Jobs
                 self.username = "Jobs"
             }
-            else if (self.url?.absoluteString?.localizedCaseInsensitiveCompare("http") == nil) {
+            else if (self.url?.absoluteString.localizedCaseInsensitiveCompare("http") == nil) {
                 self.type = PostFilter.Ask
                 if let realURL = self.url {
                     var url = realURL.absoluteString
-                    self.url = NSURL(string: "https://news.ycombinator.com/" + url!)
+                    self.url = NSURL(string: "https://news.ycombinator.com/" + url)
                 }
             }
             else {

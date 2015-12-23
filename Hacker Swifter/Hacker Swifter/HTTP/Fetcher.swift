@@ -35,19 +35,19 @@ public class Fetcher {
     
         self.showLoadingIndicator(true)
         
-        var cacheKey = Cache.generateCacheKey(ressource)
+        let cacheKey = Cache.generateCacheKey(ressource)
         Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
-            if var realObject: AnyObject = object {
+            if let realObject: AnyObject = object {
                 completion(object: realObject, error: nil, local: true)
             }
         })
         
-        var path = _Fetcher.baseURL + ressource
-        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData!, response, error: NSError!) in
+        let path = _Fetcher.baseURL + ressource
+        let task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData?, response, error: NSError?) in
             if !(error != nil) {
                 if let realData = data {
-                    var object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding) as! String)
-                    if var realObject: AnyObject = object {
+                    let object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding) as! String)
+                    if let realObject: AnyObject = object {
                         Cache.sharedCache.setObject(realObject, key: cacheKey)
                     }
                     dispatch_async(dispatch_get_main_queue(), { ()->() in
@@ -72,14 +72,22 @@ public class Fetcher {
     //In the future, all scraping will be removed and we'll use only the Algolia API
     //At the moment this function is sufixed for testing purpose
     class func FetchAPI(ressource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
-        var path = _Fetcher.APIURL + ressource
-        var task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData!, response, error: NSError!) in
-            if var data = data {
+        let path = _Fetcher.APIURL + ressource
+        let task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData?, response, error: NSError?) in
+            if let data = data {
                 var error: NSError? = nil
-                var JSON: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments, error: &error)
+                var JSON: AnyObject!
+                do {
+                    JSON = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+                } catch let error1 as NSError {
+                    error = error1
+                    JSON = nil
+                } catch {
+                    fatalError()
+                }
                 if error != nil {
-                    var object: AnyObject! = parsing(json: JSON)
-                    if var object: AnyObject = object {
+                    let object: AnyObject! = parsing(json: JSON)
+                    if let object: AnyObject = object {
                         completion(object: object, error: nil, local: false)
                     }
                     else {

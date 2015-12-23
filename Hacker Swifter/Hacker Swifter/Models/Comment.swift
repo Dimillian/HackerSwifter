@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(Comment) public class Comment: NSObject, NSCoding, Equatable {
+@objc public class Comment: NSObject, NSCoding {
     
     public var type: CommentFilter?
     public var text: String?
@@ -53,7 +53,7 @@ import Foundation
         self.parseHTML(html, withType: type)
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init()
         
         for key in serialization.values {
@@ -90,7 +90,7 @@ public extension Comment {
                 }
                 
                 if let realHtml = html {
-                    var comments = self.parseCollectionHTML(realHtml, withType: type!)
+                    let comments = self.parseCollectionHTML(realHtml, withType: type!)
                     return comments
                 }
                 else {
@@ -118,8 +118,8 @@ internal extension Comment {
         var comments: [Comment] = []
         if (components.count > 0) {
             if (type == Post.PostFilter.Ask) {
-                var scanner = NSScanner(string: components[0])
-                var comment = Comment()
+                let scanner = NSScanner(string: components[0])
+                let comment = Comment()
                 comment.type = CommentFilter.Ask
                 comment.commentId = scanner.scanTag("<span id=\"score_", endTag: ">")
                 comment.username = scanner.scanTag("by <a href=\"user?id=", endTag: "\">")
@@ -130,8 +130,8 @@ internal extension Comment {
             }
                 
             else if (type == Post.PostFilter.Jobs) {
-                var scanner = NSScanner(string: components[0])
-                var comment = Comment()
+                let scanner = NSScanner(string: components[0])
+                let comment = Comment()
                 comment.depth = 0
                 comment.text = String.stringByRemovingHTMLEntities(scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>"))
                 comment.type = CommentFilter.Jobs
@@ -151,17 +151,17 @@ internal extension Comment {
     }
     
     internal func parseHTML(html: String, withType type: Post.PostFilter) {
-        var scanner = NSScanner(string: html)
+        let scanner = NSScanner(string: html)
         
-        var level = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
-        if let unwrappedLevel = level.substringToIndex(advance(level.startIndex, count(level) - 1)).toInt() {
+        let level = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
+        if let unwrappedLevel = Int(level.substringToIndex(level.startIndex.advancedBy(level.characters.count - 1))) {
             self.depth = unwrappedLevel / 40
         } else {
             self.depth = 0
         }
         
-        var username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
-        self.username = count(username.utf16) > 0 ? username : "[deleted]"
+        let username = scanner.scanTag("<a href=\"user?id=", endTag: "\">")
+        self.username = username.utf16.count > 0 ? username : "[deleted]"
         self.commentId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
         self.prettyTime = scanner.scanTag(">", endTag: "</a>")
         
@@ -169,8 +169,8 @@ internal extension Comment {
             self.text = "[deleted]"
         } else {
             let textTemp = scanner.scanTag("<font color=", endTag: "</font>") as String
-            if (count(textTemp)>0) {
-                self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(advance(textTemp.startIndex, 10)))
+            if (textTemp.characters.count>0) {
+                self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(textTemp.startIndex.advancedBy(10)))
             }
             else {
                 self.text = ""
