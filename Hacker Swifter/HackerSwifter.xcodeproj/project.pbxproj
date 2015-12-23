@@ -241,7 +241,8 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0720;
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Thomas Ricouard";
 				TargetAttributes = {
 					9FD4A195196F3007003608F6 = {
@@ -362,6 +363,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -439,6 +441,7 @@
 				INFOPLIST_FILE = "Hacker Swifter/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifter;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -459,6 +462,7 @@
 				INFOPLIST_FILE = "Hacker Swifter/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifter;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -478,6 +482,7 @@
 				);
 				INFOPLIST_FILE = "Hacker SwifterTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifterTests;
 			};
 			name = Debug;
@@ -491,6 +496,7 @@
 				);
 				INFOPLIST_FILE = "Hacker SwifterTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifterTests;
 			};
 			name = Release;
