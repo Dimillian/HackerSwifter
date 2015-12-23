@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>HackerSwifter copy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>9FD4A1A0196F3008003608F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9FE8C8111C2A9B1D001D91EF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
