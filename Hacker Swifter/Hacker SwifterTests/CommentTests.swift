@@ -53,6 +53,7 @@ class CommentTests: XCTestCase {
                 XCTAssertTrue(comments!.count > 0, "comments should not be empty")
                 var comment = comments[0]
                 XCTAssertTrue(comment.type == Comment.CommentFilter.Ask, "comment type is not good")
+                XCTAssertTrue(count(comment.text!) > 0, "Comment content should not be empty")
                 expectation.fulfill()
             }
             })
