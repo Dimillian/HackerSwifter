@@ -444,6 +444,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifter;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos watchsimulator watchos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -465,6 +466,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifter;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos watchsimulator watchos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Release;
