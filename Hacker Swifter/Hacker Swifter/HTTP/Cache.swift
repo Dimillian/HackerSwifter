@@ -53,7 +53,7 @@ public class Cache {
     }
     
     public func objectForKeySync(key: String) -> AnyObject! {
-        var ramObject: AnyObject! = MemoryCache.sharedMemoryCache.objectForKeySync(key)
+        let ramObject: AnyObject! = MemoryCache.sharedMemoryCache.objectForKeySync(key)
         return (ramObject != nil) ? ramObject : DiskCache.sharedDiskCache.objectForKeySync(key)
     }
     
@@ -72,12 +72,15 @@ public class DiskCache: Cache {
     
     private struct files {
         static var filepath: String {
-            var manager = NSFileManager.defaultManager()
+            let manager = NSFileManager.defaultManager()
             var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory,
                 NSSearchPathDomainMask.UserDomainMask, true)
-            var cachePath = paths[0] as! String + "/modelCache/"
+            let cachePath = paths[0] + "/modelCache/"
                 if (!manager.fileExistsAtPath(cachePath)) {
-                    manager.createDirectoryAtPath(cachePath, withIntermediateDirectories: true, attributes: nil, error: nil)
+                    do {
+                        try manager.createDirectoryAtPath(cachePath, withIntermediateDirectories: true, attributes: nil)
+                    } catch _ {
+                    }
                 }
             return cachePath
         }
@@ -104,7 +107,7 @@ public class DiskCache: Cache {
     public override func objectForKey(key: String, completion: cacheCompletion) {
         if (self.objectExist(key)) {
             dispatch_async(dispatch_get_global_queue(self.priority, UInt(0)), { ()->() in
-                var object: AnyObject! =  NSKeyedUnarchiver.unarchiveObjectWithFile(self.fullPath(key))
+                let object: AnyObject! =  NSKeyedUnarchiver.unarchiveObjectWithFile(self.fullPath(key))
                 dispatch_async(dispatch_get_main_queue(), { ()->() in
                     completion(object)
                     })
@@ -128,7 +131,10 @@ public class DiskCache: Cache {
     
     public override func removeObject(key: String) {
         if (self.objectExist(key)) {
-            NSFileManager.defaultManager().removeItemAtPath(self.fullPath(key), error: nil)
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath(self.fullPath(key))
+            } catch _ {
+            }
         }
     }
     
