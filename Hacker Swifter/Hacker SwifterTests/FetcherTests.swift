@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Thomas Ricouard. All rights reserved.
 //
 
-import UIKit
 import XCTest
 
 class FetcherTests: XCTestCase {

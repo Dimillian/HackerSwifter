@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 private let _Fetcher = Fetcher()
 
@@ -33,8 +32,6 @@ public class Fetcher {
     
     class func Fetch(ressource: String, parsing: FetchParsing, completion: FetchCompletion) {
     
-        self.showLoadingIndicator(true)
-        
         let cacheKey = Cache.generateCacheKey(ressource)
         Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
             if let realObject: AnyObject = object {
@@ -51,13 +48,11 @@ public class Fetcher {
                         Cache.sharedCache.setObject(realObject, key: cacheKey)
                     }
                     dispatch_async(dispatch_get_main_queue(), { ()->() in
-                        self.showLoadingIndicator(false)
                         completion(object: object, error: nil, local: false)
                         })
                 }
                 else {
                     dispatch_async(dispatch_get_main_queue(), { ()->() in
-                        self.showLoadingIndicator(false)
                         completion(object: nil, error: ResponseError.UnknownError, local: false)
                         })
                 }
@@ -100,10 +95,6 @@ public class Fetcher {
             }
         })
         task.resume()
-    }
-    
-    class func showLoadingIndicator(show: Bool) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = show
     }
     
 }

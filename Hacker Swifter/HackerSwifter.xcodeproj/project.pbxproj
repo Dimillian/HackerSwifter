@@ -10,7 +10,6 @@
 		4E7CCB5E197747EA006917BA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7CCB5D197747EA006917BA /* Comment.swift */; };
 		4EE778231978264500978F28 /* CommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE77820197823E000978F28 /* CommentTests.swift */; };
 		9F6872F61979536C00716FE0 /* HTMLString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6872F51979536C00716FE0 /* HTMLString.swift */; };
-		9F6872F81979673900716FE0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F6872F71979673900716FE0 /* UIKit.framework */; };
 		9F6AEEAE19768F86007D95BD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AEEAD19768F86007D95BD /* Cache.swift */; };
 		9F6AEEB01976AC2C007D95BD /* CacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */; };
 		9FD4A19C196F3007003608F6 /* Hacker Swifter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD4A19B196F3007003608F6 /* Hacker Swifter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,7 +57,6 @@
 		4E7CCB5D197747EA006917BA /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comment.swift; path = Models/Comment.swift; sourceTree = "<group>"; };
 		4EE77820197823E000978F28 /* CommentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTests.swift; sourceTree = "<group>"; };
 		9F6872F51979536C00716FE0 /* HTMLString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTMLString.swift; path = Extensions/HTMLString.swift; sourceTree = "<group>"; };
-		9F6872F71979673900716FE0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9F6AEEAD19768F86007D95BD /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cache.swift; path = HTTP/Cache.swift; sourceTree = "<group>"; };
 		9F6AEEAF1976AC2C007D95BD /* CacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheTests.swift; sourceTree = "<group>"; };
 		9FD4A196196F3007003608F6 /* HackerSwifter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HackerSwifter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F6872F81979673900716FE0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +94,6 @@
 		9FD4A18C196F3007003608F6 = {
 			isa = PBXGroup;
 			children = (
-				9F6872F71979673900716FE0 /* UIKit.framework */,
 				9FD4A198196F3007003608F6 /* Hacker Swifter */,
 				9FD4A1A5196F3008003608F6 /* Hacker SwifterTests */,
 				9FD4A197196F3007003608F6 /* Products */,
