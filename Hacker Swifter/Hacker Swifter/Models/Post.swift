@@ -10,6 +10,7 @@ import Foundation
 
 @objc(Post) public class Post: NSObject, NSCoding {
     
+    public var id: String?
     public var title: String?
     public var username: String?
     public var url: NSURL?
@@ -32,6 +33,7 @@ import Foundation
     public var prettyTime: String?
     public var upvoteURL: String?
     public var type: PostFilter?
+    public var kids: [String]?
     
     public enum PostFilter: String {
         case Top = ""
@@ -56,6 +58,18 @@ import Foundation
         static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL]
     }
     
+    internal enum JSONField: String {
+        case id = "id"
+        case by = "by"
+        case descendants = "descendants"
+        case kids = "kids"
+        case score = "score"
+        case time = "time"
+        case title = "title"
+        case type = "type"
+        case url = "url"
+    }
+    
     public override init(){
         super.init()
     }
@@ -63,6 +77,11 @@ import Foundation
     public init(html: String) {
         super.init()
         self.parseHTML(html)
+    }
+    
+    public init(json: NSDictionary) {
+        super.init()
+        self.parseJSON(json)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -98,6 +117,7 @@ public extension Post {
     
     public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias ResponsePosts = (post: [String]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
     public class func fetch(filter: PostFilter, page: Int, completion: Response) {
         Fetcher.Fetch(filter.rawValue + "?p=\(page)",
@@ -151,18 +171,39 @@ public extension Post {
         fetch(user, page: 1, lastPostId:nil, completion: completion)
     }
     
-    //Test using Algolia API For later
-    public class func fetchPostDetailAPI(post: String, completion: ResponsePost) {
-        let path = "items/" + post
-        Fetcher.FetchAPI(path, parsing: {(json) in
-            return json
-            },
-            completion: {(object, error, local) in
-                completion(post: nil, error: error, local: local)
-        })
+    public class func fetchPost(completion: ResponsePosts) {
+        Fetcher.FetchJSON(.Top, ressource: nil, parsing: { (json) -> AnyObject! in
+            if let _ = json as? NSArray {
+                return json
+            }
+            return nil
+            }) { (object, error, local) -> Void in
+                completion(post: object as! NSArray as! [String] , error: error, local: local)
+        }
+    }
+    public class func fetchPost(post: String, completion: ResponsePost) {
+        Fetcher.FetchJSON(.Post, ressource: post, parsing: { (json) -> AnyObject! in
+            if let dic = json as? NSDictionary {
+                return Post(json: dic)
+            }
+            return nil
+            })
+            { (object, error, local) -> Void in
+                completion(post: object as! Post, error: error, local: local)
+        }
     }
 }
 
+//MARK: JSON
+
+internal extension Post {
+    internal func parseJSON(json: NSDictionary) {
+        self.id = json[JSONField.id.rawValue] as? String
+        if let kids = json[JSONField.kids.rawValue] as? [String] {
+            self.kids = kids
+        }
+    }
+}
 //MARK: HTML
 internal extension Post {
     

@@ -13,7 +13,8 @@ private let _Fetcher = Fetcher()
 public class Fetcher {
 
     internal let baseURL = "https://news.ycombinator.com/"
-    internal let APIURL = "https://hn.algolia.io/api/v1/"
+    internal let APIURL = "https://hacker-news.firebaseio.com/v0/"
+    internal let APIFormat = ".json"
     private let session = NSURLSession.sharedSession()
     
     public typealias FetchCompletion = (object: AnyObject!, error: ResponseError!, local: Bool) -> Void
@@ -24,6 +25,13 @@ public class Fetcher {
         case NoConnection = "You are not connected to the internet"
         case ErrorParsing = "An error occurred while fetching the requested page"
         case UnknownError = "An unknown error occurred"
+    }
+    
+    public enum APIEndpoint: String {
+        case Post = "item/"
+        case User = "user/"
+        case Top = "topstories"
+        case New = "newstories"
     }
     
     public class var sharedInstance: Fetcher {
@@ -66,8 +74,14 @@ public class Fetcher {
     
     //In the future, all scraping will be removed and we'll use only the Algolia API
     //At the moment this function is sufixed for testing purpose
-    class func FetchAPI(ressource: String, parsing: FetchParsingAPI, completion: FetchCompletion) {
-        let path = _Fetcher.APIURL + ressource
+    class func FetchJSON(endpoint: APIEndpoint, ressource: String?, parsing: FetchParsingAPI, completion: FetchCompletion) {
+        var path: String
+        if let realRessource: String = ressource {
+            path = _Fetcher.APIURL + endpoint.rawValue + realRessource + _Fetcher.APIFormat
+        }
+        else {
+            path = _Fetcher.APIURL + endpoint.rawValue + _Fetcher.APIFormat
+        }
         let task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData?, response, error: NSError?) in
             if let data = data {
                 var error: NSError? = nil
