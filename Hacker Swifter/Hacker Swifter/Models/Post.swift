@@ -10,7 +10,7 @@ import Foundation
 
 @objc(Post) public class Post: NSObject, NSCoding {
     
-    public var id: String?
+    public var id: Int?
     public var title: String?
     public var username: String?
     public var url: NSURL?
@@ -33,7 +33,10 @@ import Foundation
     public var prettyTime: String?
     public var upvoteURL: String?
     public var type: PostFilter?
-    public var kids: [String]?
+    public var kids: [Int]?
+    public var score: Int?
+    public var time: Int?
+    public var dead: Bool = false
     
     public enum PostFilter: String {
         case Top = ""
@@ -54,8 +57,11 @@ import Foundation
         case postId = "postId"
         case prettyTime = "prettyTime"
         case upvoteURL = "upvoteURL"
+        case id = "id"
+        case time = "time"
+        case score = "score"
         
-        static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL]
+        static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL, id, time, score]
     }
     
     internal enum JSONField: String {
@@ -68,6 +74,7 @@ import Foundation
         case title = "title"
         case type = "type"
         case url = "url"
+        case dead = "dead"
     }
     
     public override init(){
@@ -117,7 +124,7 @@ public extension Post {
     
     public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    public typealias ResponsePosts = (post: [String]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias ResponsePosts = (post: [Int]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
     public class func fetch(filter: PostFilter, page: Int, completion: Response) {
         Fetcher.Fetch(filter.rawValue + "?p=\(page)",
@@ -173,16 +180,16 @@ public extension Post {
     
     public class func fetchPost(completion: ResponsePosts) {
         Fetcher.FetchJSON(.Top, ressource: nil, parsing: { (json) -> AnyObject! in
-            if let _ = json as? NSArray {
+            if let _ = json as? [Int] {
                 return json
             }
             return nil
             }) { (object, error, local) -> Void in
-                completion(post: object as! NSArray as! [String] , error: error, local: local)
+                completion(post: object as? [Int] , error: error, local: local)
         }
     }
-    public class func fetchPost(post: String, completion: ResponsePost) {
-        Fetcher.FetchJSON(.Post, ressource: post, parsing: { (json) -> AnyObject! in
+    public class func fetchPost(post: Int, completion: ResponsePost) {
+        Fetcher.FetchJSON(.Post, ressource: String(post), parsing: { (json) -> AnyObject! in
             if let dic = json as? NSDictionary {
                 return Post(json: dic)
             }
@@ -198,12 +205,24 @@ public extension Post {
 
 internal extension Post {
     internal func parseJSON(json: NSDictionary) {
-        self.id = json[JSONField.id.rawValue] as? String
-        if let kids = json[JSONField.kids.rawValue] as? [String] {
+        self.id = json[JSONField.id.rawValue] as? Int
+        if let kids = json[JSONField.kids.rawValue] as? [Int] {
             self.kids = kids
+        }
+        self.title = json[JSONField.title.rawValue] as? String
+        self.score = json[JSONField.score.rawValue] as? Int
+        self.username = json[JSONField.by.rawValue] as? String
+        self.time = json[JSONField.time.rawValue] as? Int
+        self.url = NSURL(string: (json[JSONField.url.rawValue] as? String)!)
+        if let commentsCount = json[JSONField.descendants.rawValue] as? Int {
+            self.commentsCount = commentsCount
+        }
+        if let _ = json[JSONField.dead.rawValue] as? Bool {
+            self.dead = true
         }
     }
 }
+
 //MARK: HTML
 internal extension Post {
     

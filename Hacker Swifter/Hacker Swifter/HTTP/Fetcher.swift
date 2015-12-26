@@ -32,6 +32,9 @@ public class Fetcher {
         case User = "user/"
         case Top = "topstories"
         case New = "newstories"
+        case Ask = "askstories"
+        case Job = "jobstories"
+        case Show = "showstories"
     }
     
     public class var sharedInstance: Fetcher {
@@ -94,7 +97,7 @@ public class Fetcher {
                 } catch {
                     fatalError()
                 }
-                if error != nil {
+                if error == nil {
                     let object: AnyObject! = parsing(json: JSON)
                     if let object: AnyObject = object {
                         completion(object: object, error: nil, local: false)

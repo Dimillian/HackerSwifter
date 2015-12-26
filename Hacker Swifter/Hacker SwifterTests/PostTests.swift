@@ -97,14 +97,17 @@ class PostTests: XCTestCase {
     
     
     func testFetchPostsAPI() {
-        var expectation = self.expectationWithDescription("fetch post")
+        let expectation = self.expectationWithDescription("fetch post")
         Post.fetchPost { (post, error, local) -> Void in
             if (!local) {
                 XCTAssertTrue(post.count > 1, "API response should countain Post")
-                expectation.fulfill()
+                Post.fetchPost(post[0], completion: { (post, error, local) -> Void in
+                    XCTAssertTrue(post.title?.utf8.count > 0, "Title content should not be empty")
+                    expectation.fulfill()
+                })
             }
         }
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectationsWithTimeout(10.0, handler: nil)
     }
     
     func testPerformanceExample() {
