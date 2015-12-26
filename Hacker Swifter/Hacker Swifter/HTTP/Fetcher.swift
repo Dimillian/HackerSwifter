@@ -33,7 +33,7 @@ public class Fetcher {
         case Top = "topstories"
         case New = "newstories"
         case Ask = "askstories"
-        case Job = "jobstories"
+        case Jobs = "jobstories"
         case Show = "showstories"
     }
     
@@ -85,6 +85,14 @@ public class Fetcher {
         else {
             path = _Fetcher.APIURL + endpoint.rawValue + _Fetcher.APIFormat
         }
+        
+        let cacheKey = Cache.generateCacheKey(path)
+        Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
+            if let realObject: AnyObject = object {
+                completion(object: realObject, error: nil, local: true)
+            }
+        })
+        
         let task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData?, response, error: NSError?) in
             if let data = data {
                 var error: NSError? = nil
@@ -100,6 +108,9 @@ public class Fetcher {
                 if error == nil {
                     let object: AnyObject! = parsing(json: JSON)
                     if let object: AnyObject = object {
+                        if let realObject: AnyObject = object {
+                            Cache.sharedCache.setObject(realObject, key: cacheKey)
+                        }
                         dispatch_async(dispatch_get_main_queue(), { ()->() in
                             completion(object: object, error: nil, local: false)
                         })
