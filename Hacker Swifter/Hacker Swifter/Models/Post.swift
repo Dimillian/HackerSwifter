@@ -10,10 +10,11 @@ import Foundation
 
 @objc(Post) public class Post: NSObject, NSCoding {
     
-    public var id: Int?
+    public var id: Int = 0
     public var title: String?
     public var username: String?
     public var url: NSURL?
+    public var text: String?
     public var domain: String? {
         get {
             if let realUrl = self.url {
@@ -27,38 +28,25 @@ import Foundation
             return ""
         }
     }
-    public var points: Int = 0
     public var commentsCount: Int = 0
-    public var postId: String?
-    public var prettyTime: String?
-    public var upvoteURL: String?
-    public var type: PostFilter?
+    public var type: String?
     public var kids: [Int]?
-    public var score: Int?
-    public var time: Int?
+    public var score: Int = 0
+    public var time: Double = 0
     public var dead: Bool = false
     
-    public enum PostFilter: String {
-        case Top = ""
-        case Default = "default"
-        case Ask = "ask"
-        case New = "newest"
-        case Jobs = "jobs"
-        case Best = "best"
-        case Show = "show"
-    }
-    
     internal enum serialization: String {
+        case id = "id"
         case title = "title"
         case username = "username"
         case url = "url"
-        case points = "points"
         case commentsCount = "commentsCount"
-        case postId = "postId"
-        case prettyTime = "prettyTime"
-        case upvoteURL = "upvoteURL"
+        case type = "type"
+        case score = "score"
+        case time = "time"
+        case text = "text"
         
-        static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL]
+        static let values = [id, title, username, url, commentsCount, type, score, time, text]
     }
     
     internal enum JSONField: String {
@@ -72,15 +60,11 @@ import Foundation
         case type = "type"
         case url = "url"
         case dead = "dead"
+        case text = "text"
     }
     
     public override init(){
         super.init()
-    }
-    
-    public init(html: String) {
-        super.init()
-        self.parseHTML(html)
     }
     
     public init(json: NSDictionary) {
@@ -113,182 +97,79 @@ import Foundation
 
 //MARK: Equatable implementation
 public func ==(larg: Post, rarg: Post) -> Bool {
-    return larg.postId == rarg.postId
+    return larg.id == rarg.id
 }
 
 //MARK: Network
 public extension Post {
     
-    public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    public typealias ResponsePosts = (post: [Int]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias Response = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias ResponsePosts = (posts: [Int]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
-    public class func fetch(filter: PostFilter, page: Int, completion: Response) {
-        Fetcher.Fetch(filter.rawValue + "?p=\(page)",
-            parsing: {(html) in
-                if let realHtml = html {
-                    let posts = self.parseCollectionHTML(realHtml)
-                    return posts
-                } else {
-                    return nil
-                }
-            },
-            completion: {(object, error, local) in
-                if let realObject: AnyObject = object {
-                    completion(posts: realObject as! [Post], error: error, local: local)
-                }
-                else {
-                    completion(posts: nil, error: error, local: local)
-                }
-        })
-    }
-    
-    public class func fetch(filter: PostFilter, completion: Response) {
-        fetch(filter, page: 1, completion: completion)
-    }
-    
-    public class func fetch(user: String, page: Int, lastPostId:String?, completion: Response) {
-        var additionalParameters = ""
-        if let lastPostIdInt = Int(lastPostId ?? "") {
-            additionalParameters = "&next=\(lastPostIdInt-1)"
-        }
-        Fetcher.Fetch("submitted?id=" + user + additionalParameters,
-            parsing: {(html) in
-                if let realHtml = html {
-                    let posts = self.parseCollectionHTML(realHtml)
-                    return posts
-                } else {
-                    return nil
-                }
-            },
-            completion: {(object, error, local) in
-                if let realObject: AnyObject = object {
-                    completion(posts: realObject as! [Post], error: error, local: local)
-                }
-                else {
-                    completion(posts: nil, error: error, local: local)
-                }
-        })
-    }
-    
-    public class func fetch(user: String, completion: Response) {
-        fetch(user, page: 1, lastPostId:nil, completion: completion)
-    }
-    
-    public class func fetchPost(completion: ResponsePosts) {
-        Fetcher.FetchJSON(.Top, ressource: nil, parsing: { (json) -> AnyObject! in
+
+    public class func fetchPost(filter: Fetcher.APIEndpoint, completion: ResponsePosts) {
+        Fetcher.FetchJSON(filter, ressource: nil, parsing: { (json) -> AnyObject! in
             if let _ = json as? [Int] {
                 return json
             }
             return nil
             }) { (object, error, local) -> Void in
-                completion(post: object as? [Int] , error: error, local: local)
+                completion(posts: object as? [Int] , error: error, local: local)
         }
     }
-    public class func fetchPost(post: Int, completion: ResponsePost) {
+    
+    public class func fetchPost(post: Int, completion: Response) {
         Fetcher.FetchJSON(.Post, ressource: String(post), parsing: { (json) -> AnyObject! in
             if let dic = json as? NSDictionary {
                 return Post(json: dic)
             }
             return nil
-            })
-            { (object, error, local) -> Void in
-                completion(post: object as! Post, error: error, local: local)
+            }) { (object, error, local) -> Void in
+                completion(post: object as? Post , error: error, local: local)
         }
     }
+
+
+    
+    public class func fetchPost(user: String, completion: ResponsePosts) {
+        Fetcher.FetchJSON(.User, ressource: user, parsing: { (json) -> AnyObject! in
+            if let _ = json as? NSDictionary {
+                return json
+            }
+            return nil
+            }) { (object, error, local) -> Void in
+                if let json = object as? NSDictionary {
+                    completion(posts: json["submitted"] as! [Int], error: error, local: local)
+                }
+                else {
+                    completion(posts: nil, error: error, local: local)
+                }
+        }}
 }
 
 //MARK: JSON
 
 internal extension Post {
     internal func parseJSON(json: NSDictionary) {
-        self.id = json[JSONField.id.rawValue] as? Int
+        self.id = json[JSONField.id.rawValue] as! Int
         if let kids = json[JSONField.kids.rawValue] as? [Int] {
             self.kids = kids
         }
         self.title = json[JSONField.title.rawValue] as? String
-        self.score = json[JSONField.score.rawValue] as? Int
+        self.score = json[JSONField.score.rawValue] as! Int
         self.username = json[JSONField.by.rawValue] as? String
-        self.time = json[JSONField.time.rawValue] as? Int
-        self.url = NSURL(string: (json[JSONField.url.rawValue] as? String)!)
+        self.time = json[JSONField.time.rawValue] as! Double
+        if let url = json[JSONField.url.rawValue] as? String {
+            self.url = NSURL(string: url)
+        }
         if let commentsCount = json[JSONField.descendants.rawValue] as? Int {
             self.commentsCount = commentsCount
         }
         if let _ = json[JSONField.dead.rawValue] as? Bool {
             self.dead = true
         }
-    }
-}
-
-//MARK: HTML
-internal extension Post {
-    
-    internal class func parseCollectionHTML(html: String) -> [Post] {
-        let components = html.componentsSeparatedByString("<td align=\"right\" valign=\"top\" class=\"title\">")
-        var posts: [Post] = []
-        if (components.count > 0) {
-            var index = 0
-            for component in components {
-                if index != 0 {
-                    posts.append(Post(html: component))
-                }
-                index++
-            }
-        }
-        return posts
-    }
-    
-    internal func parseHTML(html: String) {
-        let scanner = NSScanner(string: html)
-        
-        if (html.rangeOfString("<td class=\"title\"> [dead] <a") == nil) {
-            
-            self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))
-            self.title = scanner.scanTag(">", endTag: "</a>")
-            
-            var temp: NSString = scanner.scanTag("<span class=\"score\" id=\"score_", endTag: "</span>")
-            let range = temp.rangeOfString(">")
-            if (range.location != NSNotFound) {
-                let tmpPoint: Int? = Int(temp.substringFromIndex(range.location + 1)
-                    .stringByReplacingOccurrencesOfString(" points", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))
-                if let points = tmpPoint {
-                    self.points = points
-                }
-                else {
-                    self.points = 0
-                }
-            }
-            else {
-                self.points = 0
-            }
-            self.username = scanner.scanTag("<a href=\"user?id=", endTag: "\"")
-            if self.username == nil {
-                self.username = "HN"
-            }
-            self.postId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
-            self.prettyTime = scanner.scanTag(">", endTag: "</a>")
-            
-            temp = scanner.scanTag("\">", endTag: "</a>")
-            if (temp == "discuss") {
-                self.commentsCount = 0
-            }
-            else {
-                self.commentsCount = temp.integerValue
-            }
-            if (self.username == nil && self.commentsCount == 0 && self.postId == nil) {
-                self.type = PostFilter.Jobs
-                self.username = "Jobs"
-            }
-            else if (self.url?.absoluteString.localizedCaseInsensitiveCompare("http") == nil) {
-                self.type = PostFilter.Ask
-                if let realURL = self.url {
-                    let url = realURL.absoluteString
-                    self.url = NSURL(string: "https://news.ycombinator.com/" + url)
-                }
-            }
-            else {
-                self.type = PostFilter.Default
-            }
+        if let text = json[JSONField.text.rawValue] as? String {
+            self.text = text
         }
     }
 }
