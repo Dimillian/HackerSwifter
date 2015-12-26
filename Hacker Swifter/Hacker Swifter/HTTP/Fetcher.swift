@@ -100,10 +100,16 @@ public class Fetcher {
                 if error == nil {
                     let object: AnyObject! = parsing(json: JSON)
                     if let object: AnyObject = object {
-                        completion(object: object, error: nil, local: false)
+                        dispatch_async(dispatch_get_main_queue(), { ()->() in
+                            completion(object: object, error: nil, local: false)
+                        })
+
                     }
                     else {
-                        completion(object: nil, error: ResponseError.ErrorParsing, local: false)
+                        dispatch_async(dispatch_get_main_queue(), { ()->() in
+                           completion(object: nil, error: ResponseError.ErrorParsing, local: false)
+                        })
+
                     }
                 }
                 else {

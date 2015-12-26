@@ -57,11 +57,8 @@ import Foundation
         case postId = "postId"
         case prettyTime = "prettyTime"
         case upvoteURL = "upvoteURL"
-        case id = "id"
-        case time = "time"
-        case score = "score"
         
-        static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL, id, time, score]
+        static let values = [title, username, url, points, commentsCount, postId, prettyTime, upvoteURL]
     }
     
     internal enum JSONField: String {
