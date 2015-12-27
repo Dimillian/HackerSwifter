@@ -156,7 +156,9 @@ internal extension Post {
             self.kids = kids
         }
         self.title = json[JSONField.title.rawValue] as? String
-        self.score = json[JSONField.score.rawValue] as! Int
+        if let score = json[JSONField.score.rawValue] as? Int {
+            self.score = score;
+        }
         self.username = json[JSONField.by.rawValue] as? String
         self.time = json[JSONField.time.rawValue] as! Double
         if let url = json[JSONField.url.rawValue] as? String {

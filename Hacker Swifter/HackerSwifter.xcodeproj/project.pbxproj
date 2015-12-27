@@ -27,6 +27,7 @@
 		9FE8C8171C2A9B1D001D91EF /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD4A1B8197048DB003608F6 /* Fetcher.swift */; };
 		9FE8C8181C2A9B1D001D91EF /* HTMLString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6872F51979536C00716FE0 /* HTMLString.swift */; };
 		9FE8C81B1C2A9B1D001D91EF /* Hacker Swifter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FD4A19B196F3007003608F6 /* Hacker Swifter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9FED5E561C2FF53400E5C74A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FED5E551C2FF53400E5C74A /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		9FD4A1BD19706066003608F6 /* FetcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetcherTests.swift; sourceTree = "<group>"; };
 		9FE8C8201C2A9B1D001D91EF /* HackerSwifterWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HackerSwifterWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE8C8211C2A9B1D001D91EF /* HackerSwifter copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "HackerSwifter copy-Info.plist"; path = "/Users/Dimillian/Documents/DEV/Dev_iphone/Swift/HackerSwifter/Hacker Swifter/HackerSwifter copy-Info.plist"; sourceTree = "<absolute>"; };
+		9FED5E551C2FF53400E5C74A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			children = (
 				9FD4A1B6197046AF003608F6 /* Post.swift */,
 				4E7CCB5D197747EA006917BA /* Comment.swift */,
+				9FED5E551C2FF53400E5C74A /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				9F6AEEAE19768F86007D95BD /* Cache.swift in Sources */,
 				9FD4A1B9197048DB003608F6 /* Fetcher.swift in Sources */,
 				9F6872F61979536C00716FE0 /* HTMLString.swift in Sources */,
+				9FED5E561C2FF53400E5C74A /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
