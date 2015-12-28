@@ -24,10 +24,10 @@ class PostTests: XCTestCase {
     
     func testFetchPosts() {
         let expectation = self.expectationWithDescription("fetch post")
-        Post.fetchPost(.Top) { (posts, error, local) -> Void in
+        Item.fetchPost(.Top) { (posts, error, local) -> Void in
             if (!local) {
                 XCTAssertTrue(posts.count > 1, "API response should countain Post")
-                Post.fetchPost(posts[0], completion: { (post, error, local) -> Void in
+                Item.fetchPost(posts[0], completion: { (post, error, local) -> Void in
                     XCTAssertTrue(post.title?.utf8.count > 0, "Title content should not be empty")
                     expectation.fulfill()
                 })
