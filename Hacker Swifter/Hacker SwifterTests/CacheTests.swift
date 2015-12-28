@@ -28,15 +28,15 @@ class CacheTests: XCTestCase {
     }
     
     func testMemoryCache() {
-        let post = Post()
+        let post = Item()
         post.title = "Test"
         
         MemoryCache.sharedMemoryCache.setObject(post, key: "post")
         
-        let postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
+        let postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Item
     
         XCTAssertNotNil(postTest, "Post is nil")
-        XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
+        XCTAssertTrue(postTest.isKindOfClass(Item), "Post is not kind of class post")
         XCTAssertTrue(postTest.title == "Test", "Post title is not equal to prior test")
         
         MemoryCache.sharedMemoryCache.removeObject("post")
@@ -45,15 +45,15 @@ class CacheTests: XCTestCase {
     }
     
     func testDiskCache() {
-        let post = Post()
+        let post = Item()
         post.title = "Test"
         
         DiskCache.sharedDiskCache.setObject(post, key: "post")
         
-        let postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
+        let postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as! Item
         
         XCTAssertNotNil(postTest, "Post is nil")
-        XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
+        XCTAssertTrue(postTest.isKindOfClass(Item), "Post is not kind of class post")
         XCTAssertTrue(postTest.title == "Test", "Post title is not equal to prior test")
         
         DiskCache.sharedDiskCache.removeObject("post")
@@ -62,26 +62,26 @@ class CacheTests: XCTestCase {
     }
     
     func testGlobalCache() {
-        let post = Post()
+        let post = Item()
         post.title = "Global Test"
         
         Cache.sharedCache.setObject(post, key: "post")
         
-        let globalPost = Cache.sharedCache.objectForKeySync("post") as! Post
-        let memoryPost = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
-        let diskPost = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
+        let globalPost = Cache.sharedCache.objectForKeySync("post") as! Item
+        let memoryPost = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Item
+        let diskPost = DiskCache.sharedDiskCache.objectForKeySync("post") as! Item
         
         XCTAssertNotNil(globalPost, "Global Post is nil")
         XCTAssertNotNil(memoryPost, "Memory Post is nil")
         XCTAssertNotNil(diskPost, "Dissk Post is nil")
         
-        XCTAssertTrue(globalPost.isKindOfClass(Post), "Global Post is not kind of class post")
+        XCTAssertTrue(globalPost.isKindOfClass(Item), "Global Post is not kind of class post")
         XCTAssertTrue(globalPost.title == "Global Test", "Global Post title is not equal to prior test")
         
-        XCTAssertTrue(memoryPost.isKindOfClass(Post), "Memory Post is not kind of class post")
+        XCTAssertTrue(memoryPost.isKindOfClass(Item), "Memory Post is not kind of class post")
         XCTAssertTrue(memoryPost.title == "Global Test", "Memory Post title is not equal to prior test")
         
-        XCTAssertTrue(diskPost.isKindOfClass(Post), "Disk Post is not kind of class post")
+        XCTAssertTrue(diskPost.isKindOfClass(Item), "Disk Post is not kind of class post")
         XCTAssertTrue(diskPost.title == "Global Test", "Disk Post title is not equal to prior test")
         
         Cache.sharedCache.removeObject("post")
