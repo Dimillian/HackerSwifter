@@ -12,7 +12,6 @@ private let _Fetcher = Fetcher()
 
 public class Fetcher {
 
-    internal let baseURL = "https://news.ycombinator.com/"
     internal let APIURL = "https://hacker-news.firebaseio.com/v0/"
     internal let APIFormat = ".json"
     private let session = NSURLSession.sharedSession()
@@ -41,42 +40,6 @@ public class Fetcher {
         return _Fetcher
     }
     
-    class func Fetch(ressource: String, parsing: FetchParsing, completion: FetchCompletion) {
-    
-        let cacheKey = Cache.generateCacheKey(ressource)
-        Cache.sharedCache.objectForKey(cacheKey, completion: {(object: AnyObject!) in
-            if let realObject: AnyObject = object {
-                completion(object: realObject, error: nil, local: true)
-            }
-        })
-        
-        let path = _Fetcher.baseURL + ressource
-        let task = _Fetcher.session.dataTaskWithURL(NSURL(string: path)! , completionHandler: {(data: NSData?, response, error: NSError?) in
-            if !(error != nil) {
-                if let realData = data {
-                    let object: AnyObject! = parsing(html: NSString(data: realData, encoding: NSUTF8StringEncoding) as! String)
-                    if let realObject: AnyObject = object {
-                        Cache.sharedCache.setObject(realObject, key: cacheKey)
-                    }
-                    dispatch_async(dispatch_get_main_queue(), { ()->() in
-                        completion(object: object, error: nil, local: false)
-                        })
-                }
-                else {
-                    dispatch_async(dispatch_get_main_queue(), { ()->() in
-                        completion(object: nil, error: ResponseError.UnknownError, local: false)
-                        })
-                }
-            }
-            else {
-                completion(object: nil, error: ResponseError.UnknownError, local: false)
-            }
-        })
-        task.resume()
-    }
-    
-    //In the future, all scraping will be removed and we'll use only the Algolia API
-    //At the moment this function is sufixed for testing purpose
     class func FetchJSON(endpoint: APIEndpoint, ressource: String?, parsing: FetchParsingAPI, completion: FetchCompletion) {
         var path: String
         if let realRessource: String = ressource {

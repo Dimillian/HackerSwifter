@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc(Post) public class Post: NSObject, NSCoding {
+@objc(Item) public class Item: NSObject, NSCoding {
     
     public var id: Int = 0
     public var title: String?
@@ -67,6 +67,11 @@ import Foundation
         super.init()
     }
     
+    public init(id: Int) {
+        super.init()
+        self.id = id
+    }
+    
     public init(json: NSDictionary) {
         super.init()
         self.parseJSON(json)
@@ -96,15 +101,15 @@ import Foundation
 }
 
 //MARK: Equatable implementation
-public func ==(larg: Post, rarg: Post) -> Bool {
+public func ==(larg: Item, rarg: Item) -> Bool {
     return larg.id == rarg.id
 }
 
 //MARK: Network
-public extension Post {
+public extension Item {
     
-    public typealias Response = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    public typealias ResponsePosts = (posts: [Int]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias Response = (item: Item!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias ResponsePosts = (items: [Int]!, error: Fetcher.ResponseError!, local: Bool) -> Void
     
 
     public class func fetchPost(filter: Fetcher.APIEndpoint, completion: ResponsePosts) {
@@ -114,18 +119,18 @@ public extension Post {
             }
             return nil
             }) { (object, error, local) -> Void in
-                completion(posts: object as? [Int] , error: error, local: local)
+                completion(items: object as? [Int] , error: error, local: local)
         }
     }
     
     public class func fetchPost(post: Int, completion: Response) {
         Fetcher.FetchJSON(.Post, ressource: String(post), parsing: { (json) -> AnyObject! in
             if let dic = json as? NSDictionary {
-                return Post(json: dic)
+                return Item(json: dic)
             }
             return nil
             }) { (object, error, local) -> Void in
-                completion(post: object as? Post , error: error, local: local)
+                completion(item: object as? Item , error: error, local: local)
         }
     }
 
@@ -139,17 +144,17 @@ public extension Post {
             return nil
             }) { (object, error, local) -> Void in
                 if let json = object as? NSDictionary {
-                    completion(posts: json["submitted"] as! [Int], error: error, local: local)
+                    completion(items: json["submitted"] as! [Int], error: error, local: local)
                 }
                 else {
-                    completion(posts: nil, error: error, local: local)
+                    completion(items: nil, error: error, local: local)
                 }
         }}
 }
 
 //MARK: JSON
 
-internal extension Post {
+internal extension Item {
     internal func parseJSON(json: NSDictionary) {
         self.id = json[JSONField.id.rawValue] as! Int
         if let kids = json[JSONField.kids.rawValue] as? [Int] {
