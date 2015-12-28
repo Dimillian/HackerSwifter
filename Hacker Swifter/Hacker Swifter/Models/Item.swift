@@ -176,7 +176,7 @@ internal extension Item {
             self.dead = true
         }
         if let text = json[JSONField.text.rawValue] as? String {
-            self.text = text
+            self.text = String.stringByRemovingHTMLEntities(text)
         }
     }
 }
