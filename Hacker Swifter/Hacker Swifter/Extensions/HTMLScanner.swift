@@ -8,13 +8,13 @@
 
 import Foundation
 
-extension NSScanner {
-    func scanTag(startTag: String, endTag: String) -> String {
+extension Scanner {
+    func scanTag(_ startTag: String, endTag: String) -> String {
         var temp: NSString? = ""
         var result: NSString? = ""
-        self.scanUpToString(startTag, intoString: &temp)
-        self.scanString(startTag, intoString: &temp)
-        self.scanUpToString(endTag, intoString: &result)
+        self.scanUpTo(startTag, into: &temp)
+        self.scanString(startTag, into: &temp)
+        self.scanUpTo(endTag, into: &result)
         return result as! String
     }
 }

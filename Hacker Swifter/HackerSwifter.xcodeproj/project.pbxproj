@@ -288,9 +288,11 @@
 					9FD4A195196F3007003608F6 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = Z6P74P6T99;
+						LastSwiftMigration = 0820;
 					};
 					9FD4A1A0196F3008003608F6 = {
 						CreatedOnToolsVersion = 6.0;
+						LastSwiftMigration = 0820;
 						TestTargetID = 9FD4A195196F3007003608F6;
 					};
 				};
@@ -507,6 +509,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -529,6 +532,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -547,6 +551,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifterTests;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -561,6 +566,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hacker.swifter.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = HackerSwifterTests;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -8,19 +8,19 @@
 
 import Foundation
 
-@objc public class Comment: NSObject, NSCoding {
+@objc open class Comment: NSObject, NSCoding {
     
-    public var type: CommentFilter?
-    public var text: String?
-    public var username: String?
-    public var depth: Int = 0
-    public var commentId: String?
-    public var parentId: String?
-    public var prettyTime: String?
-    public var links: [NSURL]?
-    public var replyURLString: String?
-    public var upvoteURLAddition: String?
-    public var downvoteURLAddition: String?
+    open var type: CommentFilter?
+    open var text: String?
+    open var username: String?
+    open var depth: Int = 0
+    open var commentId: String?
+    open var parentId: String?
+    open var prettyTime: String?
+    open var links: [URL]?
+    open var replyURLString: String?
+    open var upvoteURLAddition: String?
+    open var downvoteURLAddition: String?
     
     public enum CommentFilter: String {
         case Default = "default"
@@ -57,14 +57,14 @@ import Foundation
         super.init()
         
         for key in serialization.values {
-            setValue(aDecoder.decodeObjectForKey(key.rawValue), forKey: key.rawValue)
+            setValue(aDecoder.decodeObject(forKey: key.rawValue), forKey: key.rawValue)
         }
     }
     
-    public func encodeWithCoder(aCoder: NSCoder)  {
+    open func encode(with aCoder: NSCoder)  {
         for key in serialization.values {
-            if let value: AnyObject = self.valueForKey(key.rawValue) {
-                aCoder.encodeObject(value, forKey: key.rawValue)
+            if let value: AnyObject = self.value(forKey: key.rawValue) as AnyObject? {
+                aCoder.encode(value, forKey: key.rawValue)
             }
         }
     }
@@ -78,9 +78,9 @@ public func ==(larg: Comment, rarg: Comment) -> Bool {
 //MARK: Network
 public extension Comment {
     
-    typealias Response = (comments: [Comment]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    typealias Response = (_ comments: [Comment]?, _ error: Fetcher.ResponseError?, _ local: Bool) -> Void
     
-    public class func fetch(forPost post: Post, completion: Response) {
+    public class func fetch(forPost post: Post, completion: @escaping Response) {
         let ressource = "item?id=" + post.postId!
         Fetcher.Fetch(ressource,
             parsing: {(html) in
@@ -91,7 +91,7 @@ public extension Comment {
                 
                 if let realHtml = html {
                     let comments = self.parseCollectionHTML(realHtml, withType: type!)
-                    return comments
+                    return comments as AnyObject!
                 }
                 else {
                     return nil
@@ -99,10 +99,10 @@ public extension Comment {
             },
             completion: {(object, error, local) in
                 if let realObject: AnyObject = object {
-                    completion(comments: realObject as! [Comment], error: error, local: local)
+                    completion(realObject as? [Comment], error, local)
                 }
                 else {
-                    completion(comments: nil, error: error, local: local)
+                    completion(nil, error, local)
                 }
         })
     }
@@ -113,12 +113,12 @@ public extension Comment {
 //MARK: HTML
 internal extension Comment {
     
-    internal class func parseCollectionHTML(html: String, withType type: Post.PostFilter) -> [Comment] {
-        var components = html.componentsSeparatedByString("<tr><td class='ind'><img src=\"s.gif\"")
+    internal class func parseCollectionHTML(_ html: String, withType type: Post.PostFilter) -> [Comment] {
+        var components = html.components(separatedBy: "<tr><td class='ind'><img src=\"s.gif\"")
         var comments: [Comment] = []
         if (components.count > 0) {
             if (type == Post.PostFilter.Ask) {
-                let scanner = NSScanner(string: components[0])
+                let scanner = Scanner(string: components[0])
                 let comment = Comment()
                 comment.type = CommentFilter.Ask
                 comment.commentId = scanner.scanTag("<span id=\"score_", endTag: ">")
@@ -130,7 +130,7 @@ internal extension Comment {
             }
                 
             else if (type == Post.PostFilter.Jobs) {
-                let scanner = NSScanner(string: components[0])
+                let scanner = Scanner(string: components[0])
                 let comment = Comment()
                 comment.depth = 0
                 comment.text = String.stringByRemovingHTMLEntities(scanner.scanTag("</tr><tr><td></td><td>", endTag: "</td>"))
@@ -144,17 +144,17 @@ internal extension Comment {
                 if index != 0 && index != components.count - 1 {
                     comments.append(Comment(html: component, type: type))
                 }
-                index++
+                index += 1
             }
         }
         return comments
     }
     
-    internal func parseHTML(html: String, withType type: Post.PostFilter) {
-        let scanner = NSScanner(string: html)
+    internal func parseHTML(_ html: String, withType type: Post.PostFilter) {
+        let scanner = Scanner(string: html)
         
         let level = scanner.scanTag("height=\"1\" width=\"", endTag: ">")
-        if let unwrappedLevel = Int(level.substringToIndex(level.startIndex.advancedBy(level.characters.count - 1))) {
+        if let unwrappedLevel = Int(level.substring(to: level.characters.index(level.startIndex, offsetBy: level.characters.count - 1))) {
             self.depth = unwrappedLevel / 40
         } else {
             self.depth = 0
@@ -165,12 +165,12 @@ internal extension Comment {
         self.commentId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
         self.prettyTime = scanner.scanTag(">", endTag: "</a>")
         
-        if (html.rangeOfString("[deleted]")?.startIndex != nil) {
+        if (html.range(of: "[deleted]")?.lowerBound != nil) {
             self.text = "[deleted]"
         } else {
             let textTemp = scanner.scanTag("<font color=", endTag: "</font>") as String
             if (textTemp.characters.count>0) {
-                self.text = String.stringByRemovingHTMLEntities(textTemp.substringFromIndex(textTemp.startIndex.advancedBy(10)))
+                self.text = String.stringByRemovingHTMLEntities(textTemp.substring(from: textTemp.characters.index(textTemp.startIndex, offsetBy: 10)))
             }
             else {
                 self.text = ""

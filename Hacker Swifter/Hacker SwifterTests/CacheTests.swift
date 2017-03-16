@@ -36,7 +36,7 @@ class CacheTests: XCTestCase {
         let postTest = MemoryCache.sharedMemoryCache.objectForKeySync("post") as! Post
     
         XCTAssertNotNil(postTest, "Post is nil")
-        XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
+        XCTAssertTrue(postTest.isKind(of: Post.self), "Post is not kind of class post")
         XCTAssertTrue(postTest.title == "Test", "Post title is not equal to prior test")
         
         MemoryCache.sharedMemoryCache.removeObject("post")
@@ -53,7 +53,7 @@ class CacheTests: XCTestCase {
         let postTest = DiskCache.sharedDiskCache.objectForKeySync("post") as! Post
         
         XCTAssertNotNil(postTest, "Post is nil")
-        XCTAssertTrue(postTest.isKindOfClass(Post), "Post is not kind of class post")
+        XCTAssertTrue(postTest.isKind(of: Post.self), "Post is not kind of class post")
         XCTAssertTrue(postTest.title == "Test", "Post title is not equal to prior test")
         
         DiskCache.sharedDiskCache.removeObject("post")
@@ -75,13 +75,13 @@ class CacheTests: XCTestCase {
         XCTAssertNotNil(memoryPost, "Memory Post is nil")
         XCTAssertNotNil(diskPost, "Dissk Post is nil")
         
-        XCTAssertTrue(globalPost.isKindOfClass(Post), "Global Post is not kind of class post")
+        XCTAssertTrue(globalPost.isKind(of: Post.self), "Global Post is not kind of class post")
         XCTAssertTrue(globalPost.title == "Global Test", "Global Post title is not equal to prior test")
         
-        XCTAssertTrue(memoryPost.isKindOfClass(Post), "Memory Post is not kind of class post")
+        XCTAssertTrue(memoryPost.isKind(of: Post.self), "Memory Post is not kind of class post")
         XCTAssertTrue(memoryPost.title == "Global Test", "Memory Post title is not equal to prior test")
         
-        XCTAssertTrue(diskPost.isKindOfClass(Post), "Disk Post is not kind of class post")
+        XCTAssertTrue(diskPost.isKind(of: Post.self), "Disk Post is not kind of class post")
         XCTAssertTrue(diskPost.title == "Global Test", "Disk Post title is not equal to prior test")
         
         Cache.sharedCache.removeObject("post")

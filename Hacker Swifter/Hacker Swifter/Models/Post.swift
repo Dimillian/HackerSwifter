@@ -8,18 +8,18 @@
 
 import Foundation
 
-@objc(Post) public class Post: NSObject, NSCoding {
+@objc(Post) open class Post: NSObject, NSCoding {
     
-    public var id: Int?
-    public var title: String?
-    public var username: String?
-    public var url: NSURL?
-    public var domain: String? {
+    open var id: Int?
+    open var title: String?
+    open var username: String?
+    open var url: URL?
+    open var domain: String? {
         get {
             if let realUrl = self.url {
                 if let host = realUrl.host {
                     if (host.hasPrefix("www")) {
-                        return host.substringFromIndex(host.startIndex.advancedBy(4))
+                        return host.substring(from: host.characters.index(host.startIndex, offsetBy: 4))
                     }
                     return host
                 }
@@ -27,16 +27,16 @@ import Foundation
             return ""
         }
     }
-    public var points: Int = 0
-    public var commentsCount: Int = 0
-    public var postId: String?
-    public var prettyTime: String?
-    public var upvoteURL: String?
-    public var type: PostFilter?
-    public var kids: [Int]?
-    public var score: Int?
-    public var time: Int?
-    public var dead: Bool = false
+    open var points: Int = 0
+    open var commentsCount: Int = 0
+    open var postId: String?
+    open var prettyTime: String?
+    open var upvoteURL: String?
+    open var type: PostFilter?
+    open var kids: [Int]?
+    open var score: Int?
+    open var time: Int?
+    open var dead: Bool = false
     
     public enum PostFilter: String {
         case Top = ""
@@ -92,21 +92,21 @@ import Foundation
         super.init()
         
         for key in serialization.values {
-            setValue(aDecoder.decodeObjectForKey(key.rawValue), forKey: key.rawValue)
+            setValue(aDecoder.decodeObject(forKey: key.rawValue), forKey: key.rawValue)
         }
     }
     
-    public func encodeWithCoder(aCoder: NSCoder) {
+    open func encode(with aCoder: NSCoder) {
         for key in serialization.values {
-            if let value: AnyObject = self.valueForKey(key.rawValue) {
-                aCoder.encodeObject(value, forKey: key.rawValue)
+            if let value: AnyObject = self.value(forKey: key.rawValue) as AnyObject? {
+                aCoder.encode(value, forKey: key.rawValue)
             }
         }
     }
     
-    private func encode(object: AnyObject!, key: String, coder: NSCoder) {
+    fileprivate func encode(_ object: AnyObject!, key: String, coder: NSCoder) {
         if let _: AnyObject = object {
-            coder.encodeObject(object, forKey: key)
+            coder.encode(object, forKey: key)
         }
     }
 }
@@ -119,35 +119,35 @@ public func ==(larg: Post, rarg: Post) -> Bool {
 //MARK: Network
 public extension Post {
     
-    public typealias Response = (posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    public typealias ResponsePost = (post: Post!, error: Fetcher.ResponseError!, local: Bool) -> Void
-    public typealias ResponsePosts = (post: [Int]!, error: Fetcher.ResponseError!, local: Bool) -> Void
+    public typealias Response = (_ posts: [Post]?, _ error: Fetcher.ResponseError?, _ local: Bool) -> Void
+    public typealias ResponsePost = (_ post: Post?, _ error: Fetcher.ResponseError?, _ local: Bool) -> Void
+    public typealias ResponsePosts = (_ post: [Int]?, _ error: Fetcher.ResponseError?, _ local: Bool) -> Void
     
-    public class func fetch(filter: PostFilter, page: Int, completion: Response) {
+    public class func fetch(_ filter: PostFilter, page: Int, completion: @escaping Response) {
         Fetcher.Fetch(filter.rawValue + "?p=\(page)",
             parsing: {(html) in
                 if let realHtml = html {
                     let posts = self.parseCollectionHTML(realHtml)
-                    return posts
+                    return posts as AnyObject!
                 } else {
                     return nil
                 }
             },
             completion: {(object, error, local) in
                 if let realObject: AnyObject = object {
-                    completion(posts: realObject as! [Post], error: error, local: local)
+                    completion(realObject as? [Post], error, local)
                 }
                 else {
-                    completion(posts: nil, error: error, local: local)
+                    completion(nil, error, local)
                 }
         })
     }
     
-    public class func fetch(filter: PostFilter, completion: Response) {
+    public class func fetch(_ filter: PostFilter, completion: @escaping Response) {
         fetch(filter, page: 1, completion: completion)
     }
     
-    public class func fetch(user: String, page: Int, lastPostId:String?, completion: Response) {
+    public class func fetch(_ user: String, page: Int, lastPostId:String?, completion: @escaping Response) {
         var additionalParameters = ""
         if let lastPostIdInt = Int(lastPostId ?? "") {
             additionalParameters = "&next=\(lastPostIdInt-1)"
@@ -156,36 +156,36 @@ public extension Post {
             parsing: {(html) in
                 if let realHtml = html {
                     let posts = self.parseCollectionHTML(realHtml)
-                    return posts
+                    return posts as AnyObject!
                 } else {
                     return nil
                 }
             },
             completion: {(object, error, local) in
                 if let realObject: AnyObject = object {
-                    completion(posts: realObject as! [Post], error: error, local: local)
+                    completion(realObject as? [Post], error, local)
                 }
                 else {
-                    completion(posts: nil, error: error, local: local)
+                    completion(nil, error, local)
                 }
         })
     }
     
-    public class func fetch(user: String, completion: Response) {
+    public class func fetch(_ user: String, completion: @escaping Response) {
         fetch(user, page: 1, lastPostId:nil, completion: completion)
     }
     
-    public class func fetchPost(completion: ResponsePosts) {
+    public class func fetchPost(_ completion: @escaping ResponsePosts) {
         Fetcher.FetchJSON(.Top, ressource: nil, parsing: { (json) -> AnyObject! in
             if let _ = json as? [Int] {
                 return json
             }
             return nil
             }) { (object, error, local) -> Void in
-                completion(post: object as? [Int] , error: error, local: local)
+                completion(object as? [Int] , error, local)
         }
     }
-    public class func fetchPost(post: Int, completion: ResponsePost) {
+    public class func fetchPost(_ post: Int, completion: @escaping ResponsePost) {
         Fetcher.FetchJSON(.Post, ressource: String(post), parsing: { (json) -> AnyObject! in
             if let dic = json as? NSDictionary {
                 return Post(json: dic)
@@ -193,7 +193,7 @@ public extension Post {
             return nil
             })
             { (object, error, local) -> Void in
-                completion(post: object as! Post, error: error, local: local)
+                completion(object as? Post, error, local)
         }
     }
 }
@@ -201,7 +201,7 @@ public extension Post {
 //MARK: JSON
 
 internal extension Post {
-    internal func parseJSON(json: NSDictionary) {
+    internal func parseJSON(_ json: NSDictionary) {
         self.id = json[JSONField.id.rawValue] as? Int
         if let kids = json[JSONField.kids.rawValue] as? [Int] {
             self.kids = kids
@@ -210,7 +210,7 @@ internal extension Post {
         self.score = json[JSONField.score.rawValue] as? Int
         self.username = json[JSONField.by.rawValue] as? String
         self.time = json[JSONField.time.rawValue] as? Int
-        self.url = NSURL(string: (json[JSONField.url.rawValue] as? String)!)
+        self.url = URL(string: (json[JSONField.url.rawValue] as? String)!)
         if let commentsCount = json[JSONField.descendants.rawValue] as? Int {
             self.commentsCount = commentsCount
         }
@@ -223,8 +223,8 @@ internal extension Post {
 //MARK: HTML
 internal extension Post {
     
-    internal class func parseCollectionHTML(html: String) -> [Post] {
-        let components = html.componentsSeparatedByString("<td align=\"right\" valign=\"top\" class=\"title\">")
+    internal class func parseCollectionHTML(_ html: String) -> [Post] {
+        let components = html.components(separatedBy: "<td align=\"right\" valign=\"top\" class=\"title\">")
         var posts: [Post] = []
         if (components.count > 0) {
             var index = 0
@@ -232,25 +232,25 @@ internal extension Post {
                 if index != 0 {
                     posts.append(Post(html: component))
                 }
-                index++
+                index += 1
             }
         }
         return posts
     }
     
-    internal func parseHTML(html: String) {
-        let scanner = NSScanner(string: html)
+    internal func parseHTML(_ html: String) {
+        let scanner = Scanner(string: html)
         
-        if (html.rangeOfString("<td class=\"title\"> [dead] <a") == nil) {
+        if (html.range(of: "<td class=\"title\"> [dead] <a") == nil) {
             
-            self.url = NSURL(string: scanner.scanTag("<a href=\"", endTag: "\""))
+            self.url = URL(string: scanner.scanTag("<a href=\"", endTag: "\""))
             self.title = scanner.scanTag(">", endTag: "</a>")
             
-            var temp: NSString = scanner.scanTag("<span class=\"score\" id=\"score_", endTag: "</span>")
-            let range = temp.rangeOfString(">")
+            var temp: NSString = scanner.scanTag("<span class=\"score\" id=\"score_", endTag: "</span>") as NSString
+            let range = temp.range(of: ">")
             if (range.location != NSNotFound) {
-                let tmpPoint: Int? = Int(temp.substringFromIndex(range.location + 1)
-                    .stringByReplacingOccurrencesOfString(" points", withString: "", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil))
+                let tmpPoint: Int? = Int(temp.substring(from: range.location + 1)
+                    .replacingOccurrences(of: " points", with: "", options: NSString.CompareOptions.caseInsensitive, range: nil))
                 if let points = tmpPoint {
                     self.points = points
                 }
@@ -268,7 +268,7 @@ internal extension Post {
             self.postId = scanner.scanTag("<a href=\"item?id=", endTag: "\">")
             self.prettyTime = scanner.scanTag(">", endTag: "</a>")
             
-            temp = scanner.scanTag("\">", endTag: "</a>")
+            temp = scanner.scanTag("\">", endTag: "</a>") as NSString
             if (temp == "discuss") {
                 self.commentsCount = 0
             }
@@ -283,7 +283,7 @@ internal extension Post {
                 self.type = PostFilter.Ask
                 if let realURL = self.url {
                     let url = realURL.absoluteString
-                    self.url = NSURL(string: "https://news.ycombinator.com/" + url)
+                    self.url = URL(string: "https://news.ycombinator.com/" + url)
                 }
             }
             else {
