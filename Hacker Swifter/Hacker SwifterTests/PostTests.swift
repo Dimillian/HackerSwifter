@@ -8,6 +8,30 @@
 
 import XCTest
 import HackerSwifter
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class PostTests: XCTestCase {
     
@@ -22,7 +46,7 @@ class PostTests: XCTestCase {
     }
     
     func testFetchNews() {
-        let expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectation(description: "fetch posts")
         
         Post.fetch(.Top, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
             if (!local) {
@@ -31,11 +55,11 @@ class PostTests: XCTestCase {
             }
             })
         
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectations(timeout: 5.0, handler: nil)
     }
     
     func testFetchNewsPage2() {
-        let expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectation(description: "fetch posts")
         var postsPage1:[Post] = []
         var postsPage2:[Post] = []
         
@@ -55,11 +79,11 @@ class PostTests: XCTestCase {
                     })
             }
             })
-        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+        self.waitForExpectations(timeout: 10.0, handler: nil)
     }
     
     func testFetchPostForUser() {
-        let expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectation(description: "fetch posts")
         
         Post.fetch("dimillian", completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
             if (!local) {
@@ -68,11 +92,11 @@ class PostTests: XCTestCase {
             }
             })
         
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectations(timeout: 5.0, handler: nil)
     }
     
     func testFetchPostForUserPage2() {
-        let expectation = self.expectationWithDescription("fetch posts")
+        let expectation = self.expectation(description: "fetch posts")
         var postsPage1:[Post] = []
         var postsPage2:[Post] = []
         
@@ -92,12 +116,12 @@ class PostTests: XCTestCase {
                     })
             }
             })
-        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+        self.waitForExpectations(timeout: 10.0, handler: nil)
     }
     
     
     func testFetchPostsAPI() {
-        let expectation = self.expectationWithDescription("fetch post")
+        let expectation = self.expectation(description: "fetch post")
         Post.fetchPost { (post, error, local) -> Void in
             if (!local) {
                 XCTAssertTrue(post.count > 1, "API response should countain Post")
@@ -107,12 +131,12 @@ class PostTests: XCTestCase {
                 })
             }
         }
-        self.waitForExpectationsWithTimeout(10.0, handler: nil)
+        self.waitForExpectations(timeout: 10.0, handler: nil)
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }

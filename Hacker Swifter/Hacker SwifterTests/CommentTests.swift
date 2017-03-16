@@ -8,6 +8,30 @@
 
 import XCTest
 import HackerSwifter
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CommentTests: XCTestCase {
 
@@ -22,7 +46,7 @@ class CommentTests: XCTestCase {
     }
 
     func testFetchComments() {
-        let expectation = self.expectationWithDescription("fetch comments for post")
+        let expectation = self.expectation(description: "fetch comments for post")
 
         let post = Post()
         post.postId = "8255637"
@@ -36,11 +60,11 @@ class CommentTests: XCTestCase {
             }
             })
 
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectations(timeout: 5.0, handler: nil)
     }
     
     func testAskHNComments() {
-        let expectation = self.expectationWithDescription("fetch comments for post")
+        let expectation = self.expectation(description: "fetch comments for post")
         
         let post = Post()
         post.postId = "8044029"
@@ -57,14 +81,14 @@ class CommentTests: XCTestCase {
             }
             })
         
-        self.waitForExpectationsWithTimeout(5.0, handler: nil)
+        self.waitForExpectations(timeout: 5.0, handler: nil)
     }
     
     
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }
